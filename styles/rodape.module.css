@@ -1,0 +1,25 @@
+.rodape{
+    width: 100%;
+    height: auto;
+    display: flex;
+    background-color: #7A2222;
+}
+.rodape div{
+    padding: 20px;
+}
+
+.rodape h2{
+    font-size: 20px;
+}
+.rodape a{
+    display: flex;
+    padding: 5px;
+}
+.rodape a img{
+ border: 5px;
+}
+.rodape a p{
+    margin: 0;
+    border: 5;
+    text-align: center;
+}
