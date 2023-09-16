@@ -1,16 +1,21 @@
+//import { Children } from 'react'
 import Styles from '../styles/barraLateralAdmin.module.css'
+import FiltroVeiculos from './FiltroVeiculos'
 
 export default function barraLateralAdmin(){
 
     return(
         <div className={Styles.barraLateralAdmin}>
-            <button id='Estoque '>Estoque</button>
-            <button id='Modelos '>Modelos</button>
-            <button id='Cliente '>Clientes</button>
-            <button id='Solicitacoes '>Solicitações</button>
-            <button id='Anunciar '>Anunciar</button>
+            <div> 
+            <button id='Estoque'>Estoque</button>
+            <button id='Modelos'>Modelos</button>
+            <button id='Cliente'>Clientes</button>
+            <button id='Solicitacoes'>Solicitações</button>
+            <button id='Anunciar'>Anunciar</button>
+            </div>
+            
         </div>
-        
+
     )
 }
 

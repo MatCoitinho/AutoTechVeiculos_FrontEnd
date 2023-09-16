@@ -1,12 +1,10 @@
 .barraLateralAdmin{
     width: 30%;
-    height: 700px;
+    height: auto;
     margin: 0 0 0 0;
     border: 0 0 0 0;
+    display: flex;
 }
-
-
-    
 
 
 .barraLateralAdmin button{

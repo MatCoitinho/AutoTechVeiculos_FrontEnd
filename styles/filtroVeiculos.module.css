@@ -1,0 +1,31 @@
+.filtroVeiculos{
+    background-color: #D9D9D9;
+    width: 250px;
+    border-radius: 15px;
+    padding-left: 5px;
+    margin-left: 20px;
+    padding: 20px;
+    display: flex;
+    
+}
+.filtroVeiculos p{
+    padding-left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.filtroVeiculos input[type='text']{
+    align-items: center;
+    display: inline-flex;
+    width: 70px;
+    margin: 0;
+   padding: 10px;
+   margin-left: 10px;
+  color: #000;
+  background-color: #FFF;
+ 
+}
+
+.filtroVeiculos div {
+    align-items: center;
+}

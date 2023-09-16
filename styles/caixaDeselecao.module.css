@@ -1,0 +1,11 @@
+.caixaDeSelecao{
+    font-size: 20px;
+    color: black;
+    padding-left: 10px;
+}
+.caixaDeSelecao input[type='checkbox']{
+    width: 20px;
+    height: 20px;
+    background-color: #FFFF;
+    color: #000;
+}
