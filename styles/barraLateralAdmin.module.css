@@ -20,4 +20,7 @@
     color: black;
 }
 
+.barraLateralAdmin button:active{
+    background-color: #CCCCCC;
+}
 

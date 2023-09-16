@@ -1,3 +1,9 @@
 .adminHome{
     background-color: #fbfbfb;
+
+}
+.adminHome div{
+    width:fit-content;
+    display:flow-root;
+    margin: 0
 }

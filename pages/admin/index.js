@@ -2,6 +2,8 @@ import Rodape from '../../components/rodape'
 import Cabecalho from '../../components/cabecalho'
 import BarraLateral from '../../components/barraLateralAdmin'
 import FiltroVeiculos from '../../components/FiltroVeiculos'
+import InformacoesVeiculos from '../../components/informacoesVeiculo'
+
 
 import Styles from '../../styles/adminHome.module.css'
 
@@ -12,7 +14,10 @@ export default function adminHome() {
         <div>
             <BarraLateral/>
             <FiltroVeiculos />
+          <InformacoesVeiculos />
         </div>
+        
+      
         <Rodape/>
     </div>
       )
