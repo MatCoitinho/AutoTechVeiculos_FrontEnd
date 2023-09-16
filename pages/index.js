@@ -1,10 +1,11 @@
-import Rodape from "../components/rodape"
-
+import Rodape from '../components/rodape'
+import Cabecalho from '../components/cabecalho'
 
 export default function Home() {
   return (
     <>
-    <h1>O do coito bate coxa</h1>
+    <Cabecalho />
+    <h1>teste</h1>
     <Rodape/>
     </>
       )

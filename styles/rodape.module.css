@@ -1,25 +1,35 @@
 .rodape{
     width: 100%;
     height: auto;
-    display: flex;
+    display:inline-flex;
     background-color: #7A2222;
+    align-items: center;
+    align-content: center;
 }
 .rodape div{
-    padding: 20px;
+    width: auto;
+    align-items: center;
+    padding-left: 300px;
 }
 
+
 .rodape h2{
-    font-size: 20px;
+   text-align: center;
+   font-size: 30px;
 }
-.rodape a{
-    display: flex;
-    padding: 5px;
+.rodape p{
+ text-align: center;
+ font-size: 20px;
 }
-.rodape a img{
- border: 5px;
-}
+
 .rodape a p{
+
     margin: 0;
-    border: 5;
-    text-align: center;
+ 
+}
+
+.rodape a{
+    width: 40px;
+    border: 20px;
+    align-content:  center;
 }

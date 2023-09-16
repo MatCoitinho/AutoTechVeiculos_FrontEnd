@@ -1,0 +1,12 @@
+.cabecalho{
+    width: 100%;
+    height: auto;
+    background-color: #7A2222;
+    padding: 20px;
+    display: inline-flex;
+    align-items: center;
+}
+.cabecalho p{
+    margin-left: 80%;
+    font-size: 20px;
+}
