@@ -1,0 +1,25 @@
+.barraLateralAdmin{
+    width: 30%;
+    height: 700px;
+    margin: 0 0 0 0;
+    border: 0 0 0 0;
+}
+
+
+    
+
+
+.barraLateralAdmin button{
+    cursor: pointer;
+    text-align: center;
+    font-size: 25px;
+    width: 250px;
+    display: block;
+    padding: 20px 40px;
+    background-color: #6E7075;
+    border-radius: 15px;
+    margin: 20px;
+    color: black;
+}
+
+
