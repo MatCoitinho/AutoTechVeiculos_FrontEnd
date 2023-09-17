@@ -1,0 +1,77 @@
+.cadastroUsuario {
+    color: #FFF;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Adicione esta linha para centralizar horizontalmente */;
+}
+.cadastroUsuario h1{
+    text-align: center;
+}
+.cadastroUsuario p{
+    font-size: 20px;
+    margin-left: 20px;
+}
+.cadastroUsuario .container{
+
+    align-items: center;
+}
+.cadastroUsuario .form1{
+    width: 50%;
+    margin-right: 50px;
+}
+.cadastroUsuario .form{
+    width: 96%;
+    clear:both;
+    margin-right: 500px;
+}
+.cadastroUsuario .form input{
+    width: 250%;
+}
+.cadastroUsuario .metades{
+    width: 100%;
+    display: flex;
+}
+
+.cadastroUsuario input[type='text']{
+    font-size: 20px;
+    width: 100%;
+    padding: 30px 10px;
+    border-radius: 40px;
+  
+}
+.cadastroUsuario input[type='email']{
+    font-size: 20px;
+    width: 100%;
+    padding: 30px 10px;
+    border-radius: 40px;
+  
+}
+.cadastroUsuario input[type='name']{
+    font-size: 20px;
+    width: 100%;
+    padding: 30px 10px;
+    border-radius: 40px;
+  
+}
+.cadastroUsuario input[type='password']{
+    font-size: 20px;
+    width: 100%;
+    padding: 30px 10px;
+    border-radius: 40px;
+  
+}
+
+.cadastroUsuario button {
+    margin: 0;
+    align-items: center;
+    align-content: center;
+    margin-top: 20px;
+    margin-left: 27%;
+    padding: 30px;
+    width: 40%;
+    border-radius: 80px;
+    font-size: 30px;
+    color: black;
+    background-color: #AF0F0F;
+}
