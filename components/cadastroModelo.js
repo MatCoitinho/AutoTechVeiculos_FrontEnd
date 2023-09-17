@@ -15,6 +15,8 @@ export default function cadastroModelo(){
                     <label for='escolha um Combustivel'>
                         <select id='escolhaDeCombustivel' name='escolhaDeCombustivel'>
                         <option value='gasolina'>Gasolina</option>
+                        <option value='hibrido'>Híbrido</option>
+                        <option value='eletrico'>Elétrico</option>
                         <option value='alcool'>Álcool</option>
                         <option value='flex'>Flex</option>
 

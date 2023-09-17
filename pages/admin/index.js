@@ -15,7 +15,9 @@ export default function adminHome() {
           <Cabecalho />
           <div className={Styles.conteudo}>
             <BarraLateral />
-            <CadastroModelo />
+            <div className={Styles.form}>
+              <CadastroModelo />
+            </div>
           </div>
             <Rodape/>
     </div>
