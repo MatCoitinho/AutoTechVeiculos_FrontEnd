@@ -1,9 +1,7 @@
 .informacoesVeiculos{
-   width: 10%;
+   width: 170%;
+   height: fit-content;
     margin: 0;
-    padding: 0px 40px;
-    margin-left: 60px;
-
     align-items: right;
     border: 3px solid black;
     border-radius: 15px;
