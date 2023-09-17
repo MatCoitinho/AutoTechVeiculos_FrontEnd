@@ -1,5 +1,6 @@
 .adminHome{
     background-color: #fbfbfb;
+   
 }
 .adminHome .Barra{
     display:inline-flex;
@@ -19,6 +20,4 @@
     grid-auto-flow: row;
 }
 
-.adminHome .form{
-    margin-left: 20%;
-}
+
