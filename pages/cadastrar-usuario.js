@@ -15,7 +15,7 @@ export default function  cadastroUsuario(){
                                 <input type='name' id='primeiroNome'  pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]*"  name='primeiroNome' placeholder='Digite seu primeiro nome'/>
                             </div>
                             <div className={Styles.form1}>
-                                <p>Ultimo Nome</p>
+                                <p>Último Nome</p>
                                 <input type='name' id='ultimoNome'  pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]*"  name='ultimoNome' placeholder='Digite seu último nome'/>
                             </div>
                         </div>
@@ -34,7 +34,7 @@ export default function  cadastroUsuario(){
                                 <input type='email' id='email'  pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]*"  name='email' placeholder='Digite seu E-mail'/>
                         </div>
                         <div className={Styles.form}>
-                                <p>E-mail</p>
+                                <p>Endereço</p>
                                 <input type='text' id='endereco'  pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]*"  name='endereco' placeholder='Digite seu Endereço'/>
                         </div>
                         <div className={Styles.form}>
