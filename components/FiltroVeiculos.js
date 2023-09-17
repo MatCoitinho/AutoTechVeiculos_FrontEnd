@@ -38,6 +38,7 @@ export default function FiltroVeiculos() {
     ));
 
     return (
+        <div className={styles.conteiner}>
         <div className={styles.filtroVeiculos}>
             <div>
                 <p>Marcas</p>
@@ -63,6 +64,7 @@ export default function FiltroVeiculos() {
                     </label>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

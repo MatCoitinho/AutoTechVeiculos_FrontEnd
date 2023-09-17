@@ -1,6 +1,6 @@
 .barraLateralAdmin{
     width: 30%;
-    height: auto;
+    height: fit-content;
     margin: 0 0 0 0;
     border: 0 0 0 0;
     display: flex;

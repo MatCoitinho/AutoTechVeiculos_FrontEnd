@@ -1,0 +1,12 @@
+
+.container{
+    margin-left: 0;
+}
+.renderizaInformacoesModelos{
+    display: grid;
+    grid-template-columns: repeat(3, 200fr);
+    grid-row-gap:10px ;
+    grid-column-gap: 10px ;
+    grid-auto-flow: row;
+    margin:0;
+}
