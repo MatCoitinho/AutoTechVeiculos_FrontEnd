@@ -20,7 +20,7 @@ export default function adminHome() {
           <div className={Styles.conteudo}>
             <BarraCompleta />
             <div className={Styles.form}>
-             <RenderModelo />
+             <RenderinformacoesVeiculos />
             </div>
           </div>
             <Rodape/>
