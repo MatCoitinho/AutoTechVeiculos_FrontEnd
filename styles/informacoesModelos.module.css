@@ -1,0 +1,29 @@
+.informacoesModelos{
+    width: 400px;
+    height: fit-content;
+    border: 2px solid black;
+    padding: 5px;
+}
+
+.informacoesModelos h1{
+    font-size: 20px;
+    text-align: center;
+}
+
+.informacoesModelos p{
+    margin: 5px;
+}
+.container{
+    display: flex;
+    margin: 20px;
+}
+
+.informacoesModelos button{
+    padding: 7px 27px;
+   margin-left: 49px;
+    border-radius: 20px;
+    color: #000;
+    background-color: #7A2222;
+    font-size: 20px;
+    cursor: pointer;
+}

@@ -1,3 +1,23 @@
 .adminHome{
-    background-color: #fceded;
+    background-color: #fbfbfb;
+   
 }
+.adminHome .Barra{
+    display:inline-flex;
+    
+    width: 20%;
+}
+
+
+.adminHome .conteudo{
+    margin-top: 20px;
+    width: 40%;
+    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap:50px ;
+    grid-column-gap: 50px ;
+    grid-auto-flow: row;
+}
+
+
