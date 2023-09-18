@@ -3,6 +3,7 @@
     align-items: center;
     align-content: center;
     height: fit-content;
+    margin-left: 30%;
    
 }
 .cadastroModelo h1{
@@ -45,7 +46,7 @@
 }
 
 .cadastroModelo select{
-    
+    width: 390px;
     padding: 20px 130px;
     font-size: 20px;
     text-align: center;

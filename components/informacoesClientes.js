@@ -5,9 +5,6 @@ export default function InformacoesClientes(userData){
    const user = userData.value.user;
    const userClient = userData.value.userClient;
    
-    console.log(user);
-    console.log(userClient);
-
     const data = userClient.last_login.substring(0,10);
     return(
         <div className={Styles.container}>
