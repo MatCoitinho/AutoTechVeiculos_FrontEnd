@@ -47,6 +47,18 @@ export default function FiltroVeiculos() {
 
 
 
+    const [checkboxCambioValue, setCheckboxCambioValue] = useState({
+        automatico: false,
+        manual: false
+      });
+    
+      const leEstadoCheckBoxCambio = (event) => {
+          
+        setCheckboxCambioValue({
+          ...checkboxCambioValue, 
+          [event.target.name]: event.target.checked,
+        });
+      };
 
 
 
