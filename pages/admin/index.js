@@ -9,7 +9,7 @@ import InformacoesClientes from '../../components/informacoesClientes'
 import RenderizaInformacoesClientes from '../../components/renderizaInformacoesClientes'
 import InformacoesModelos from '../../components/informacoesModelos'
 import RenderModelo from '../../components/renderizarInformacoesModelos'
-import BarraCompleta from '../../components/barraCompleta'
+import BarraCompleta from '../../components/barraCompletaVeiculos'
 import CadastroVeiculo from '../../components/cadastroVeiculo'
 import Styles from '../../styles/adminHome.module.css'
 

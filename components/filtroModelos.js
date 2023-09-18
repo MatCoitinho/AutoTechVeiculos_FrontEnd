@@ -1,6 +1,7 @@
 import React from "react";
 import styles from '../styles/filtroVeiculos.module.css'
 import styles1 from '../styles/caixaDeSelecao.module.css'
+import { useState, useEffect } from 'react';
 
 const marcasDeCarros = [
     'Toyota',
@@ -38,7 +39,34 @@ function GeraCheckBox({ bah }) {
     );
 }
 
-export default function FiltroVeiculos() {
+export default function FiltroModelos() {
+    
+
+
+    const [checkboxCambioValue, setCheckboxCambioValue] = useState({
+        automatico: false,
+        manual: false
+      });
+    
+      const leEstadoCheckBoxCambio = (event) => {
+          
+        setCheckboxCambioValue({
+          ...checkboxCambioValue, 
+          [event.target.name]: event.target.checked,
+        });
+      };
+
+
+
+     
+
+
+
+
+
+
+
+
     const RenderizaModelo = modelosDeCarros.map((item, index) => (
         <GeraCheckBox key={index} bah={item} />
     ));
@@ -59,14 +87,14 @@ export default function FiltroVeiculos() {
 
                 <div className={styles1.caixaDeSelecao}>
                     <label>
-                        <input type='checkbox' name='automatico' value='automatico' />
+                        <input type='checkbox' name='automatico' value='automatico'  onChange={leEstadoCheckBoxCambio} />
                         Automatico
                     </label>
                 </div>
 
                 <div className={styles1.caixaDeSelecao}>
                     <label>
-                        <input type='checkbox' name='Manual' value='Manual' />
+                        <input type='checkbox' name='manual' value='manual'  onChange={leEstadoCheckBoxCambio}  />
                         Manual
                     </label>
                 </div>

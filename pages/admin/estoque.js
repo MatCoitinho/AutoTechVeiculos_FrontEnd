@@ -1,16 +1,18 @@
 import Styles from '../../styles/adminHome.module.css'
 
-import BarraLateralAdmin from '../../components/barraLateralAdmin'
+import BarraCompleta from "../../components/barraCompletaVeiculos"
 import Cabecalho from '../../components/cabecalho'
 import Rodape from '../../components/rodape'
+import RenderVeiculos from '../../components/renderizaInformacoesVeiculos'
 
 export default function estoque(){
     return (
         <div className={Styles.adminHome}> 
               <Cabecalho />
               <div className={Styles.conteudo}>
-               <BarraLateralAdmin />
+                <BarraCompleta />
                 <div className={Styles.form}>
+                 <RenderVeiculos />
                 </div>
               </div>
                 <Rodape/>
