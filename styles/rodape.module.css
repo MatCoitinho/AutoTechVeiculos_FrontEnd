@@ -39,3 +39,11 @@
    
     display: inline;
 }
+
+.linkImage p {
+    padding-left: 20px;
+    display: inline;
+    align-items: center;
+    padding-top: 0;
+    font-size: 14px;
+}

@@ -17,7 +17,7 @@ export default function renderizaInformacoesClientes(){
         "is_superuser": true,
         "username": "admin",
         "first_name": "Matheus",
-        "last_name": "Do Coito Bate Coxa",
+        "last_name": "Coi",
         "email": "admin@example.com",
         "is_staff": true,
         "is_active": true,
