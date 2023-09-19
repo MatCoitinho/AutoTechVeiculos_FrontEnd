@@ -1,16 +1,8 @@
 import Rodape from '../components/rodape'
 import Cabecalho from '../components/cabecalho'
 import Styles from '../styles/cadastrarUsuario.module.css'
-import api from './lib/api'
 import { useState } from 'react'
-
-const cadastrar = async (data) => {
-    const response = await api.post(
-        'http://localhost/3333', data
-    );
-
-    return response.data;
-}
+import { createUser } from './api/createUser'
 
 export default function cadastroUsuario() {
 
@@ -76,7 +68,8 @@ export default function cadastroUsuario() {
                             </div>
                         </div>
                 </div>
-                    <button onClick={() => cadastrar(entrada.body)}>Cadastrar</button>
+                    <button onClick={handleClick}>Cadastrar</button>
+
             </div>
                 <Rodape />
         </div>
