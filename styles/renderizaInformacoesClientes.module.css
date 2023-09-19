@@ -4,7 +4,7 @@
 }
 .renderizaInformacoesClientes{
     display: grid;
-    grid-template-columns: repeat(3, 200fr);
+    grid-template-columns: repeat(2, 2fr);
     grid-row-gap:10px ;
     grid-column-gap: 10px ;
     grid-auto-flow: row;

@@ -23,7 +23,7 @@ export default function renderModelo(){
 
     return(
         <div className={Styles.container}>
-             <BotaoCadastro key='diretorio'value='/cadastrar-modelo'/>
+             <BotaoCadastro value='cadastro-modelo'/>
             <div className={Styles.renderizaInformacoesModelos}>
                 {renderizaModelos}
             </div>
