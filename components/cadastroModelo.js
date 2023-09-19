@@ -1,13 +1,42 @@
+import { useState } from 'react'
 import Styles from '../styles/cadastroModelo.module.css'
 
 export default function cadastroModelo(){
+
+    const [entrada, setEntrada] = useState({
+        marca:'',
+        combustivel:'',
+        modelo:'',
+        ano:''
+    })
+
+
+    const getEntradas = (event) => {
+        const nome = event.target.name
+        const valor = event.target.value
+        setEntrada(prevState => ({...prevState, [nome]:valor}))
+    }
+
+
+
+
+    const sendEntrada = () => {
+        console.log(entrada)
+    }
+
+
+
+
+
+
+
     return(
         <div className={Styles.cadastroModelo}>
             <h1>Cadastro Modelo</h1>
             <div className={Styles.duplaTextBox}>
                 <div className={Styles.inputs}>
                     <p>Marca</p>
-                    <input type='text' id='marcaModelo' name='marcaModelo' placeholder='Insira a Marca'/>
+                    <input type='text' id='marca' name='marca' placeholder='Insira a Marca' onChange={getEntradas}/>
                 </div>
                 <div className={Styles.inputs}>
                     <p>Combustivel</p>
@@ -28,11 +57,11 @@ export default function cadastroModelo(){
             <div className={Styles.duplaTextBox}>
                 <div className={Styles.inputs}>
                     <p>Modelo</p>
-                    <input type='text' id='modelo' name='modelo' placeholder='Insira o Modelo'/>
+                    <input type='text' id='modelo' name='modelo' placeholder='Insira o Modelo' onChange={getEntradas}/>
                 </div>
                 <div className={Styles.inputs}>
                     <p>Ano</p>
-                    <input type='number' inputmode="numeric" id='anoModelo' name='anoModelo' placeholder='Insira o Ano'/>
+                    <input type='number' inputmode="numeric" id='ano' name='ano' placeholder='Insira o Ano' onChange={getEntradas}/>
                 </div>
             </div>
             <div className={Styles.duplaTextBox}>
@@ -49,10 +78,10 @@ export default function cadastroModelo(){
                 </div>
                 <div className={Styles.inputs}>
                     <p>Categoria</p>
-                    <input type='text' id='marcaModelo' name='marcaModelo' placeholder='Insira a Marca do Modelo'/>
+                    <input type='text' id='marca' name='marca' placeholder='Insira a Marca do Modelo' onChange={getEntradas}/>
                 </div>
             </div>
-           <button id='cadastrarModelo' name='cadastrarModelo'>Cadastrar Modelo</button>
+           <button id='cadastrarModelo' name='cadastrarModelo' onClick={sendEntrada}>Cadastrar Modelo</button>
            
         </div>
         
