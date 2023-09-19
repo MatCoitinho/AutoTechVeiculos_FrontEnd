@@ -5,6 +5,8 @@ import Cabecalho from '../../components/cabecalho'
 import Rodape from '../../components/rodape'
 
 export default function estoque(){
+  
+
     return (
         <div className={Styles.adminHome}> 
               <Cabecalho />

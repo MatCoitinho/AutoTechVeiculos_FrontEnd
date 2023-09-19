@@ -1,10 +1,15 @@
 import Styles from '../styles/InformacoesClientes.module.css'
-
-
+import { useRouter } from 'next/router';
 export default function InformacoesClientes(userData){
    const user = userData.value.user;
    const userClient = userData.value.userClient;
    
+    const {push} = useRouter()
+    const editarUsuario = (id) =>{
+        push(`/admin/usuarios/${id}`)
+    }
+
+
     const data = userClient.last_login.substring(0,10);
     return(
         <div className={Styles.container}>
@@ -17,7 +22,7 @@ export default function InformacoesClientes(userData){
                 <p>Endereço: {`${userClient.endereco}`}</p>
                 <p>E-mail: {`${userClient.email}`}</p>
                 <p>Último Login: {`${data}`}</p>
-            <button>Editar</button>
+            <button onClick={() => editarUsuario(user.id)}>Editar</button>
             <button>Deletar</button>
         </div>
             </div>
