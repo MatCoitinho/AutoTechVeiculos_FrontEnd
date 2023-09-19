@@ -5,7 +5,10 @@ import { useState } from 'react'
 import { createUser } from './api/createUser'
 
 export default function cadastroUsuario() {
-
+    async function handleClick() {
+        return await createUser(entrada).catch(err => console.log(err));
+    }
+    
     const [entrada, setEntrada] = useState({
         primeiroNome:'',
         ultimoNome:'',
