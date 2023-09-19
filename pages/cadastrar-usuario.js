@@ -1,32 +1,18 @@
 import Rodape from '../components/rodape'
 import Cabecalho from '../components/cabecalho'
 import Styles from '../styles/cadastrarUsuario.module.css'
-import { useState } from 'react'
+import api from './lib/api'
 
-export default function  cadastroUsuario(){
 
-    const [entrada, setEntrada] = useState({
-        primeiroNome:'',
-        ultimoNome:'',
-        CPF:'',
-        telefone:'',
-        email:'',
-        endereco:'',
-        senha:'',
-        username:''
-    })
+const cadastrar = async (data) => {
+    const response = await api.post(
+        'http://localhost/3333', data
+    );
 
-    const getEntradas = (event) => {
-        const nome = event.target.name
-        const valor = event.target.value
-        setEntrada(prevState => ({...prevState, [nome]:valor}))
-    }
+    return response.data;
+}
 
-    const sendEntrada = () =>{
-        //montar conexão com o banco aqui
-        console.log(entrada)
-    }
-
+export default function cadastroUsuario() {
     return(
         <div>
                 <Cabecalho />
@@ -71,9 +57,8 @@ export default function  cadastroUsuario(){
                                 <input type='text' id='username'  pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]*"  name='username' placeholder='Digite seu username' onChange={getEntradas}/>
                             </div>
                         </div>
-                    
                 </div>
-                        <button onClick={sendEntrada}>Cadastrar</button>
+                    <button onClick={cadastrar(document.body)}>Cadastrar</button>
             </div>
                 <Rodape />
         </div>
