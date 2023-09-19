@@ -1,8 +1,8 @@
 import { useRouter } from "next/router"
 import Rodape from "../../../components/rodape"
 import Cabecalho from "../../../components/cabecalho"
-import Styles from '../../../styles/editarUsuario.module.css'
 import { useState } from "react"
+import Styles from '../../../styles/editarUsuario.module.css'
 
 export default function user(){
     
