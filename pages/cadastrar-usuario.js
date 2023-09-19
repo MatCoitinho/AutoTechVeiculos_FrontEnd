@@ -1,18 +1,32 @@
 import Rodape from '../components/rodape'
 import Cabecalho from '../components/cabecalho'
 import Styles from '../styles/cadastrarUsuario.module.css'
-import api from './lib/api'
+import { useState } from 'react'
+import { createUser } from './api/createUser'
 
-
-const cadastrar = async (data) => {
-    const response = await api.post(
-        'http://localhost/3333', data
-    );
-
-    return response.data;
-}
 
 export default function cadastroUsuario() {
+    async function handleClick() {
+        return await createUser(entrada).catch(err => console.log(err));
+    }
+
+    const [entrada, setEntrada] = useState({
+        primeiroNome:'',
+        ultimoNome:'',
+        CPF:'',
+        telefone:'',
+        email:'',
+        endereco:'',
+        senha:'',
+        username:''
+    })
+
+    const getEntradas = (event) => {
+        const nome = event.target.name
+        const valor = event.target.value
+        setEntrada(prevState => ({...prevState, [nome]:valor}))
+    }
+
     return(
         <div>
                 <Cabecalho />
@@ -58,7 +72,7 @@ export default function cadastroUsuario() {
                             </div>
                         </div>
                 </div>
-                    <button onClick={cadastrar(document.body)}>Cadastrar</button>
+                    <button onClick={handleClick}>Cadastrar</button>
             </div>
                 <Rodape />
         </div>
