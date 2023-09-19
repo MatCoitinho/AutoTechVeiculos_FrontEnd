@@ -19,9 +19,20 @@ export default function cadastroModelo(){
 
 
 
+    const [entradaSelect,setEntradaSelect] = useState({
+        combustivel:'gasolina',
+        cambio:'manual'
+    })
 
-    const sendEntrada = () => {
-        console.log(entrada)
+    const getSelects = (event) => {
+        const nome = event.target.name
+        const valor = event.target.value
+        setEntradaSelect(prevState=>({...prevState, [nome]:valor}))
+    }
+
+    const sendEntrada = () =>{
+        //montar conexão com o banco aqui
+        console.log(entradaSelect)
     }
 
 
@@ -41,8 +52,8 @@ export default function cadastroModelo(){
                 <div className={Styles.inputs}>
                     <p>Combustivel</p>
                    
-                    <label for='escolha um Combustivel'>
-                        <select id='escolhaDeCombustivel' name='escolhaDeCombustivel'>
+                    <label htmlFor='escolha um Combustivel'>
+                        <select id='escolhaDeCombustivel' name='escolhaDeCombustivel' onChange={getSelects}>
                         <option value='gasolina'>Gasolina</option>
                         <option value='hibrido'>Híbrido</option>
                         <option value='eletrico'>Elétrico</option>
@@ -61,15 +72,15 @@ export default function cadastroModelo(){
                 </div>
                 <div className={Styles.inputs}>
                     <p>Ano</p>
-                    <input type='number' inputmode="numeric" id='ano' name='ano' placeholder='Insira o Ano' onChange={getEntradas}/>
+                    <input type='number' id='ano' name='ano' placeholder='Insira o Ano' onChange={getEntradas}/>
                 </div>
             </div>
             <div className={Styles.duplaTextBox}>
                 <div className={Styles.inputs}>
                     <p>Cambio</p>
                    
-                    <label for='escolha um cambio'>
-                        <select id='escolhaDeCambio' name='escolhaDeCambio'>
+                    <label htmlFor='escolha um cambio'>
+                        <select id='escolhaDeCambio' name='escolhaDeCambio' onChange={getSelects}>
                         <option value='Manual'>Manual</option>
                         <option value='Automatico'>Automatico</option>
                         </select> 

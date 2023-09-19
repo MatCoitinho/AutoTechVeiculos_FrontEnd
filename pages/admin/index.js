@@ -10,7 +10,7 @@ import RenderizaInformacoesClientes from '../../components/renderizaInformacoesC
 import InformacoesModelos from '../../components/informacoesModelos'
 import RenderModelo from '../../components/renderizarInformacoesModelos'
 import BarraCompleta from '../../components/barraCompletaVeiculos'
-import CadastroVeiculo from '../../components/cadastroVeiculo'
+
 import Styles from '../../styles/adminHome.module.css'
 
 export default function adminHome() {
@@ -22,7 +22,7 @@ export default function adminHome() {
         
              < BarraLateral />
             <div className={Styles.form}>
-             <CadastroVeiculo />
+            
             </div>
           </div>
             <Rodape/>
