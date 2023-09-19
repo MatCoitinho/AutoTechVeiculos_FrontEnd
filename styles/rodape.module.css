@@ -2,7 +2,7 @@
 .rodape {
     margin-top: 70px;
     background-color: #7A2222; 
-    color: #fff; 
+    color: #000000; 
     display: flex; 
     justify-content: space-between; 
 }
@@ -45,5 +45,5 @@
     display: inline;
     align-items: center;
     padding-top: 0;
-    font-size: 14px;
+    font-size: 19px;
 }

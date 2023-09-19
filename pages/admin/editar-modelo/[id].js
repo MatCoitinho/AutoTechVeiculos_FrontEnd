@@ -1,12 +1,22 @@
-import { useState } from 'react'
-import Styles from '../styles/cadastroModelo.module.css'
+import { useRouter } from "next/router"
+import Rodape from "../../../components/rodape"
+import Cabecalho from "../../../components/cabecalho"
+import { useState } from "react"
+import Styles from '../../../styles/editarModelo.module.css'
 
-export default function cadastroModelo(){
+
+export default function modeloEdit(){
+    const router = useRouter() 
+    const { query } = router 
+
+    const modeloId = query?.id
+
+
 
     const [entrada, setEntrada] = useState({
-        marca:'',
-        modelo:'',
-        ano:''
+        marca:'sdfsdf',
+        modelo:'sdfsdf',
+        ano:'123123'
     })
 
 
@@ -34,6 +44,7 @@ export default function cadastroModelo(){
     const sendEntrada = () =>{
         //montar conexão com o banco aqui
         console.log(entradaSelect)
+        console.log(entrada)
     }
 
 
@@ -43,12 +54,14 @@ export default function cadastroModelo(){
 
 
     return(
-        <div className={Styles.cadastroModelo}>
-            <h1>Cadastro Modelo</h1>
+        <div className={Styles.container}>
+            <Cabecalho />
+        <div className={Styles.editarModelo}>
+            <h1>Editar Modelo</h1>
             <div className={Styles.duplaTextBox}>
                 <div className={Styles.inputs}>
                     <p>Marca</p>
-                    <input type='text' id='marca' name='marca' placeholder='Insira a Marca' onChange={getEntradas}/>
+                    <input type='text' id='marca' value={entrada.marca} name='marca' placeholder='Insira a Marca' onChange={getEntradas}/>
                 </div>
                 <div className={Styles.inputs}>
                     <p>Combustivel</p>
@@ -69,11 +82,11 @@ export default function cadastroModelo(){
             <div className={Styles.duplaTextBox}>
                 <div className={Styles.inputs}>
                     <p>Modelo</p>
-                    <input type='text' id='modelo' name='modelo' placeholder='Insira o Modelo' onChange={getEntradas}/>
+                    <input type='text'value={entrada.modelo} id='modelo' name='modelo' placeholder='Insira o Modelo' onChange={getEntradas}/>
                 </div>
                 <div className={Styles.inputs}>
                     <p>Ano</p>
-                    <input type='number' id='ano' name='ano' placeholder='Insira o Ano' onChange={getEntradas}/>
+                    <input type='number' id='ano' name='ano' value={entrada.ano} placeholder='Insira o Ano' onChange={getEntradas}/>
                 </div>
             </div>
             <div className={Styles.duplaTextBox}>
@@ -81,7 +94,7 @@ export default function cadastroModelo(){
                     <p>Cambio</p>
                    
                     <label htmlFor='escolha um cambio'>
-                        <select id='escolhaDeCambio' name='escolhaDeCambio' onChange={getSelects}>
+                        <select id='cambio' name='cambio' onChange={getSelects}>
                         <option value='Manual'>Manual</option>
                         <option value='Automatico'>Automatico</option>
                         </select> 
@@ -115,9 +128,10 @@ export default function cadastroModelo(){
                     </label> 
                 </div>
             </div>
-           <button id='cadastrarModelo' name='cadastrarModelo' onClick={sendEntrada}>Cadastrar Modelo</button>
+           <button id='cadastrarModelo' name='cadastrarModelo' onClick={sendEntrada}>Editar Modelo</button>
            
         </div>
-        
+        <Rodape />
+        </div>
     )
 }

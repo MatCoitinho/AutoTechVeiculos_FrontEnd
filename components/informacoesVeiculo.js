@@ -1,11 +1,14 @@
-
+import { useRouter } from 'next/router';
 import styles from '../styles/informacoesVeiculos.module.css'
 export default function informacoesVeiculos(obj){
     const autoModelo = obj.value.modelo;
     const autoVeiculo = obj.value.veiculo;
     const donoAuto = obj.value.dono;
 
-    
+    const {push} = useRouter()
+    const editarVeiculo = (id) =>{
+        push(`/admin/editar-veiculo/${id}`)
+    }
 
     let servico;
     if(autoVeiculo.servico === true){
@@ -41,7 +44,7 @@ export default function informacoesVeiculos(obj){
                 <p>Cor: {`${autoVeiculo.cor}`}</p>
                 <p>Dono: {`${donoAuto.first_name}`}</p>
                 <div>
-                    <button id='Editar'>Editar</button>
+                    <button id='Editar' onClick={()=>editarVeiculo(autoVeiculo.id)}>Editar</button>
                     <button id='Deletar'>Deletar</button>
                 </div>
             </div>

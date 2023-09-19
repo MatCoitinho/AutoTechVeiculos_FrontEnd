@@ -1,7 +1,13 @@
 import Styles from '../styles/informacoesModelos.module.css'
 import BotaoCadastro from './botaoCadastro'
-
+import { useRouter } from 'next/router';
 export default function informacoesModelos(obj){
+
+
+    const {push} = useRouter()
+    const editarModelo = (id) =>{
+        push(`/admin/editar-modelo/${id}`)
+    }
 
     const modelo = obj.value;
     return(
@@ -15,7 +21,7 @@ export default function informacoesModelos(obj){
                 <p>{`Quantidade de Portas${modelo.qtdPortas}`}</p>
                 <p>{`Tipo de Combustível ${modelo.tipoCombustivel}`}</p>
                 <p>{`ID: ${modelo.id}`}</p>
-                <button>Editar</button>
+                <button onClick={()=>editarModelo(modelo.id)}>Editar</button>
                 <button>Deletar</button>
             </div>
         </div>

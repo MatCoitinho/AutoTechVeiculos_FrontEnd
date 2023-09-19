@@ -1,6 +1,7 @@
 import InformacoesClientes from "./informacoesClientes";
 import BarraDePesquisa from "./barraDePesquisa";
 import Style from '../styles/renderizaInformacoesClientes.module.css'
+import { useState, useEffect } from "react";
 export default function renderizaInformacoesClientes(){
    
     let user1 = {
@@ -25,17 +26,26 @@ export default function renderizaInformacoesClientes(){
         "groups": [],
         "user_permissions": []
     };
-    const objUser = [{user:user1, userClient:userClient1}, {user:user1, userClient:userClient1}, {user:user1, userClient:userClient1}, {user:user1, userClient:userClient1}];
+    const objUser = [{user:user1, userClient:userClient1}, {user:user1, userClient:userClient1}, {user:user1, userClient:userClient1}, {user:user1, userClient:userClient1},];
 
     const renderCliente = objUser.map((cliente, index)=>( 
         <InformacoesClientes key={index} value={cliente} />
     ));
+   
+
+    const [clientes, setClientes] = useState(renderCliente)
+
+    useEffect(() => {
+      setClientes(renderCliente)
+    }, [renderCliente]) 
     
+
+
     return(
         <div className={Style.container}>
             <BarraDePesquisa />
             <div className={Style.renderizaInformacoesClientes}>
-            {renderCliente}
+            {clientes}
             </div>
         </div>
 
