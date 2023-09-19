@@ -3,6 +3,7 @@ import Cabecalho from '../components/cabecalho'
 import Styles from '../styles/cadastrarUsuario.module.css'
 import { useState } from 'react'
 import { createUser } from './api/createUser'
+import Normalizar from '../components/normalizar'
 
 export default function cadastroUsuario() {
     async function handleClick() {
@@ -28,7 +29,7 @@ export default function cadastroUsuario() {
 
     return(
         <div>
-                <Cabecalho />
+            <Cabecalho />
             <div className={Styles.cadastroUsuario}>
                 <h1>Cadastrar Usuário</h1>
                 <div className={Styles.container}>

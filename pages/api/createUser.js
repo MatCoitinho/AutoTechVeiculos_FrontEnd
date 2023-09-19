@@ -1,14 +1,9 @@
-import { axios_api } from '../lib/api'
+import api from '../lib/api'
 
 export async function createUser(data) {
-    try {
-        const response = await axios_api.post(
-            'http://localhost/3333', data
-        );
-
-        return response.data;
+    const res = await api.post('/ROTA DO BACK', data)
+    if (res.status.toString().startsWith('2')) {
+        return res.data;
     }
-    catch(err) {
-        console.log(err)
-    }
+    alert('erro')
 } 
