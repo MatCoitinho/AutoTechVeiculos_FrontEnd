@@ -4,6 +4,7 @@ export async function patchModel(data,data2){
     try {
         const res = await api.patch(`anunciar/Modelo/${data}`,data2)
         if (res.status.toString().startsWith('2')) {
+            alert('Modelo alterado com sucesso')
             return res;
         }
     } catch (error) {
