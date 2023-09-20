@@ -2,6 +2,8 @@ import { useRouter } from "next/router"
 import Rodape from "../../../../components/rodape"
 import Cabecalho from "../../../../components/cabecalho"
 import styles from '../../../../styles/informacoesVeiculos.module.css'
+import {deleteVeiculo} from '../../../api/deleteVehicle'
+import { buscaDadosPatch } from "../../editar-veiculo/[id]"
 let valores
 export function getData(data){
     valores = data
@@ -20,6 +22,7 @@ export default function veiculo(){
 
     const {push} = useRouter()
     const editarVeiculo = (id) =>{
+        buscaDadosPatch(valores)
         push(`/admin/editar-veiculo/${id}`)
     }
 
@@ -39,6 +42,10 @@ export default function veiculo(){
    let preco = valores[4] * 0.01;
    
 
+   const deleteCliente = async() =>{
+    const aux = await deleteVeiculo(veiculoId)
+        
+    }
 
 
 
@@ -57,7 +64,7 @@ export default function veiculo(){
                     <p>Dono: {valores[7]}</p>
                     <div>
                         <button id='Editar' onClick={()=>editarVeiculo(veiculoId)}>Editar</button>
-                        <button id='Deletar'>Deletar</button>
+                        <button id='Deletar' onClick={deleteCliente}>Deletar</button>
                     </div>
                 </div>
             </div>

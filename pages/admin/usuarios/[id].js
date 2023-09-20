@@ -3,6 +3,21 @@ import Rodape from "../../../components/rodape"
 import Cabecalho from "../../../components/cabecalho"
 import { useState } from "react"
 import Styles from '../../../styles/editarUsuario.module.css'
+import { patchCliente } from "../../api/patchClient"
+import { patchUser } from "../../api/patchUser"
+
+
+
+
+let valores
+export function buscaDadosPatch(dados){
+
+    valores = dados
+
+}
+
+
+
 
 export default function user(){
     
@@ -12,21 +27,18 @@ export default function user(){
 
     const userId = query?.id
     
-   const editar = (valor) => {
-    console.log(valor)
-   }
+   
 
 
     
     const [entrada, setEntrada] = useState({
-        primeiroNome:'asd',
-        ultimoNome:'asd',
-        CPF:'asd',
-        telefone:'asd',
-        email:'asd',
-        endereco:'asd',
-        senha:'asd',
-        username:'asd'
+        primeiroNome:valores[0],
+        ultimoNome:valores[1],
+        CPF:valores[4],
+        telefone:valores[5],
+        email:valores[7],
+        endereco:valores[6],
+        username:valores[2]
     })
 
     const getEntradas = (event) => {
@@ -35,9 +47,31 @@ export default function user(){
         setEntrada(prevState => ({...prevState, [nome]:valor}))
     }
 
+    
+
+    const handleClick = async() =>{
+        const userEntrada = {
+            first_name:entrada.primeiroNome,
+            last_name:entrada.ultimoNome,
+            username: entrada.username,
+            email: entrada.email,
+            senha:entrada.senha,
+        }
+        const clienteEntrada = {
+            cpf:entrada.CPF,
+            telefone: entrada.telefone,
+            endereco:entrada.endereco
+        }
+
+        const aux = await patchCliente(userId,clienteEntrada)
+        
+        const aux1 = await patchUser(userId,userEntrada)
+               
+    }
 
 
 
+    
 
 
 
@@ -83,7 +117,7 @@ export default function user(){
                         </div>
                     </div>
             </div>
-                <button onClick={() => editar(entrada)}>Editar</button>
+                <button onClick={handleClick}>Editar</button>
         </div>
             <Rodape />
     </div>

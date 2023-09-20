@@ -2,6 +2,8 @@ import { useRouter } from "next/router"
 import Rodape from "../../../../components/rodape"
 import Cabecalho from "../../../../components/cabecalho"
 import Styles from '../../../../styles/informacoesModelos.module.css'
+import {DeleteModel} from '../../../api/deleteModel'
+import { buscaDadosPatch } from "../../editar-modelo/[id]"
 let valores
 export function getData(data){
     valores = data
@@ -17,8 +19,17 @@ export default function modelo(){
     const {push} = useRouter()
 
     const editarModelo = (id) =>{
+        buscaDadosPatch(valores)
         push(`/admin/editar-modelo/${id}`)
     }
+
+
+    const deleteCliente = async() =>{
+        const aux = await DeleteModel(modeloId)
+            
+    }
+
+
 
     return(
         <div>
@@ -35,7 +46,7 @@ export default function modelo(){
                 <p>{`Tipo de Combustível: ${valores[6]}`}</p>
                 <p>{`ID: ${valores[7]}`}</p>
                 <button onClick={()=>editarModelo(valores[7])}>Editar</button>
-                <button>Deletar</button>
+                <button onClick={deleteCliente}>Deletar</button>
             </div>
         </div>
             <Rodape />

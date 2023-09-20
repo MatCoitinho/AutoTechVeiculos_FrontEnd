@@ -4,7 +4,8 @@ import Cabecalho from "../../../../components/cabecalho"
 import {getClient} from '../../../api/getClient'
 import Styles from '../../../../styles/InformacoesClientes.module.css'
 import { useState } from "react"
-
+import {deleteUser} from '../../../api/deleteUser'
+import { buscaDadosPatch } from "../../usuarios/[id]"
 let valor
 export function getData(dado){
     valor = dado
@@ -21,8 +22,17 @@ export default function clienteBusca(){
     
     const {push} = useRouter()
     const editarUsuario = (id) =>{
+        buscaDadosPatch(valor)
         push(`/admin/usuarios/${id}`)
     }
+
+
+    const deleteCliente = async() =>{
+        const aux = await deleteUser(clienteId)
+            
+    }
+
+
 
     return(
         <div className={Styles.container2}>
@@ -38,7 +48,7 @@ export default function clienteBusca(){
                 <p>E-mail: {`${valor[7]}`}</p>
                 <p>Último Login: {`${valor[8]}`}</p>
             <button onClick={() => editarUsuario(clienteId)}>Editar</button>
-            <button>Deletar</button>
+            <button onClick={deleteCliente}>Deletar</button>
         </div>
             </div>
     )

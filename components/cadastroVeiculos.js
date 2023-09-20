@@ -35,13 +35,13 @@ export default function cadastroVeiculo(){
     }
 
     const [entradaSelect,setEntradaSelect] = useState({
-        servico:'false',
-        status:'true',
+        servico:false,
+        status:true,
     })
 
     const getSelects = (event) => {
-        const nome = event.target.name
-        const valor = event.target.value
+        let nome = event.target.name
+        let valor = event.target.value
         setEntradaSelect(prevState=>({...prevState, [nome]:valor}))
     }
 
@@ -92,8 +92,8 @@ export default function cadastroVeiculo(){
                    
                     <label htmlFor='escolha um serviço'>
                         <select id='servico' name='servico' onChange={getSelects} >
-                        <option value='false'>Venda</option>
-                        <option value='true'>Alguel</option>
+                            <option value='false'>Venda</option>
+                            <option value='true'>Aluguel</option>
                         </select> 
                     </label> 
                     
@@ -103,8 +103,8 @@ export default function cadastroVeiculo(){
                    
                     <label htmlFor='status'>
                         <select id='status' name='status'  onChange={getSelects}>
-                            <option value='true'>Disponível</option>
-                        <option value='false'>Indisponível</option>
+                            <option value={true}>Disponível</option>
+                        <option value={false}>Indisponível</option>
                         </select> 
                     </label> 
                 </div>
