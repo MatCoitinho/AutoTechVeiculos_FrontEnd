@@ -1,8 +1,14 @@
+
+.container{
+    background-color: #fff;
+}
+
 .informacoesVeiculos{
-   width: 160%;
-   height: fit-content;
-    margin: 0;
-    align-items: right;
+    border: 30%;
+    margin-left: 35%;
+    width: 30%;
+    height: fit-content;
+    
     border: 3px solid black;
     border-radius: 15px;
 }
@@ -15,6 +21,7 @@
 }
 
 .informacoesVeiculos button{
+    border-radius: 20px;
     padding: 10px 30px;
     margin-right: 30px;
     border-radius: 20px;

@@ -4,7 +4,7 @@
 }
 
 .editarVeiculo{
-    margin-left: 25%;
+    margin-left: 15%;
     width: fit-content;
     align-items: center;
     align-content: center;
@@ -16,6 +16,7 @@
     margin-left: 40%;
 }
 .editarVeiculo input[type='text']{
+    border-radius: 80px;
     padding: 20px 60px;
     background-color: #D9D9D9;
     color: black;
@@ -23,6 +24,7 @@
     text-align: center;
 }
 .editarVeiculo input[type='number']{
+    border-radius: 80px;
     
     padding: 20px 60px;
     background-color: #D9D9D9;
@@ -52,6 +54,8 @@
 }
 
 .editarVeiculo select{
+    border-radius: 80px;
+
     width: 368px;
     padding: 20px 120px;
     font-size: 20px;

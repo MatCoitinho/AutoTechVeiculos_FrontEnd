@@ -4,37 +4,13 @@ import lupa from '../public/lupa.png'
 import { useState } from 'react'
 import { buscaDados } from './renderizaInformacoesClientes'
 import { getClient } from '../pages/api/getClient'
-
-let user1 = {
-    "id": 2,
-    "cpf": "101.041.369-44",
-    "telefone": "44997192500",
-    "endereco": "Valdemar C Faria, 612",
-    "user": 2
-};
-let userClient1 =     {
-    "id": 2,
-    "password": "pbkdf2_sha256$600000$yg8jsHKgGgcpZlrglwC8V7$BQGHkpvPsV4MUn97vlNmgSwW53veIt6JGLc8ig/m+Ts=",
-    "last_login": "2023-09-13T23:17:54.013093-03:00",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "Matheus",
-    "last_name": "Coi",
-    "email": "admin@example.com",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2023-09-13T23:14:07.111780-03:00",
-    "groups": [],
-    "user_permissions": []
-};
+import { useRouter } from 'next/router'
+import { getData } from '../pages/admin/busca/cliente/[id]'
 
 export default function barraDePesquisa(){
     
-    let objUser = [{user:user1, userClient:userClient1}]
+    const {push} = useRouter()
 
-
-
-    buscaDados(objUser)
     const [valorEntrada, setValorEntrada] = useState('')
 
     const getValorEntrada = (event) =>{
@@ -42,14 +18,36 @@ export default function barraDePesquisa(){
         console.log(event.target.value)
     }
 
-    
+    let user;
+    let client;
 
     const getClick = async(dado) =>{
         const aux = await getClient(dado)
-        console.log(aux.ret1.data)
-        console.log(aux.ret2.data)
+       client = aux.ret1.data
+        user = aux.ret2.data
+        console.log(client)
+        let valores = [ 
+             user.first_name,
+             user.last_name,
+            user.username,
+             client.id,
+             client.cpf,
+            client.telefone,
+             client.endereco,
+             user.email,
+             user.last_login,
+        ]
+        getData(valores)
+        push(`/admin/busca/cliente/${dado}`)   
            
     }
+
+   
+              
+ 
+   
+
+
 
     return(
         <div className={Styles.containerBarraDePesquisa}>

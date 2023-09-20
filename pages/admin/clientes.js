@@ -3,7 +3,7 @@ import RenderClientes from '../../components/renderizaInformacoesClientes'
 import BarraLateralAdmin from '../../components/barraLateralAdmin'
 import Cabecalho from '../../components/cabecalho'
 import Rodape from '../../components/rodape'
-
+import BarraDePesquisa from '../../components/barraDePesquisa'
 export default function estoque(){
   
 
@@ -13,7 +13,7 @@ export default function estoque(){
               <div className={Styles.conteudo}>
                 <BarraLateralAdmin />
                 <div className={Styles.form}>
-               <RenderClientes />
+                <BarraDePesquisa />
                 </div>
               </div>
                 <Rodape/>

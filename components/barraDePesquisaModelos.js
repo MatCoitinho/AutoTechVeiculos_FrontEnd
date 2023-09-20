@@ -2,79 +2,49 @@ import Styles from '../styles/barraDePesquisa.module.css'
 import Image from 'next/image'
 import lupa from '../public/lupa.png'
 import { useState } from 'react'
-import { buscaDados } from './renderizarInformacoesModelos'
-
-
-
-
-
-
-const autoVeiculo1 = {
-    "id": 1,
-    "placa": "ajo4123",
-    "quilometragem": "0",
-    "status": true,
-    "preco": 4200000,
-    "veiculo": 1,
-    "servico": false,
-    "dono": 2,
-    "cor": "Preto"
-}
-const autoModelo1 = {
-"id": 1,
-"tipoCombustivel": "Flex",
-"model": "Onix ltz",
-"marca": "Chevrolete",
-"ano": "2023-09-16",
-"cambio": true,
-"categoria": "Sedan",
-"qtdPortas": 4
-}
-const donoAuto1 = {
-"id": 1,
-"password": "pbkdf2_sha256$600000$yg8jsHKgGgcpZlrglwC8V7$BQGHkpvPsV4MUn97vlNmgSwW53veIt6JGLc8ig/m+Ts=",
-"last_login": "2023-09-13T23:17:54.013093-03:00",
-"is_superuser": true,
-"username": "admin",
-"first_name": "",
-"last_name": "",
-"email": "admin@example.com",
-"is_staff": true,
-"is_active": true,
-"date_joined": "2023-09-13T23:14:07.111780-03:00",
-"groups": [],
-"user_permissions": []
-}
-
-
-
-
-
-
-
+import { getModel } from '../pages/api/getModels'
+import { useRouter } from 'next/router'
+import { getData } from '../pages/admin/busca/modelo/[id]'
 
 export default function barraDePesquisa(){
-    let resultado =  [{ dono: donoAuto1, modelo: autoModelo1, veiculo: autoVeiculo1 }, { dono: donoAuto1, modelo: autoModelo1, veiculo: autoVeiculo1 }, { dono: donoAuto1, modelo: autoModelo1, veiculo: autoVeiculo1 }, { dono: donoAuto1, modelo: autoModelo1, veiculo: autoVeiculo1 }]
-
-
-
-    buscaDados(resultado)
+   
+    const {push} = useRouter()
 
     const [valorEntrada, setValorEntrada] = useState('')
     
     const getValorEntrada = (event) =>{
         setValorEntrada(event.target.value)
-        console.log(event.target.value)
+       
     }
 
-    const getClick = (event) =>{
-        alert(valorEntrada)
-    }
+
+   
+    const getClick = async(dado) =>{
+       
+        const aux = await getModel(dado)
+        let controle = aux.data
+        
+        let valores = [ 
+            controle.model,
+            controle.marca,
+            controle.ano,
+            controle.cambio,
+            controle.categoria,
+            controle.qtdPortas,
+            controle.tipoCombustivel,
+            controle.id
+        ]
+        
+        getData(valores)
+        push(`/admin/busca/modelo/${dado}`)
+
+    }   
+
 
     return(
         <div className={Styles.containerBarraDePesquisa}>
             <div className={Styles.barraDePesquisa}>
-                <input type='text' id='barraDePesquisa' name='barraDePesquisa' placeholder='Insira o nome do cliente'
+                <input type='text' id='barraDePesquisa' name='barraDePesquisa' placeholder='Insira o Modelo'
                     value={valorEntrada} onChange={getValorEntrada}
                 />
                 <button id='botão de pesquisa'><Image
@@ -82,7 +52,7 @@ export default function barraDePesquisa(){
                     width={20}
                     height={20}
                     alt='imagem botão de pesquisa'
-                    onClick={getClick}
+                    onClick={() => getClick(valorEntrada)}
                 /></button>
             </div>
         </div>
