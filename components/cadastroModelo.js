@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import Styles from '../styles/cadastroModelo.module.css'
+import { createModel } from '../pages/api/createModel';
 
 export default function cadastroModelo(){
+    async function handleClick(){
+        return await createModel(data).catch(err => console.log(err));
+    }
 
     const [entrada, setEntrada] = useState({
         marca:'',
@@ -9,14 +13,11 @@ export default function cadastroModelo(){
         ano:''
     })
 
-
     const getEntradas = (event) => {
         const nome = event.target.name
         const valor = event.target.value
         setEntrada(prevState => ({...prevState, [nome]:valor}))
     }
-
-
 
     const [entradaSelect,setEntradaSelect] = useState({
         combustivel:'gasolina',
@@ -35,12 +36,6 @@ export default function cadastroModelo(){
         //montar conexão com o banco aqui
         console.log(entradaSelect)
     }
-
-
-
-
-
-
 
     return(
         <div className={Styles.cadastroModelo}>
@@ -115,9 +110,7 @@ export default function cadastroModelo(){
                     </label> 
                 </div>
             </div>
-           <button id='cadastrarModelo' name='cadastrarModelo' onClick={sendEntrada}>Cadastrar Modelo</button>
-           
+           <button id='cadastrarModelo' name='cadastrarModelo' onClick={handleClick}>Cadastrar Modelo</button>
         </div>
-        
     )
 }

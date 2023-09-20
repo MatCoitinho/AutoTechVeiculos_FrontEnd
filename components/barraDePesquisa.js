@@ -3,7 +3,7 @@ import Image from 'next/image'
 import lupa from '../public/lupa.png'
 import { useState } from 'react'
 import { buscaDados } from './renderizaInformacoesClientes'
-
+import { getClient } from '../pages/api/getClient'
 
 let user1 = {
     "id": 2,
@@ -28,12 +28,6 @@ let userClient1 =     {
     "user_permissions": []
 };
 
-
-
-
-
-
-
 export default function barraDePesquisa(){
     
     let objUser = [{user:user1, userClient:userClient1}]
@@ -48,8 +42,13 @@ export default function barraDePesquisa(){
         console.log(event.target.value)
     }
 
-    const getClick = (event) =>{
-        alert(valorEntrada)
+    
+
+    const getClick = async(dado) =>{
+        const aux = await getClient(dado)
+        console.log(aux.ret1.data)
+        console.log(aux.ret2.data)
+           
     }
 
     return(
@@ -63,7 +62,7 @@ export default function barraDePesquisa(){
                     width={20}
                     height={20}
                     alt='imagem botão de pesquisa'
-                    onClick={getClick}
+                    onClick={()=>getClick(valorEntrada)}
                 /></button>
             </div>
         </div>
