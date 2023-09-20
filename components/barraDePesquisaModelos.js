@@ -14,13 +14,13 @@ export default function barraDePesquisa(){
     
     const getValorEntrada = (event) =>{
         setValorEntrada(event.target.value)
-        console.log(event.target.value)
+       
     }
 
 
    
     const getClick = async(dado) =>{
-        console.log(dado)
+       
         const aux = await getModel(dado)
         let controle = aux.data
         

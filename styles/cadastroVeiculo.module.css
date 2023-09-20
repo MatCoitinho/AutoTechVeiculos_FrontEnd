@@ -10,6 +10,8 @@
     margin-left: 40%;
 }
 .cadastroVeiculo input[type='text']{
+    border-radius: 80px;
+
     padding: 20px 60px;
     background-color: #D9D9D9;
     color: black;
@@ -17,6 +19,8 @@
     text-align: center;
 }
 .cadastroVeiculo input[type='number']{
+    border-radius: 80px;
+
     
     padding: 20px 60px;
     background-color: #D9D9D9;
@@ -46,6 +50,8 @@
 }
 
 .cadastroVeiculo select{
+    border-radius: 80px;
+
     width: 368px;
     padding: 20px 120px;
     font-size: 20px;

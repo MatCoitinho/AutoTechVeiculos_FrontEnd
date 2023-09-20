@@ -1,9 +1,14 @@
 
+.container{
+    background-color: #fff;
+}
+
 .informacoesVeiculos{
-   width: 160%;
-   height: fit-content;
-    margin: 0;
-    align-items: right;
+    border: 30%;
+    margin-left: 35%;
+    width: 25%;
+    height: fit-content;
+    
     border: 3px solid black;
     border-radius: 15px;
 }
