@@ -31,8 +31,8 @@ export default function modelo(){
                 <p>{`Ano: ${valores[2]}`}</p>
                 <p>{`Cambio: ${valores[3]}`}</p>
                 <p>{`Categoria: ${valores[4]}`}</p>
-                <p>{`Quantidade de Portas${valores[5]}`}</p>
-                <p>{`Tipo de Combustível ${valores[6]}`}</p>
+                <p>{`Quantidade de Portas: ${valores[5]}`}</p>
+                <p>{`Tipo de Combustível: ${valores[6]}`}</p>
                 <p>{`ID: ${valores[7]}`}</p>
                 <button onClick={()=>editarModelo(valores[7])}>Editar</button>
                 <button>Deletar</button>

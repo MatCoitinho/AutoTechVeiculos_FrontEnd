@@ -23,7 +23,7 @@ export default function cadastroModelo(){
         combustivel:'gasolina',
         cambio:false,
         categoria:'compacto',
-        quantidadePortas:''
+        quantidadePortas:4
     })
 
     const getSelects = (event) => {
@@ -115,8 +115,8 @@ export default function cadastroModelo(){
                 <div className={Styles.inputs}>
                     <p>Quantidade de Portas</p>
                    
-                    <label htmlFor='escolha um cambio'>
-                        <select id='escolhaDeCambio' name='escolhaDeCambio' onChange={getSelects}>
+                    <label htmlFor='combustivel'>
+                        <select id='combustivel' name='combustivel' onChange={getSelects}>
                         <option value={4}>Quatro Portas</option>
                         <option value={2}>Duas Portas</option>
                         </select> 
