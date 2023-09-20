@@ -21,7 +21,7 @@ export default function cadastroModelo(){
 
     const [entradaSelect,setEntradaSelect] = useState({
         combustivel:'gasolina',
-        cambio:false,
+        cambio:'false',
         categoria:'compacto',
         quantidadePortas:4
     })
