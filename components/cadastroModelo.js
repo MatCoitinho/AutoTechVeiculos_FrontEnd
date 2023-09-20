@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import Styles from '../styles/cadastroModelo.module.css'
-import { createModel } from '../pages/api/createModel';
+import { createModel } from '../pages/api/createModel'
+
+
 
 export default function cadastroModelo(){
-    async function handleClick(){
-        return await createModel(data).catch(err => console.log(err));
-    }
+    
 
     const [entrada, setEntrada] = useState({
         marca:'',
@@ -21,9 +21,9 @@ export default function cadastroModelo(){
 
     const [entradaSelect,setEntradaSelect] = useState({
         combustivel:'gasolina',
-        cambio:'manual',
-        categoria:'Compacto',
-        quantidadePortas:'quatroPortas'
+        cambio:false,
+        categoria:'compacto',
+        quantidadePortas:''
     })
 
     const getSelects = (event) => {
@@ -32,10 +32,23 @@ export default function cadastroModelo(){
         setEntradaSelect(prevState=>({...prevState, [nome]:valor}))
     }
 
-    const sendEntrada = () =>{
-        //montar conexão com o banco aqui
-        console.log(entradaSelect)
+    const handleClick = async()=>{ 
+        const modeloData = {
+            tipoCombustivel: entradaSelect.combustivel,
+            model: entrada.modelo,
+            marca: entrada.marca,
+            ano: Number(entrada.ano),
+            cambio: entrada.cambio,
+            categoria: entradaSelect.categoria,
+            qtdPortas: Number(entradaSelect.quantidadePortas)
+        }
+
+
+
+        return await createModel(modeloData).catch(err => console.log(err));
     }
+
+  
 
     return(
         <div className={Styles.cadastroModelo}>
@@ -77,8 +90,8 @@ export default function cadastroModelo(){
                    
                     <label htmlFor='escolha um cambio'>
                         <select id='escolhaDeCambio' name='escolhaDeCambio' onChange={getSelects}>
-                        <option value='Manual'>Manual</option>
-                        <option value='Automatico'>Automatico</option>
+                        <option value='false'>Manual</option>
+                        <option value='true'>Automatico</option>
                         </select> 
                     </label> 
                     
@@ -88,11 +101,11 @@ export default function cadastroModelo(){
                    
                     <label htmlFor='escolha uma categoria'>
                         <select id='categoria' name='categoria' onChange={getSelects}>
-                        <option value='Compacto'>Compacto</option>
-                        <option value='Sedan'>Sedan</option>
-                        <option value='Hatchback'>Hatchback</option>
-                        <option value='Picape'>Picape</option>
-                        <option value='Esportivo'>Esportivo</option>
+                        <option value='compacto'>Compacto</option>
+                        <option value='sedan'>Sedan</option>
+                        <option value='hatchback'>Hatchback</option>
+                        <option value='picape'>Picape</option>
+                        <option value='esportivo'>Esportivo</option>
                         </select> 
                     </label> 
                     
@@ -104,8 +117,8 @@ export default function cadastroModelo(){
                    
                     <label htmlFor='escolha um cambio'>
                         <select id='escolhaDeCambio' name='escolhaDeCambio' onChange={getSelects}>
-                        <option value='quatroPortas'>Quatro Portas</option>
-                        <option value='duasPortas'>Duas Portas</option>
+                        <option value={4}>Quatro Portas</option>
+                        <option value={2}>Duas Portas</option>
                         </select> 
                     </label> 
                 </div>

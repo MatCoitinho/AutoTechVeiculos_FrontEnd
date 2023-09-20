@@ -9,8 +9,6 @@ import InformacoesClientes from '../../components/informacoesClientes'
 import RenderizaInformacoesClientes from '../../components/renderizaInformacoesClientes'
 import InformacoesModelos from '../../components/informacoesModelos'
 import RenderModelo from '../../components/renderizarInformacoesModelos'
-import BarraCompleta from '../../components/barraCompletaVeiculos'
-
 import Styles from '../../styles/adminHome.module.css'
 
 export default function adminHome() {

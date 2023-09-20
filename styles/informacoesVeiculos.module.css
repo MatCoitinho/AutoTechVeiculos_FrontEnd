@@ -1,3 +1,4 @@
+
 .informacoesVeiculos{
    width: 160%;
    height: fit-content;
@@ -15,6 +16,7 @@
 }
 
 .informacoesVeiculos button{
+    border-radius: 20px;
     padding: 10px 30px;
     margin-right: 30px;
     border-radius: 20px;

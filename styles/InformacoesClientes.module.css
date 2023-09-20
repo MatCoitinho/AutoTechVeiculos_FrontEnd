@@ -1,4 +1,11 @@
+.container2{
+    width: 100%;
+    background-color: white;
+}
+
 .informacoesClientes{
+    border-radius: 20px;
+    align-content: center;
     border-radius: 20px;
     width: 400px;
     height: fit-content;
@@ -15,6 +22,7 @@
     margin: 5px;
 }
 .container{
+    padding-left: 35%;
     display: flex;
     margin: 20px;
 }

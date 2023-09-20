@@ -33,6 +33,7 @@ export default function renderizaInformacoesClientes(){
     return(
         <div className={Style.container}>
             <BarraDePesquisa />
+            {objUser}
             <div className={Style.renderizaInformacoesClientes}>
             {clientes}
             </div>

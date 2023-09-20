@@ -1,10 +1,11 @@
 import Styles from '../styles/informacoesModelos.module.css'
-import BotaoCadastro from './botaoCadastro'
+
 import { useRouter } from 'next/router';
 export default function informacoesModelos(obj){
 
-
+    
     const {push} = useRouter()
+
     const editarModelo = (id) =>{
         push(`/admin/editar-modelo/${id}`)
     }

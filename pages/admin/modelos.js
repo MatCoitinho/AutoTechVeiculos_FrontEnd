@@ -1,6 +1,6 @@
 import Styles from '../../styles/adminHome.module.css'
 import BarraLateralAdmin from '../../components/barraLateralAdmin'
-import RenderModelo from '../../components/renderizarInformacoesModelos'
+
 import Cabecalho from '../../components/cabecalho'
 import Rodape from '../../components/rodape'
 import BarraDePesquisa from '../../components/barraDePesquisaModelos'
@@ -12,7 +12,7 @@ export default function estoque(){
                <BarraLateralAdmin />
                 <div className={Styles.form}>
                <BarraDePesquisa />
-                    <RenderModelo />
+                  
                 </div>
               </div>
                 <Rodape/>

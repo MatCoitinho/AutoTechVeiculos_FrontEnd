@@ -4,6 +4,18 @@ import { createVehicle } from '../pages/api/createVehicle';
 
 export default function cadastroVeiculo(){
     async function handleClick(){
+        const data = {
+            veiculo: Number(entrada.modelo),
+            placa: entrada.placa,
+            quilometragem: entrada.quilometragem,
+            cor: entrada.cor,
+            preco: Number(entrada.preco),
+            dono: Number(entrada.dono),
+            servico: Boolean(entradaSelect.servico),
+            status: Boolean(entradaSelect.status)
+        } 
+        console.log(data)
+
         return await createVehicle(data).catch(err => console.log(err));
     }
 
@@ -14,8 +26,6 @@ export default function cadastroVeiculo(){
         cor:'',
         preco:'',
         dono:'',
-        servico:'',
-        status:''
     })
 
     const getEntradas = (event) => {
@@ -25,9 +35,8 @@ export default function cadastroVeiculo(){
     }
 
     const [entradaSelect,setEntradaSelect] = useState({
-        servico:'venda',
-        status:'disponivel',
-        condicao:'novo'
+        servico:'false',
+        status:'true',
     })
 
     const getSelects = (event) => {
@@ -36,10 +45,6 @@ export default function cadastroVeiculo(){
         setEntradaSelect(prevState=>({...prevState, [nome]:valor}))
     }
 
-    const sendEntrada = () =>{
-        //montar conexão com o banco aqui
-        console.log(entradaSelect)
-    }
 
     return(
         <div className={Style.cadastroVeiculo}>
@@ -87,8 +92,8 @@ export default function cadastroVeiculo(){
                    
                     <label htmlFor='escolha um serviço'>
                         <select id='servico' name='servico' onChange={getSelects} >
-                        <option value='venda'>Venda</option>
-                        <option value='alguel'>Alguel</option>
+                        <option value='false'>Venda</option>
+                        <option value='true'>Alguel</option>
                         </select> 
                     </label> 
                     
@@ -98,20 +103,8 @@ export default function cadastroVeiculo(){
                    
                     <label htmlFor='status'>
                         <select id='status' name='status'  onChange={getSelects}>
-                        <option value='disponivel'>Disponível</option>
-                        <option value='indisponivel'>Indisponível</option>
-                        </select> 
-                    </label> 
-                </div>
-            </div>
-            <div className={Style.duplaTextBox}>
-                <div className={Style.inputs}>
-                    <p>Condição</p>
-                   
-                    <label htmlFor='escolha uma condiçõa'>
-                        <select id='condicao' name='condicao' onChange={getSelects} >
-                        <option value='novo'>Novo</option>
-                        <option value='usado'>Usado</option>
+                            <option value='true'>Disponível</option>
+                        <option value='false'>Indisponível</option>
                         </select> 
                     </label> 
                 </div>
