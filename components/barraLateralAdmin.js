@@ -17,6 +17,9 @@ export default function barraLateralAdmin(){
             <button id='Cliente' value='clientes' onClick={redirecionaAdmin}>Clientes</button>
             <button id='Solicitacoes' value='solicitacoes' onClick={redirecionaAdmin}>Solicitações</button>
             <button id='Anunciar' value='anunciar' onClick={redirecionaAdmin}>Anunciar</button>
+            <button id='cadastrarVeiculo' value='cadastro-veiculo' onClick={redirecionaAdmin}>Cadastrar Veiculo</button>
+            <button id='cadastrarModelo' value='cadastro-modelo' onClick={redirecionaAdmin}>Cadastrar Modelo</button>
+
             </div>
             
         </div>

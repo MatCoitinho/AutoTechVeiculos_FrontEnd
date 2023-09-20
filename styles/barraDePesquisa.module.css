@@ -11,7 +11,7 @@
 }
 .containerBarraDePesquisa .barraDePesquisa input[type='text']{
     border-radius: 40px 0px 0px 40px;
-    padding: 10px 90px;
+    padding: 10px 50px;
     font-size: 20px;
     background-color: #D9D9D9;
     color: black;

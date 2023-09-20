@@ -1,4 +1,3 @@
-import FiltroVeiculos from "./FiltroVeiculos";
 
 
 import BarraLateralAdmin from "./barraLateralAdmin";
@@ -8,7 +7,7 @@ export default function barraCompleta(){
         <div className={Styles.container}>
             <div className={Styles.barraCompleta}>
                 <BarraLateralAdmin />
-                <FiltroVeiculos />
+              
             </div>
         </div>
     )
