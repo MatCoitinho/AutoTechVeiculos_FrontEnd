@@ -4,6 +4,7 @@ export async function deleteVeiculo(data){
     try {
         const res = await api.delete(`anunciar/Veiculo/${data}/`)
         if (res.status.toString().startsWith('2')) {
+            alert('Veiculo deletado com sucesso')
             return res;
         }
     } catch (error) {
