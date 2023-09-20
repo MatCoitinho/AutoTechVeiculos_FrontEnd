@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import Style from '../styles/cadastroVeiculo.module.css'
+import { createVehicle } from '../pages/api/createVehicle';
 
 export default function cadastroVeiculo(){
+    async function handleClick(){
+        return await createVehicle(data).catch(err => console.log(err));
+    }
 
     const [entrada, setEntrada] = useState({
         modelo:'',
@@ -20,7 +24,6 @@ export default function cadastroVeiculo(){
         setEntrada(prevState => ({...prevState, [nome]:valor}))
     }
 
-
     const [entradaSelect,setEntradaSelect] = useState({
         servico:'venda',
         status:'disponivel',
@@ -37,18 +40,6 @@ export default function cadastroVeiculo(){
         //montar conexão com o banco aqui
         console.log(entradaSelect)
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     return(
         <div className={Style.cadastroVeiculo}>
@@ -123,13 +114,9 @@ export default function cadastroVeiculo(){
                         <option value='usado'>Usado</option>
                         </select> 
                     </label> 
-                    
                 </div>
-                
             </div>
-           <button id='cadastrarVeiculo' name='cadastrarVeiculo' onClick={sendEntrada}>Cadastrar Veiculo</button>
-
-
+           <button id='cadastrarVeiculo' name='cadastrarVeiculo' onClick={handleClick}>Cadastrar Veiculo</button>
         </div>
     )
 }
