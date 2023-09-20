@@ -13,6 +13,6 @@ João Pedro da Silva de Andrade (2458810) FullStack, Documentação.
   </a>
 </p>
 <h2>Frontend(Tecnologias e Ferramentas):</h2> <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=javascript,next,axios,figma"/>
+    <img src="https://skillicons.dev/icons?i=javascript,next,css,html,figma"/>
   </a>
 </p>
