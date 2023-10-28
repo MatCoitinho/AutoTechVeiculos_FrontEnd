@@ -5,8 +5,6 @@ import { useState } from "react"
 import Style from '../../../styles/editarVeiculo.module.css'
 import { patchVeiculo } from '../../../pages/api/patchVehicle'
 
-
-
 let valores
 export function buscaDadosPatch(dados){
 
@@ -14,15 +12,11 @@ export function buscaDadosPatch(dados){
 
 }
 
-
-
-
  export default function veiculoEdita(){
     const router = useRouter() 
     const { query } = router 
 
     const veiculoId = query?.id
-
 
     const [entrada, setEntrada] = useState({
         modelo:valores[8],
@@ -63,18 +57,6 @@ export function buscaDadosPatch(dados){
 
         return await patchVeiculo(veiculoId,data).catch(err => console.log(err));
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     return(
         <div className={Style.container}>
@@ -146,6 +128,4 @@ export function buscaDadosPatch(dados){
         <Rodape />
         </div>
     )
-
-
 }

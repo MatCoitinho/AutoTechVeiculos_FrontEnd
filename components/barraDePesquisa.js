@@ -2,7 +2,6 @@ import Styles from '../styles/barraDePesquisa.module.css'
 import Image from 'next/image'
 import lupa from '../public/lupa.png'
 import { useState } from 'react'
-import { buscaDados } from './renderizaInformacoesClientes'
 import { getClient } from '../pages/api/getClient'
 import { useRouter } from 'next/router'
 import { getData } from '../pages/admin/busca/cliente/[id]'
@@ -41,13 +40,6 @@ export default function barraDePesquisa(){
         push(`/admin/busca/cliente/${dado}`)   
            
     }
-
-   
-              
- 
-   
-
-
 
     return(
         <div className={Styles.containerBarraDePesquisa}>
