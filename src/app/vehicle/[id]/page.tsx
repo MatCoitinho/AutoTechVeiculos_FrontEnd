@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
-
+import { Header } from '../../../components/ui/header'
+import Footer from '../../../components/ui/footer'
+import { WhatsButton } from '../../../components/ui/whatsapp'
 import { useRouter } from "next/navigation";
 import { Button } from "../../../components/ui/button";
 import { ChevronLeft } from "lucide-react";
@@ -31,6 +33,7 @@ export default function Vehicle({ params }: { params: any; }) {
 
   return (
     <main className="flex min-h-screen flex-col items-center">
+      <Header />
       <div className='max-w-7xl w-full flex flex-col py-12 px-4 mt-36'>
         <div className="flex items-center">
           <Button variant='outline' className='rounded-full' onClick={() => router.back()}>
@@ -143,6 +146,8 @@ export default function Vehicle({ params }: { params: any; }) {
           ) }
         </div>
       </div>
+      <WhatsButton />
+      <Footer />
     </main>
   )
 }

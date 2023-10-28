@@ -1,10 +1,17 @@
 
 import { Grid3 } from "../components/ui/grid3";
 import { veiculos } from "../lib/data";
+import { Header } from '../components/ui/header'
+import Footer from '../components/ui/footer'
+import { WhatsButton } from '../components/ui/whatsapp'
 
 export default function Home() {
+  
+
+
   return (
     <main className="flex min-h-screen flex-col items-center">
+      <Header />
       <div className='bg-hero w-full h-96 mt-24 bg-cover flex items-center justify-center'>
         <div className='max-w-7xl w-full flex items-center justify-center flex-col'>
           <h1 className="font-bold text-red-700 tracking-[0.3em] text-3xl">AUTOTECH</h1>
@@ -27,6 +34,8 @@ export default function Home() {
         <h1 className='text-2xl text-bold mb-4'>Destaque aluguel</h1>
         <Grid3 data={veiculos} textButton="Alugue já"/>
       </div>
+      <WhatsButton />
+      <Footer />
     </main>
   )
 }

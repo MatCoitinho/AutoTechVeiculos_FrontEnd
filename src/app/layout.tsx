@@ -2,11 +2,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '../components/themeProvider'
-import { Header } from '../components/ui/header'
-import Footer from '../components/ui/footer'
-import { WhatsButton } from '../components/ui/whatsapp'
 import { AuthProvider } from '../hooks/useAuth'
 import { Toaster } from '../components/ui/toaster'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +18,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  const admin = () => {
+    return(
+      <></>
+    )
+  }
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
@@ -29,10 +33,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
-            <Header/>
+            
             {children}
-            <WhatsButton/>
-            <Footer/>
+           
           </AuthProvider>
         </ThemeProvider>
         <Toaster />

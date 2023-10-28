@@ -1,5 +1,7 @@
 'use client'
-
+import { Header } from '../../components/ui/header'
+import Footer from '../../components/ui/footer'
+import { WhatsButton } from '../../components/ui/whatsapp'
 import { Card } from "../../components/ui/card"
 import { veiculos } from "../../lib/data"
 
@@ -10,6 +12,7 @@ export default function Search({
 }) {
   return (
     <main className="flex min-h-screen flex-col items-center">
+      <Header />
       <div className='max-w-7xl w-full flex flex-col py-12 px-4 mt-36'>
         <h1 className='text-2xl text-bold mb-4'>Resultados da busca</h1>
         <div className='grid grid-cols-3 gap-16'>
@@ -37,6 +40,8 @@ export default function Search({
           )) }
         </div>
       </div>
+      <WhatsButton />
+      <Footer />
     </main>
   )
 }
