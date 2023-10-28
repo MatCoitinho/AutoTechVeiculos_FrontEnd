@@ -29,7 +29,7 @@ export default function veiculos(){
 const veiculos1 =  //Veiculo
 [
     {
-        "id": 1,
+        "id": 4,
         "tipoCombustivel": "gasolina",
         "model": "Onix",
         "marca": "Chevrolet",
@@ -37,11 +37,13 @@ const veiculos1 =  //Veiculo
         "cambio": "True",
         "categoria": "sedan",
         "qtdPortas": "4",
-        "placa": "mio1234",
+        "dono_cpf": "20918921222",
+        "placa": "pas1234",
         "quilometragem": "0",
         "status": true,
-        "cor": "Preto",
-        "modelo": 9
+        "cor": "Cinza",
+        "modelo": 9,
+        "dono": 1    
     }
 ]
 
@@ -53,8 +55,7 @@ const veiculos1 =  //Veiculo
             <div key={index} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
                 <h2 className='text-center font-bold'>{veiculo.model}</h2>
                 <p>Marca: {veiculo.marca}</p>
-                <p>CPF Dono: {veiculo.d}</p>
-                <p>Nome Dono: {veiculo.dono.user.first_name}</p>
+                <p>CPF Dono: {veiculo.dono_cpf}</p>
                 <p>Cor: {veiculo.cor}</p>
                 <p>Placa: {veiculo.placa}</p>
                 <p>Quilometragem: {veiculo.quilometragem}</p>

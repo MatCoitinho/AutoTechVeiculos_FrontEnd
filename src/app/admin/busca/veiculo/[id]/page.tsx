@@ -29,28 +29,21 @@ export default function veiculos(){
 const veiculos1 =  //Veiculo
 [
     {
-        "id": 1,
-        "placa": "3456432",
-        "quilometragem": "32456",
+        "id": 4,
+        "tipoCombustivel": "gasolina",
+        "model": "Onix",
+        "marca": "Chevrolet",
+        "ano": "2019",
+        "cambio": "True",
+        "categoria": "sedan",
+        "qtdPortas": "4",
+        "dono_cpf": "20918921222",
+        "placa": "pas1234",
+        "quilometragem": "0",
         "status": true,
-        "modelo": {
-            "id": 1,
-            "tipoCombustivel": "gasolina",
-            "model": "dfgfhg",
-            "marca": "dfghjhg",
-            "ano": 1999,
-            "cambio": true,
-            "categoria": "compacto",
-            "qtdPortas": 4
-        },
-        "dono": {
-            "id": 1,
-            "cpf": "12345678910",
-            "telefone": "44997171020",
-            "endereco": "sadsf44",
-            "user": 2
-        },
-        "cor": "rosa"
+        "cor": "Cinza",
+        "modelo": 9,
+        "dono": 1    
     }
 ]
 
@@ -60,10 +53,9 @@ const veiculos1 =  //Veiculo
         if(veiculos1.length<1) throw('error');
         modelsComponents = veiculos1.map((veiculo, index) => (
             <div key={index} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
-                <h2 className='text-center font-bold'>{veiculo.modelo.model}</h2>
-                <p>Marca: {veiculo.modelo.marca}</p>
-                <p>CPF Dono: {veiculo.dono.cpf}</p>
-                <p>Nome Dono: {veiculo.dono.user.first_name}</p>
+                <h2 className='text-center font-bold'>{veiculo.model}</h2>
+                <p>Marca: {veiculo.marca}</p>
+                <p>CPF Dono: {veiculo.dono_cpf}</p>
                 <p>Cor: {veiculo.cor}</p>
                 <p>Placa: {veiculo.placa}</p>
                 <p>Quilometragem: {veiculo.quilometragem}</p>
