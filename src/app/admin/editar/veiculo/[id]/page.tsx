@@ -56,7 +56,7 @@ export default function cadastrarVeiculos(){
 
 
                     <form>
-                        <div className='flex mt-10 justify-center p-5'>
+                        <div className='flex mt-10 justify-center p-5 text-black'>
                             <div className='grid grid-cols-2 gap-4'>
                                 
                                 <div className='w-1/2'>

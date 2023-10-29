@@ -36,7 +36,7 @@ export default function cadastrarVeiculos(){
 
 
     return(
-        <div className='flex min-h-screen '>
+        <div className='flex min-h-screen text-black'>
             <div className='w-1/5 bg-black text-center'>
                 <a href='/admin/'>
                 
