@@ -2,19 +2,37 @@
 import 'tailwindcss/tailwind.css'
 import SideBarAdmin from '../../../../../components/ui/sideBarAdmin'
 import { useState } from 'react'
+import { storage } from '@/lib/uploadImage'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { error } from 'console'
+
+
+
+
+
+
+
+
+
 
 function cadastrarAnuncio(){
 
     const [inputs, setInputs] = useState({
         placa: '',
         preco: '',
-        destaque: '',
-        servico: '',
+        destaque: 'Ativado',
+        servico: 'Aluguel',
         descricao: '',
         image1:''
     })
 
     const getInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputs({
+            ...inputs,
+            [event.target.name]: event.target.value
+        })
+    }
+    const getInputsText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setInputs({
             ...inputs,
             [event.target.name]: event.target.value
@@ -34,24 +52,73 @@ function cadastrarAnuncio(){
     const [content2, setContent2 ] = useState(<p className=' text-7xl'>+</p>)
 
     const leImgam = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInputs({
-            ...inputs,
-            [event.target.name]: event.target.files
-        })
-        let teste = event.target.files
-        if(teste)
-            setContent(<p>{teste[0].name}</p>)
+        const files = event.target.files
+        let file
+
+        if(files)
+            file = files[0]
+        if(!file) return
+
+        const storageRef = ref(storage, `images/${file.name}`)
+        const uploadTask = uploadBytesResumable(storageRef, file)
+        uploadTask.on(
+            "state_changed",
+            snapshot => {
+                const progress = (snapshot.bytesTransferred/snapshot.totalBytes) * 100
+            },
+            error => {
+                alert(error)
+            }, 
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then( url =>{
+                    console.log(url)
+                    setInputs({
+                        ...inputs,
+                        [event.target.name]: url
+                    })
+                }
+                )
+            }
+        )
+        if(file)
+            setContent(<p>{file.name}</p>)
+        
       };
 
       const leImgam2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInputs({
-            ...inputs,
-            [event.target.name]: event.target.files
-        })
-        let teste = event.target.files
-        if(teste)
-            setContent2(<p>{teste[0].name}</p>)
-      };
+        const files = event.target.files
+        let file
+
+        if(files)
+            file = files[0]
+        if(!file) return
+
+        const storageRef = ref(storage, `images/${file.name}`)
+        const uploadTask = uploadBytesResumable(storageRef, file)
+        uploadTask.on(
+            "state_changed",
+            snapshot => {
+                const progress = (snapshot.bytesTransferred/snapshot.totalBytes) * 100
+                setContent(<p>{progress}</p>)
+            },
+            error => {
+                alert(error)
+            }, 
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then( url =>{
+                    console.log(url)
+                    setInputs({
+                        ...inputs,
+                        [event.target.name]: url
+                    })
+                }
+                )
+            }
+        )
+        if(file)
+            setContent2(<p>{file.name}</p>)
+        
+    }
       
       
 
@@ -141,7 +208,7 @@ let valor = true
                                 <label>
                                     Descrição
                                     <div>
-                                        <textarea id="descricao" onChange={leImgam} name="descricao" maxLength={200} className='bg-zinc-300 flex w-96 p-3 h-36 resize-none'></textarea>
+                                        <textarea id="descricao" onChange={getInputsText} name="descricao" maxLength={200} className='bg-zinc-300 flex w-96 p-3 h-36 resize-none'></textarea>
                                     </div>
                                 </label>
                             </div>      
@@ -149,7 +216,7 @@ let valor = true
                     </div>
                     <div>
                         <div className='flex justify-center mt-4'>
-                            <button onClick={click} className='m p-3 w-1/4 bg-blue-500 text-white rounded-xl' type='button'>Cadastrar</button>
+                            <button onClick={click} className='m-3 p-3 w-1/4 bg-blue-500 text-white rounded-xl' type='button'>Cadastrar</button>
                         </div>
                     </div>
                     </form>
