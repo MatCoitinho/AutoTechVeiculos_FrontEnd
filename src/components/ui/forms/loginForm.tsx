@@ -28,12 +28,13 @@ const FormSchema = z.object({
 
 interface ILoginFormProps {
   closeLogin: () => void;
-  signIn: (data: ISignInCredentials) => Promise<void>;
-}
+  signIn: (data: ISignInCredentials) => Promise<void>
+    
+  };
+
 
 export function LoginForm({ closeLogin, signIn }: ILoginFormProps) {
   const [isLoading, setIsLoading] = useState(false)
-
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -41,6 +42,7 @@ export function LoginForm({ closeLogin, signIn }: ILoginFormProps) {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsLoading(true)
     await signIn(data)
+    console.log(data)
     setIsLoading(false)
     closeLogin()
   }
