@@ -84,7 +84,7 @@ const clientes1 =  [
 
                     <div className='  inline-block'>
                         <label>
-                            <div className='flex'>
+                            <div className='flex m-3'>
                                 <input type='text' onChange={setValueSearch} className='bg-zinc-300 rounded-s-xl'/>
                                 <button onClick={click} className='bg-zinc-300 rounded-e-xl p-1'>
                                     <Search/>
@@ -93,11 +93,9 @@ const clientes1 =  [
                         </label>
                     </div>
 
-                    <button  className='m-3 p-1 bg-blue-500  text-white rounded-xl  ' type='button'>
-                        <a href='http://localhost:3000/admin/cadastrar/anuncio'>
-                            Adicionar
-                        </a>  
-                    </button>
+                    <div>
+
+                    </div>
                 </div>
                     <div className='flex justify-center space-x-32'>
                         <div className='grid grid-cols-3 gap-10 p-2 '>
