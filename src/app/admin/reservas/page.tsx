@@ -5,8 +5,8 @@ import { Search } from 'lucide-react'
 import SideBarAdmin from '../../../components/ui/sideBarAdmin'
 import { useRouter } from "next/navigation";
 
-import {useState} from 'react';
-
+import {useState, useEffect} from 'react';
+import { getReserva } from '@/app/api/getReservas';
 export default function reservas(){
    
    
@@ -29,53 +29,51 @@ export default function reservas(){
     }
 
 
-const reservas1 = [
-    {
-        "id": 1,
-        "cliente_email": "admin@example.com",
-        "cliente_firstName": "Matheus",
-        "cliente_lastName": "Coito",
-        "cpf": "20918921222",
-        "telefone": "44332123344",
-        "endereco": "Rua renegados, 69",
-        "tipoCombustivel": "gasolina",
-        "model": "Onix",
-        "marca": "Chevrolet",
-        "ano": "2019",
-        "cambio": "True",
-        "categoria": "sedan",
-        "qtdPortas": "4",
-        "data": "2023-10-22",
-        "horario": "10:30:00",
-        "cliente": 1,
-        "veiculo": 1
-    }
-    ]
-    let modelsComponents;
-    try{ 
-        if(reservas1.length<1) throw('error');
-        modelsComponents = reservas1.map((reserva, index) => (
-            <div key={index} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
-                <h2 className='text-center font-bold'>Reservas</h2>
-                <p>Data: {reserva.data}</p>
-                <p>Horário: {reserva.horario}</p>
-                <p>Modelo: {reserva.model}</p>
-                <p>Marca: {reserva.marca}</p>
-                <p>Nome: {reserva.cliente_firstName}</p>
-                <p>Endereço: {reserva.endereco}</p>
-                <p>Email: {reserva.cliente_email}</p>
-                <p>Telefone: {reserva.telefone}</p>
+    const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
-                <div className='flex   justify-between mt-4'>
-                    <button   className='p-2  bg-zinc-300  rounded-md ' type='button'>Editar</button>
-                    <button  className='p-2  bg-zinc-300  rounded-md' type='button'>Deletar</button>
-                </div>
-            </div>
-    ))
-    } catch{
-        modelsComponents =<p className='  text-red-500 text-center'>nenhum item encontrado</p> 
+    useEffect(() => {
+        async function getdados() {
+            const data = await getReserva('');
+        
+            try{ 
+                if(!data) throw('error')
+                let value = data.data
+                setModelsComponents(value.map((reserva) => (
+                    <div key={reserva.id} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
+                        <h2 className='text-center font-bold'>Reservas</h2>
+                        <p>Data: {reserva.data}</p>
+                        <p>Horário: {reserva.horario}</p>
+                        <p>Modelo: {reserva.model}</p>
+                        <p>Marca: {reserva.marca}</p>
+                        <p>Nome: {reserva.cliente_firstName}</p>
+                        <p>Endereço: {reserva.endereco}</p>
+                        <p>Email: {reserva.cliente_email}</p>
+                        <p>Telefone: {reserva.telefone}</p>
 
-    }
+                        <div className='flex   justify-center mt-4'>
+                            <button   className='p-2  bg-zinc-300  rounded-md ' type='button'>Concluida</button>
+                        </div>
+                    </div>
+                    
+
+
+                  
+                )));
+            }  catch{
+                setModelsComponents([<p className='text-red-500 text-center'>nenhum item encontrado</p>]);
+            }
+        }
+
+        getdados();
+    }, []);
+
+
+
+
+
+
+
+
 
 
 

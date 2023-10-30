@@ -5,7 +5,9 @@ import { Search } from 'lucide-react'
 import SideBarAdmin from '../../../components/ui/sideBarAdmin'
 import { useRouter } from "next/navigation";
 
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import {getAluguel} from '../../api/getAlugueis' 
+
 
 export default function alugueis(){
     const {push} = useRouter();
@@ -28,54 +30,57 @@ export default function alugueis(){
     
 
 
-//alugueis
-const alugueis1 = [
-        {
-            "id": 1,
-            "cliente_email": "admin@example.com",
-            "cliente_firstName": "Matheus",
-            "cliente_lastName": "Coito",
-            "cpf": "20918921222",
-            "telefone": "44332123344",
-            "endereco": "Rua renegados, 69",
-            "tipoCombustivel": "gasolina",
-            "model": "Onix",
-            "marca": "Chevrolet",
-            "ano": "2019",
-            "cambio": "True",
-            "categoria": "sedan",
-            "qtdPortas": "4",
-            "placa": "mio1234",
-            "dataInicio": "2023-12-20",
-            "dataDev": "2023-12-25",
-            "cliente": 1,
-            "veiculo": 1
-        }
-    ]
-    let modelsComponents;
-    try{ 
-        if(alugueis1.length<1) throw('error');
-        modelsComponents = alugueis1.map((aluguel, index) => (
-            <div key={index} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
-                <h2 className='text-center font-bold'>Aluguel</h2>
-                <p>Retirada: {aluguel.dataInicio}</p>
-                <p>Devolução: {aluguel.dataDev}</p>
-                <p>Modelo: {aluguel.model}</p>
-                <p>Marca: {aluguel.marca}</p>
-                <p>Nome: {aluguel.cliente_firstName}</p>
-                <p>Endereço: {aluguel.endereco}</p>
-                <p>Email: {aluguel.cliente_email}</p>
-                <p>Telefone: {aluguel.telefone}</p>
-                
+    const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
+
+    useEffect(() => {
+        async function getdados() {
+            const data = await getAluguel('');
+        
+            try{ 
+                if(!data) throw('error')
+                let value = data.data
+                setModelsComponents(value.map((aluguel) => (
+                    <div key={aluguel.id} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
+                    <h2 className='text-center font-bold'>Aluguel</h2>
+                    <p>Retirada: {aluguel.dataInicio}</p>
+                    <p>Devolução: {aluguel.dataDev}</p>
+                    <p>Modelo: {aluguel.model}</p>
+                    <p>Marca: {aluguel.marca}</p>
+                    <p>Nome: {aluguel.cliente_firstName}</p>
+                    <p>Endereço: {aluguel.endereco}</p>
+                    <p>Email: {aluguel.cliente_email}</p>
+                    <p>Telefone: {aluguel.telefone}</p>
+                    
                 <div className='flex   justify-center mt-4'>
                     <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('alugel', String(aluguel.id))} type='button'>Deletar</button>
                 </div>
             </div>
-    ))
-    } catch{
-        modelsComponents =<p className='  text-red-500 text-center'>nenhum item encontrado</p> 
+                    
 
-    }
+
+                  
+                )));
+            }  catch{
+                setModelsComponents([<p className='text-red-500 text-center'>nenhum item encontrado</p>]);
+            }
+        }
+
+        getdados();
+    }, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

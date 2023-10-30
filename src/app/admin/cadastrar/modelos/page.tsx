@@ -2,15 +2,15 @@
 import 'tailwindcss/tailwind.css'
 import SideBarAdmin from '../../../../components/ui/sideBarAdmin'
 import { useState } from 'react'
+import { createModel } from '@/app/api/createModel'
 export default function cadastrarModelos(){
-
     const [inputs, setInputs] = useState({
         marca: '',
         modelo: '',
         ano: '',
-        portas: 'duas',
+        portas: 2,
         combustivel: 'gasolina',
-        cambio: 'automatico',
+        cambio: 1,
         categoria: 'compacto'
     })
 
@@ -26,9 +26,29 @@ export default function cadastrarModelos(){
             [event.target.name]: event.target.value
         })
     }
+
+    const getInputsSelectBool = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        setInputs({
+            ...inputs,
+            [event.target.name]: value === '1' ? 1 : 0 // Converte a string para um número
+        });
+    };
+    
+
     const click = () =>{
-       
-        console.log(inputs)
+        let modelo = {
+            tipoCombustivel: inputs.combustivel,
+            model: inputs.modelo,
+            marca: inputs.marca,
+            ano: Number(inputs.ano),
+            cambio: Boolean(inputs.cambio),
+            categoria: inputs.categoria,
+            qtdPortas: Number(inputs.portas),
+        }
+        console.log(modelo)
+        createModel(modelo)
+
     }
     return(
         <div className='flex min-h-screen text-black'>
@@ -103,9 +123,9 @@ export default function cadastrarModelos(){
                             <div>
                                 <label>
                                     Câmbio
-                                    <select name='cambio' defaultValue={'automatico'} onChange={getInputsSelect} className='bg-zinc-300 flex w-96 p-3 text-center'>
-                                        <option value={'automatico'}>Automático</option>
-                                        <option value={'manual'}>Manual</option>
+                                    <select name='cambio' defaultValue={'automatico'} onChange={getInputsSelectBool} className='bg-zinc-300 flex w-96 p-3 text-center'>
+                                        <option value={1}>Automático</option>
+                                        <option value={0}>Manual</option>
                                     </select>
                                 </label>
                             </div>

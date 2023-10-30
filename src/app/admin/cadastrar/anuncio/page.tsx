@@ -6,7 +6,7 @@ import { storage } from '@/lib/uploadImage'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { error } from 'console'
 
-
+import { createAnoucement } from '@/app/api/createAnuncio'
 
 
 
@@ -20,10 +20,11 @@ function cadastrarAnuncio(){
     const [inputs, setInputs] = useState({
         placa: '',
         preco: '',
-        destaque: 'Ativado',
-        servico: 'Aluguel',
+        destaque: 0,
+        servico: 0,
         descricao: '',
-        image1:''
+        image1:'',
+        image2:''
     })
 
     const getInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,14 +40,29 @@ function cadastrarAnuncio(){
         })
     }
     const getInputsSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
         setInputs({
             ...inputs,
-            [event.target.name]: event.target.value
-        })
-    }
+            [event.target.name]: value === '1' ? 1 : 0
+        });
+    };
+    
     
     const click = () => {
-        console.log(inputs)
+        let anuncio = {
+            pontos: 0,
+            img1:inputs.image1,
+            img2:inputs.image2,
+            descricao: inputs.descricao,
+            placa: inputs.placa,
+            destaque: Boolean(inputs.destaque),
+            preco: Number(inputs.preco),
+            servico: Boolean(inputs.servico),
+        }
+        console.log(anuncio)
+        createAnoucement(anuncio);
+    
+
     }
     const [content, setContent ] = useState(<p className=' text-7xl'>+</p>)
     const [content2, setContent2 ] = useState(<p className=' text-7xl'>+</p>)
@@ -189,8 +205,8 @@ let valor = true
                                 <label>
                                     Destaque
                                     <select onChange={getInputsSelect} name='destaque' className='bg-zinc-300 flex w-96 p-3 text-center'>
-                                        <option value={'Ativado'}>Ativado</option>
-                                        <option value={'Desativado'}>Desativado</option>
+                                        <option value={0}>Desativado</option>
+                                        <option value={1}>Ativado</option>
                                     </select>
                                 </label>
                             </div>
@@ -198,8 +214,8 @@ let valor = true
                                 <label>
                                     Serviço
                                     <select name='servico' onChange={getInputsSelect} defaultValue={'Aluguel'} className='bg-zinc-300 flex w-96 p-3 text-center'>
-                                        <option value={'Aluguel'}>Aluguel</option>
-                                        <option value={'Reserva'}>Reserva</option>
+                                        <option value={0}>Reserva</option>
+                                        <option value={1}>Aluguel</option>
                                     </select>
                                 </label>
                             </div>

@@ -4,9 +4,9 @@ import 'tailwindcss/tailwind.css'
 import { Search } from 'lucide-react'
 import SideBarAdmin from '../../../components/ui/sideBarAdmin'
 import { useRouter } from "next/navigation";
-
+import { useEffect } from 'react';
 import {useState} from 'react';
-
+import { getModelo } from '@/app/api/getModelos';
 
 
     
@@ -29,26 +29,17 @@ export default function modelos(){
         alert(busca);
     }
 
-    const modelos1 = 
-    [
-        {
-            "id": 9,
-            "tipoCombustivel": "gasolina",
-            "model": "Onix",
-            "marca": "Chevrolet",
-            "ano": 2019,
-            "cambio": true,
-            "categoria": "sedan",
-            "qtdPortas": 4
-        }
+    const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
+
+    useEffect(() => {
+        async function getdados() {
+            const data = await getModelo('');
         
-        
-    ]
-    let modelsComponents;
-    try{ 
-        if(modelos1.length<1) throw('error');
-        modelsComponents = modelos1.map((model, index) => (
-            <div key={index} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
+            try{ 
+                if(!data) throw('error')
+                let value = data.data
+                setModelsComponents(value.map((model) => (
+                    <div key={model.id} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
                 <h2 className='text-center font-bold'>{model.model}</h2>
                 <p>Marca: {model.marca}</p>
                 <p>Ano: {model.ano}</p>
@@ -60,12 +51,23 @@ export default function modelos(){
                     <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('modelo', String(model.id))} type='button'>Editar</button>
                     <button  className='p-2  bg-zinc-300  rounded-md' type='button'>Deletar</button>
                 </div>
-            </div>
-    ))
-    } catch{
-        modelsComponents =<p className='  text-red-500 text-center'>nenhum item encontrado</p> 
+            </div> 
+                    
 
-    }
+
+                  
+                )));
+            }  catch{
+                setModelsComponents([<p className='text-red-500 text-center'>nenhum item encontrado</p>]);
+            }
+        }
+
+        getdados();
+    }, []);
+
+
+
+
 
 
 

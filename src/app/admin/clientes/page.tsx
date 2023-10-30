@@ -5,8 +5,8 @@ import { Search } from 'lucide-react'
 import SideBarAdmin from '../../../components/ui/sideBarAdmin'
 import { useRouter } from "next/navigation";
 
-import {useState} from 'react';
-
+import {useState, useEffect} from 'react';
+import { getCliente } from '@/app/api/getCliente';
 
 export default function Clientes(){
    
@@ -29,39 +29,46 @@ export default function Clientes(){
     }
 
 
-const clientes1 =  [
-    {
-        "id": 1,
-        "cliente_email": "admin@example.com",
-        "cliente_firstName": "Matheus",
-        "cliente_lastName": "Coito",
-        "cpf": "20918921222",
-        "telefone": "44332123344",
-        "endereco": "Rua renegados, 69",
-        "user": 1
-    }
-]
+    const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
-    
-    let modelsComponents;
-    try{ 
-        if(clientes1.length<1) throw('error');
-        modelsComponents = clientes1.map((clientes, index) => (
-            <div key={index} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
-                <h2 className='text-center font-bold'>{clientes.cliente_firstName}</h2>
-                <p className=' text-xs  max-w-xs'>Nome: {clientes.cliente_firstName} {clientes.cliente_lastName}</p>
-                <p>E-mail: {clientes.cliente_email}</p>
-                <p>CPF: {clientes.cpf}</p>
-                <p>Endereço: {clientes.endereco}</p>
-                <p>Telefone: {clientes.telefone}</p>
-                <div className='flex  justify-center mt-4'>
-                    <button  className='p-2  bg-zinc-300  rounded-md' type='button'>Deletar</button>
-                </div>
-            </div>
-    ))
-    } catch{
-        modelsComponents =<p className='  text-red-500 text-center'>nenhum item encontrado</p> 
-    }
+    useEffect(() => {
+        async function getdados() {
+            const data = await getCliente('');
+        
+            try{ 
+                if(!data) throw('error')
+                let value = data.data
+                setModelsComponents(value.map((clientes) => (
+                <div key={clientes.id} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
+                    <h2 className='text-center font-bold'>{clientes.cliente_firstName}</h2>
+                    <p className=' text-xs  max-w-xs'>Nome: {clientes.cliente_firstName} {clientes.cliente_lastName}</p>
+                    <p>E-mail: {clientes.cliente_email}</p>
+                    <p>CPF: {clientes.cpf}</p>
+                    <p>Endereço: {clientes.endereco}</p>
+                    <p>Telefone: {clientes.telefone}</p>
+                    <div className='flex  justify-center mt-4'>
+                        <button  className='p-2  bg-zinc-300  rounded-md' type='button'>Deletar</button>
+                    </div>
+                </div>  
+                    
+
+
+                  
+                )));
+            }  catch{
+                setModelsComponents([<p className='text-red-500 text-center'>nenhum item encontrado</p>]);
+            }
+        }
+
+        getdados();
+    }, []);
+
+
+
+
+
+
+
 
 
 

@@ -11,7 +11,6 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_APPID,
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENTID
 };
-console.log(firebaseConfig)
 
 //export default function UploadImage(image: File) { 
   
