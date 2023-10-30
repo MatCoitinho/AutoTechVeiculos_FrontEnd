@@ -6,7 +6,7 @@ import SideBarAdmin from '../../../components/ui/sideBarAdmin'
 import { useRouter } from "next/navigation";
 import { getVeiculo } from '@/app/api/getVeiculos';
 import {useState, useEffect} from 'react';
-
+import { deleteVehicle } from '@/app/api/deleteVehicle';
 
 export default function veiculos(){
     const {push} = useRouter();
@@ -23,10 +23,12 @@ export default function veiculos(){
     }
 
     const click = () => {
-        alert(busca);
+        push(`/admin/busca/veiculo/${busca}`)
     }
 
-
+    const deletar = (id: any) =>{
+        deleteVehicle(id)
+    }
 
     const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
@@ -50,8 +52,8 @@ export default function veiculos(){
                         
 
                         <div className='flex  justify-between mt-4'>
-                        <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('modelo', String(veiculo.id))} type='button'>Editar</button>
-                            <button  className='p-2  bg-zinc-300  rounded-md' type='button'>Deletar</button>
+                        <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('veiculo', String(veiculo.id))} type='button'>Editar</button>
+                            <button  className='p-2  bg-zinc-300  rounded-md' type='button' onClick={() => deletar(veiculo.id)}>Deletar</button>
                         </div>
                     </div>
                     

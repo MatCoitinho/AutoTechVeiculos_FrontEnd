@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 import {useState, useEffect} from 'react';
 import { getCliente } from '@/app/api/getCliente';
+import { deleteClient } from '@/app/api/deleteCliente';
 
 export default function Clientes(){
    
@@ -25,9 +26,13 @@ export default function Clientes(){
     }
 
     const click = () => {
-        alert(busca);
+        push(`/admin/busca/cliente/${busca}`)
+        
     }
 
+    const deletar = (id: any)=>{
+        deleteClient(id)    
+    }
 
     const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
@@ -47,7 +52,7 @@ export default function Clientes(){
                     <p>Endereço: {clientes.endereco}</p>
                     <p>Telefone: {clientes.telefone}</p>
                     <div className='flex  justify-center mt-4'>
-                        <button  className='p-2  bg-zinc-300  rounded-md' type='button'>Deletar</button>
+                        <button  className='p-2  bg-zinc-300  rounded-md' type='button' onClick={() => deletar(clientes.id)}>Deletar</button>
                     </div>
                 </div>  
                     

@@ -2,6 +2,8 @@
 import 'tailwindcss/tailwind.css'
 import SideBarAdmin from '../../../../components/ui/sideBarAdmin'
 import { useState } from 'react'
+import { number } from 'zod'
+import { createVehicle } from '@/app/api/createVehicle'
 export default function cadastrarVeiculos(){
 
 
@@ -9,7 +11,7 @@ export default function cadastrarVeiculos(){
         placa: '',
         quilometragem: '',
         cor: '',
-        estado: 'Novo',
+        estado: 1,
         ano: '',
         modelo: '',
         cpf: ''
@@ -22,15 +24,25 @@ export default function cadastrarVeiculos(){
         })
     }
     const getInputsSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
         setInputs({
             ...inputs,
-            [event.target.name]: event.target.value
-        })
+            [event.target.name]: value === '1' ? 1 : 0 // Converte a string para um número
+        });
     }
+
     const click = () =>{
-       
-        console.log(inputs)
-        
+       let veiculos = {
+        placa: inputs.placa,
+        quilometragem: inputs.quilometragem,
+        status: Boolean(inputs.estado),
+        modelo: inputs.modelo,
+        cor: inputs.cor,
+        ano: Number(inputs.ano),
+        dono: inputs.cpf
+       }
+       console.log(veiculos)
+        createVehicle(veiculos)
     }
 
 
@@ -63,7 +75,7 @@ export default function cadastrarVeiculos(){
                                     <label>
                                         Placa
                                         <div>
-                                            <input type='text' onChange={getInputs} name='placa' required className='bg-zinc-300 flex  w-96 p-3'/>
+                                            <input type='text' onChange={getInputs} maxLength={7} name='placa' required className='bg-zinc-300 flex  w-96 p-3'/>
                                         </div>
                                     </label>
                                 </div>
@@ -87,8 +99,8 @@ export default function cadastrarVeiculos(){
                                     <label>
                                         Estado
                                         <select name='estado' onChange={getInputsSelect} defaultValue={'Novo'} className='bg-zinc-300 flex w-96 p-3 text-center'>
-                                            <option value={'Novo'}>Novo</option>
-                                            <option value={'usado'}>Usado</option>
+                                            <option value={1}>Novo</option>
+                                            <option value={0}>Usado</option>
                                         </select>
                                     </label>
                                 </div>

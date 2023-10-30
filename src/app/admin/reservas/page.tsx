@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 import {useState, useEffect} from 'react';
 import { getReserva } from '@/app/api/getReservas';
+import { deleteReserva } from '@/app/api/deleteReserva';
 export default function reservas(){
    
    
@@ -28,6 +29,9 @@ export default function reservas(){
         alert(busca);
     }
 
+    const deletar = (id: any) =>{
+        deleteReserva(id)
+    }
 
     const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
@@ -51,7 +55,7 @@ export default function reservas(){
                         <p>Telefone: {reserva.telefone}</p>
 
                         <div className='flex   justify-center mt-4'>
-                            <button   className='p-2  bg-zinc-300  rounded-md ' type='button'>Concluida</button>
+                            <button  className='p-2  bg-zinc-300  rounded-md' type='button' onClick={() => deletar(reserva.id)}>Deletar</button>
                         </div>
                     </div>
                     

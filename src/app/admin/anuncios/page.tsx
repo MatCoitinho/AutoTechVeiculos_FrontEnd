@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from 'react';
 
 import { getAnuncio } from '@/app/api/getAnuncio';
+import { deleteAnuncio } from '@/app/api/deleteAnuncio';
 
 
 
@@ -16,7 +17,9 @@ import { getAnuncio } from '@/app/api/getAnuncio';
 
 export default function anuncios(){
    
-
+    const deletar = (id: any)=>{
+        deleteAnuncio(id)
+    }
     const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
     useEffect(() => {
@@ -36,8 +39,8 @@ export default function anuncios(){
                         <p>Pontos: {anuncio.pontos}</p>
                         <p>Preço: {anuncio.preco}</p>
                         <div className='flex   justify-between mt-4'>
-                            <button  className='p-2  bg-zinc-300 rounded-md m-1' onClick={() => editar('modelo', String(anuncio.id))} type='button'>Editar</button>
-                            <button  className='p-2  bg-zinc-300  rounded-md m-1' type='button'>Deletar</button>
+                            <button  className='p-2  bg-zinc-300 rounded-md m-1' onClick={() => editar('anuncio', String(anuncio.id))} type='button'>Editar</button>
+                            <button  className='p-2  bg-zinc-300  rounded-md m-1' type='button' onClick={() => deletar(anuncio.id)}>Deletar</button>
                         </div>
                     </div>
                 )));
@@ -63,7 +66,7 @@ export default function anuncios(){
     }
 
     const click = () => {
-        alert(busca);
+        push(`/admin/busca/anuncio/${busca}`)
     }
 
 

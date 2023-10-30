@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 import {useState, useEffect} from 'react';
 import {getAluguel} from '../../api/getAlugueis' 
+import { deletealuguel } from '@/app/api/deleteAluguel';
 
 
 export default function alugueis(){
@@ -29,7 +30,9 @@ export default function alugueis(){
 
     
 
-
+    const deletar = (id: any)=>{
+        deletealuguel(id)
+    }
     const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
     useEffect(() => {
@@ -52,7 +55,7 @@ export default function alugueis(){
                     <p>Telefone: {aluguel.telefone}</p>
                     
                 <div className='flex   justify-center mt-4'>
-                    <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('alugel', String(aluguel.id))} type='button'>Deletar</button>
+                    <button  className='p-2  bg-zinc-300  rounded-md' type='button' onClick={() => deletar(aluguel.id)}>Deletar</button>
                 </div>
             </div>
                     

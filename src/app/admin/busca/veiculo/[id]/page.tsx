@@ -4,9 +4,9 @@ import 'tailwindcss/tailwind.css'
 import { Search } from 'lucide-react'
 import SideBarAdmin from '../../../../../components/ui/sideBarAdmin'
 import { useRouter } from "next/navigation";
-
-import {useState} from 'react';
-
+import { getVeiculo } from '@/app/api/getVeiculos';
+import {useState, useEffect} from 'react';
+import { deleteVehicle } from '@/app/api/deleteVehicle';
 
 export default function veiculos(){
     const {push} = useRouter();
@@ -23,55 +23,61 @@ export default function veiculos(){
     }
 
     const click = () => {
-        alert(busca);
+        push(`/admin/busca/veiculo/${busca}`)
     }
 
-const veiculos1 =  //Veiculo
-[
-    {
-        "id": 4,
-        "tipoCombustivel": "gasolina",
-        "model": "Onix",
-        "marca": "Chevrolet",
-        "ano": "2019",
-        "cambio": "True",
-        "categoria": "sedan",
-        "qtdPortas": "4",
-        "dono_cpf": "20918921222",
-        "placa": "pas1234",
-        "quilometragem": "0",
-        "status": true,
-        "cor": "Cinza",
-        "modelo": 9,
-        "dono": 1    
+    const deletar = (id: any) =>{
+        deleteVehicle(id)
     }
-]
 
-    
-    let modelsComponents;
-    try{ 
-        if(veiculos1.length<1) throw('error');
-        modelsComponents = veiculos1.map((veiculo, index) => (
-            <div key={index} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
-                <h2 className='text-center font-bold'>{veiculo.model}</h2>
-                <p>Marca: {veiculo.marca}</p>
-                <p>CPF Dono: {veiculo.dono_cpf}</p>
-                <p>Cor: {veiculo.cor}</p>
-                <p>Placa: {veiculo.placa}</p>
-                <p>Quilometragem: {veiculo.quilometragem}</p>
-                <p>Status: {veiculo.status == false? 'Indisponivel':'Disponivel'}</p>
-               
-                
+    const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
-                <div className='flex  justify-between mt-4'>
-                <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('modelo', String(veiculo.id))} type='button'>Editar</button>
-                    <button  className='p-2  bg-zinc-300  rounded-md' type='button'>Deletar</button>
-                </div>
-            </div>
-    ))
-    } catch{
-        modelsComponents =<p className='  text-red-500 text-center'>nenhum item encontrado</p> 
-    }
+    useEffect(() => {
+        async function getdados() {
+            const data = await getVeiculo('');
+        
+            try{ 
+                if(!data) throw('error')
+                let value = data.data
+                setModelsComponents(value.map((veiculo) => (
+                    <div key={veiculo.id} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
+                        <h2 className='text-center font-bold'>{veiculo.model}</h2>
+                        <p>Marca: {veiculo.marca}</p>
+                        <p>CPF Dono: {veiculo.dono_cpf}</p>
+                        <p>Cor: {veiculo.cor}</p>
+                        <p>Placa: {veiculo.placa}</p>
+                        <p>Quilometragem: {veiculo.quilometragem}</p>
+                        <p>Status: {veiculo.status == false? 'Indisponivel':'Disponivel'}</p>
+                    
+                        
+
+                        <div className='flex  justify-between mt-4'>
+                        <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('veiculo', String(veiculo.id))} type='button'>Editar</button>
+                            <button  className='p-2  bg-zinc-300  rounded-md' type='button' onClick={() => deletar(veiculo.id)}>Deletar</button>
+                        </div>
+                    </div>
+                    
+
+
+                  
+                )));
+            }  catch{
+                setModelsComponents([<p className='text-red-500 text-center'>nenhum item encontrado</p>]);
+            }
+        }
+
+        getdados();
+    }, []);
+
+
+
+
+
+
+
+
+
+
 
 
 

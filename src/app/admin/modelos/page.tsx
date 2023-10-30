@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from 'react';
 import {useState} from 'react';
 import { getModelo } from '@/app/api/getModelos';
+import { deleteModelo } from '@/app/api/deleteModelo';
 
 
     
@@ -26,7 +27,12 @@ export default function modelos(){
     }
 
     const click = () => {
-        alert(busca);
+        push(`/admin/busca/modelo/${busca}`)
+
+    }
+
+    const deletar = (id: any)=>{
+        deleteModelo(id)
     }
 
     const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
@@ -49,7 +55,8 @@ export default function modelos(){
                 <p>Categoria: {model.categoria}</p>
                 <div className='flex   justify-between mt-4'>
                     <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('modelo', String(model.id))} type='button'>Editar</button>
-                    <button  className='p-2  bg-zinc-300  rounded-md' type='button'>Deletar</button>
+                    <button  className='p-2  bg-zinc-300  rounded-md' type='button' onClick={() => deletar(model.id)}>Deletar</button>
+
                 </div>
             </div> 
                     
