@@ -5,6 +5,9 @@ import { useState } from "react";
 import { boolean, number, string } from "zod";
 import Router from "next/router";
 import { Route } from "lucide-react";
+import { getCliente } from "@/app/api/getCliente";
+import { loginResquest } from "@/app/api/postLogin";
+import { userResquest } from "@/app/api/PostLoginClient";
 
 export interface Response {
     token: string;
@@ -14,7 +17,8 @@ export interface Response {
       email: string,
       phone: string,
       cpf: string,
-      address: string
+      address: string,
+      is_supperUser: boolean
     };
   }
   //const [user, setUser] = useState<User|null>( null )
@@ -27,32 +31,30 @@ export interface Response {
 
 
 async function  signIn({email, password}: ISignInCredentials){
-    const user = signinRequest({
+    const user = await signinRequest({
         email,
         password
     }) 
-      if(user?.token){
-        setCookie(undefined, 'AutoTech_token', user.token, {maxAge: 600} )
+    
+    if(user?.token){
+        setCookie(undefined, 'AutoTech_token', user.token, {maxAge: 1200} )
         return user;
       } 
 }
 
-function getUserData(id: string): Promise<Response> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        token: 'jk12h3j21h3jk212h3jk12h3jkh12j3kh12k123hh21g3f12f3',
-        user: {
-            id: '1',
-            name: 'joao',
-            email: 'joao@a.com',
-            phone: '44997171020',
-            cpf: '12345678910',
-            address: 'souza Navez'
-        }
-    });
-    }, 2000);
-  });
+export async function getUserData(id: string): Promise<Response| undefined> {
+    console.log('id')
+    console.log(id)
+    const usuario = await userResquest(id)
+    console.log('usuario')
+    console.log(usuario)
+    if(usuario){
+      return { 
+        token: '', 
+        user: usuario.user
+      }
+    }
+  
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

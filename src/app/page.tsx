@@ -16,7 +16,7 @@ export default function Home() {
         <div className='max-w-7xl w-full flex items-center justify-center flex-col'>
           <h1 className="font-bold text-red-700 tracking-[0.3em] text-3xl">AUTOTECH</h1>
           <div className="w-24 h-1 bg-red-700 my-12"/>
-          <h4 className="animate-typing overflow-hidden whitespace-nowrap font-semibold text-white tracking-[0.3em] text-xl text-center px-4">Coloque uma frase massa aqui</h4>
+          <h4 className="animate-typing overflow-hidden whitespace-nowrap font-semibold text-white tracking-[0.3em] text-xl text-center px-4">Seu sonho sobre rodas</h4>
         </div>
       </div>
 

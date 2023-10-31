@@ -22,14 +22,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     async function loadStorageData() {
       const {'AutoTech_token': token} = parseCookies()
-      const storagedUser =  JSON.stringify(recoverUserInformation())
+     
+      const storagedUser =  JSON.stringify( await recoverUserInformation())
       const storagedToken = token
 
       if (storagedUser && storagedToken) {
-        console.log('ok')
         // get user data from api
         const response = await auth.getUserData(storagedUser);
-        setUser(response.user);
+        console.log('Response')
+        console.log(response)
+        if(response?.user){
+          
+          setUser(response.user);
+        }
+        
       }
       setLoading(false);
     }
@@ -49,7 +55,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const response = await auth.signIn(props);
     if(response){
       setUser(response.user);
-      localStorage.setItem("@autotech:user", JSON.stringify(response.user.id));
+      localStorage.setItem("@autotech:user", JSON.stringify(response.user.email));
       localStorage.setItem("@autotech:token", response.token);
     }
   }
@@ -58,7 +64,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const storagedUser = localStorage.getItem("@autotech:user");
     if (storagedUser) {
       const response = await auth.getUserData(storagedUser);
-      setUser(response.user);
+      if(response?.user){
+        setUser(response.user);
+      }
       return true;
     }
     return false;
