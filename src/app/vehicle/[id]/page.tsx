@@ -6,30 +6,104 @@ import { WhatsButton } from '../../../components/ui/whatsapp'
 import { useRouter } from "next/navigation";
 import { Button } from "../../../components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import { veiculos } from "../../../lib/data";
+
 import { useCallback, useEffect, useState } from "react";
 import { Skeleton } from "../../../components/ui/skeleton";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../../../components/ui/dialog";
+import { criarReserva } from '@/app/api/createReserva';
+import { criarAluguel } from '@/app/api/createAluguel';
+import { getAnuncio } from '@/app/api/getAnuncio';
+
+
+type Carro = {
+  id: number;
+  modelo: string;
+  marca: string;
+  cambio: boolean;
+  ano: string;
+  combustivel: string;
+  placa: string;
+  cor: string;
+  categoria: string;
+  status: boolean;
+  dono: string;
+  pontos: number;
+  img1: string;
+  img2: string;
+  descricao: string;
+  destaque: boolean;
+  preco: number;
+  servico: boolean;
+  veiculo: number;
+};
+
+
+
+
+
+
+
+
 
 export default function Vehicle({ params }: { params: any; }) {
-  const router = useRouter()
-  const [vehicle, setVehicle] = useState<typeof veiculos[0]>()
+  const router = useRouter() 
+  const { query } = router
   const [isLoading, setIsLoading] = useState(false)
   const { id } = params;
 
   // get vehicle from api
-  const getDetails = useCallback(() => {
-    setIsLoading(true)
-    const cars = veiculos.filter((veiculo) => veiculo.id === id)[0];
-    new Promise(() => setTimeout(() => {
-      setVehicle(cars)
-      setIsLoading(false)
-    }, 2000))
-  }, [id])
+  const [vehicle, setVehicle] = useState<Carro[]>();
 
   useEffect(() => {
-    getDetails()
-  }, [getDetails])
+    setIsLoading(true)
+     const paginaId = query?.id
+    const fetchVeiculos = async () => {
+      const response = await getAnuncio(String(paginaId));
+      if (response) {
+        setVehicle(response.data);
+      } else {
+        setVehicle([]);
+        console.error('Failed to fetch veiculos');
+      }
+    };
+    setIsLoading(false)
+
+    fetchVeiculos();
+  }, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const click = () => {
+    let getemail = localStorage.getItem('@autotech:user')
+    const email = localStorage.replace(/["/]/g, '')
+    if(vehicle && vehicle.id){
+        const dados = {
+          id: vehicle?.id,
+          email: email
+        }
+
+      if(vehicle?.servico === 'Aluguel'){
+        criarAluguel(dados)
+      } else {
+        criarReserva(dados)
+      }
+    }
+  }
+
+
+
 
   return (
     <main className="flex min-h-screen flex-col items-center">
@@ -54,7 +128,7 @@ export default function Vehicle({ params }: { params: any; }) {
           ) : vehicle ? (
             <img src={vehicle.image} alt={`Imagem veículo ${id}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
           ) : (
-            <img src='/carro.jpeg' alt={`Imagem veículo ${id}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
+            <img src='' alt={`Imagem veículo ${id}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
           ) }
           <div className="w-1/2 flex flex-col mt-4 gap-4">
             {isLoading ? (
@@ -86,7 +160,7 @@ export default function Vehicle({ params }: { params: any; }) {
               <div className='flex flex-col gap-4 mt-auto'>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="rounded-full">Reservar</Button>
+                    <Button className="rounded-full" onClick={click}>{vehicle?.servico}</Button>
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>

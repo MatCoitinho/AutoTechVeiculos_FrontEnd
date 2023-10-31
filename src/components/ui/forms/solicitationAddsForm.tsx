@@ -24,15 +24,16 @@ import { Input } from "../input"
 import { useToast } from "../use-toast"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
+import { criarSolicitacao } from "@/app/api/createSolicitacao"
 
 const FormSchema = z.object({
   marca: z.optional(z.string()),
   modelo: z.optional(z.string()),
-  cambio: z.optional(z.string()),
   ano: z.optional(z.string()),
-  quilometragem: z.optional(z.string()),
-  tipoCombustivel: z.optional(z.string()),
+  quilometragem: z.string(z.string()),
+  cambio: z.optional(z.string()),
   servico: z.optional(z.string()),
+  tipoCombustivel: z.optional(z.string()),
 })
 
 interface ISolicitationAddsFormProps {
@@ -48,13 +49,32 @@ export function SolicitationAddsForm({ closeSolicitationAdds }: ISolicitationAdd
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    if(!data.ano || !data.cambio || !data.marca || !data.modelo || !data.quilometragem || !data.servico || !data.tipoCombustivel) {
+    if(!data.ano || !data.marca || !data.modelo || !data.quilometragem || !data.tipoCombustivel) {
       toast({
         title: "Erro ao enviar solicitação",
         description: "Preencha todos os campos",
         variant: "destructive",
       })
     } else {
+      let usuarioAtivo = localStorage.getItem('@autotech:user');
+      if(usuarioAtivo)
+        usuarioAtivo = usuarioAtivo.replace(/["/]/g, '')
+
+      if(data.cambio && data.servico && usuarioAtivo){
+        const form = {
+          marca: data.marca,
+          modelo: data.modelo,
+          ano: data.ano,
+          quilometragem: data.quilometragem,
+          cambio: data.cambio,
+          servico: data.servico,
+          solicitante: String(usuarioAtivo),
+          combustivel: data.tipoCombustivel,
+          situacao:  false
+        }
+        criarSolicitacao(form)
+      }
+
       setLoading(true)
       await new Promise((resolve) => setTimeout(resolve, 2000))
       toast({
@@ -130,10 +150,9 @@ export function SolicitationAddsForm({ closeSolicitationAdds }: ISolicitationAdd
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
-                  <SelectItem value="cambio 1">cambio 1</SelectItem>
-                  <SelectItem value="cambio 2">cambio 2</SelectItem>
-                  <SelectItem value="cambio 3">cambio 3</SelectItem>
+                <SelectContent defaultValue='Manual'>
+                  <SelectItem value='manual'>Manual</SelectItem>
+                  <SelectItem value='automatico'>Automatico</SelectItem>
                 </SelectContent>
               </Select>
               </FormItem>
@@ -164,9 +183,9 @@ export function SolicitationAddsForm({ closeSolicitationAdds }: ISolicitationAdd
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
-                  <SelectItem value="serviço 1">serviço 1</SelectItem>
-                  <SelectItem value="serviço 2">serviço 2</SelectItem>
+                <SelectContent defaultValue='Aluguel'>
+                  <SelectItem value="Aluguel">Aluguel</SelectItem>
+                  <SelectItem value="Venda">Venda</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />

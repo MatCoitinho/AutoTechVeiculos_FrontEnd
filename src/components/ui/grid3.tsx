@@ -13,12 +13,12 @@ function Grid3({ data, textButton }: IGrid3Props) {
         <Card
           key={car.id}
           id={car.id}
-          image={car.image}
-          title={car.title}
-          status={car.status}
-          cambio={car.cambio}
-          year={car.year}
-          price={car.price}
+          image={car.img1}
+          title={car.marca}
+          status={car.status === true? 'Disponível':'Indisponível'}
+          cambio={car.cambio === true? 'Automatico':'Manual'}
+          year={car.ano}
+          price={car.preco}
           textbutton={textButton}
         />
       )) }

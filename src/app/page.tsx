@@ -1,13 +1,66 @@
+'use client'
 
+import React, { useEffect, useState } from 'react';
 import { Grid3 } from "../components/ui/grid3";
-import { veiculos } from "../lib/data";
 import { Header } from '../components/ui/header'
 import Footer from '../components/ui/footer'
 import { WhatsButton } from '../components/ui/whatsapp'
+import { getVeiculo } from "./api/getVeiculos";
+import { getAnuncio } from "./api/getAnuncio";
+
+
+
+type Carro = {
+  id: number;
+  modelo: string;
+  marca: string;
+  cambio: boolean;
+  ano: string;
+  combustivel: string;
+  placa: string;
+  cor: string;
+  categoria: string;
+  status: boolean;
+  dono: string;
+  pontos: number;
+  img1: string;
+  img2: string;
+  descricao: string;
+  destaque: boolean;
+  preco: number;
+  servico: boolean;
+  veiculo: number;
+};
+
+
+
+
+
+
+
+
+
+
+
 
 export default function Home() {
-  
+   
+  const [veiculos, setVeiculos] = useState<Carro[]>([]);
 
+  useEffect(() => {
+    const fetchVeiculos = async () => {
+      const response = await getAnuncio('');
+      if (response) {
+        setVeiculos(response.data);
+      } else {
+        setVeiculos([]);
+        console.error('Failed to fetch veiculos');
+      }
+    };
+
+    fetchVeiculos();
+  }, []);
+  
 
   return (
     <main className="flex min-h-screen flex-col items-center">
