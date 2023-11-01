@@ -1,14 +1,9 @@
 import api from "@/lib/api";
 
-type veiculos = {
-    placa: string;
-    quilometragem: string;
-    cor: string;
-}
 
-export async function patchVeiculo(id: string,dados:veiculos) {
+export async function deleteSolicitacao(id: string) {
     try{
-        const res = await api.patch(`/anunciar/Veiculo/${id}/`, dados)
+        const res = await api.delete(`/solicitar/Solicitacao/${id}/`)
         if(res.status === 200){
             console.log('tudo ok')
             return res.status

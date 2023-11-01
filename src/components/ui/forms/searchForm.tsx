@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useRouter } from "next/navigation"
+import { Input } from "../input"
 
 const FormSchema = z.object({
   marca: z.optional(z.string()),
@@ -55,6 +56,7 @@ export function SearchForm({ closeSearch }: ISearchFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+{/*         
         <FormField
           control={form.control}
           name="marca"
@@ -191,7 +193,21 @@ export function SearchForm({ closeSearch }: ISearchFormProps) {
               <FormMessage />
             </FormItem>
           )}
+        /> */}
+        <FormField
+          control={form.control}
+          name="modelo"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Insira um Modelo</FormLabel>
+              <FormControl>
+                <Input onChange={field.onChange} defaultValue={field.value} type="text"/>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
+
         <Button type="submit">Buscar</Button>
       </form>
     </Form>

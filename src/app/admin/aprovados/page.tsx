@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import {useEffect, useState} from 'react';
 import { getAnuncio } from '@/app/api/getAnuncio';
 import { getSolicitacoes } from '@/app/api/getSolicitacoes';
+import { deleteSolicitacao } from '@/app/api/deleteSolicitacoes';
 
 
 
@@ -28,7 +29,9 @@ export default function solicitacoes_(){
     const click = () => {
         alert(busca);
     }
-
+    const deletar = (id: any) =>{
+        deleteSolicitacao(String(id))
+    }
     const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
     useEffect(() => {
@@ -49,7 +52,7 @@ export default function solicitacoes_(){
                     <p>Email: {solicitacoes.dono_cpf}</p>
                     <p>Telefone: {solicitacoes.dono_telefone    }</p>
                     <div className='flex  justify-center mt-4'>
-                        <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => alert('oi')} type='button'>Concluido</button>
+                        <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => deletar(solicitacoes.id)} type='button'>Concluido</button>
                    </div>
                 </div> 
                     

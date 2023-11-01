@@ -5,11 +5,18 @@ import { Search } from 'lucide-react'
 import SideBarAdmin from '../../../components/ui/sideBarAdmin'
 import { useEffect, useState } from 'react'
 import { getSolicitacoes } from '@/app/api/getSolicitacoes'
+import { patchSolicitacao } from '@/app/api/patchSolicitacoes'
+import { deleteSolicitacao } from '@/app/api/deleteSolicitacoes'
 
 
 export default function solicitacoes(){
  
-   
+    const aprovar = (id: any) =>{
+        patchSolicitacao(String(id))
+    }
+    const deletar = (id: any) =>{
+        deleteSolicitacao(String(id))
+    }
     
     const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
@@ -33,8 +40,8 @@ export default function solicitacoes(){
 
 
                 <div className='flex   justify-between'>
-                    <button  className='p-2   m-2 bg-zinc-300  rounded-md ' type='button'>Aprovar</button>
-                    <button  className='p-2 m-2 bg-zinc-300  rounded-md' type='button'>Negar</button>
+                    <button  className='p-2   m-2 bg-zinc-300  rounded-md ' onClick={() => { aprovar(solicitacao_.id)}} type='button'>Aprovar</button>
+                    <button  className='p-2 m-2 bg-zinc-300  rounded-md' type='button' onClick={() => {deletar(solicitacao_.id)}}>Negar</button>
                 </div>
             </div>
 

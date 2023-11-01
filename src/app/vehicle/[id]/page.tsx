@@ -1,110 +1,82 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
-import { Header } from '../../../components/ui/header'
-import Footer from '../../../components/ui/footer'
-import { WhatsButton } from '../../../components/ui/whatsapp'
-import { useRouter, useParams } from "next/navigation";
+
+import { useRouter } from "next/navigation";
 import { Button } from "../../../components/ui/button";
 import { ChevronLeft } from "lucide-react";
-
 import { useCallback, useEffect, useState } from "react";
 import { Skeleton } from "../../../components/ui/skeleton";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../../../components/ui/dialog";
-import { criarReserva } from '@/app/api/createReserva';
-import { criarAluguel } from '@/app/api/createAluguel';
-import { getAnuncio } from '@/app/api/getAnuncio';
-
-
-type Carro = {
-  id: number;
-  modelo: string;
-  marca: string;
-  cambio: boolean;
-  ano: string;
-  combustivel: string;
-  placa: string;
-  cor: string;
-  categoria: string;
-  status: boolean;
-  dono: string;
-  pontos: number;
-  img1: string;
-  img2: string;
-  descricao: string;
-  destaque: boolean;
-  preco: number;
-  servico: boolean;
-  veiculo: number;
-};
-
-
-
-
-
-
-
-
+import { getAnuncio } from "@/app/api/getAnuncio";
+import { Header } from "@/components/ui/header";
+import { WhatsButton } from "@/components/ui/whatsapp";
+import Footer from "@/components/ui/footer";
+import { criarAluguel } from "@/app/api/createAluguel";
+import { criarReserva } from "@/app/api/createReserva";
+import { string } from "zod";
 
 export default function Vehicle({ params }: { params: any; }) {
-  const router = useRouter() 
+  const router = useRouter()
+  type Carro = {
+    id: number;
+    modelo: string;
+    marca: string;
+    cambio: boolean;
+    ano: string;
+    combustivel: string;
+    placa: string;
+    cor: string;
+    categoria: string;
+    status: boolean;
+    dono: string;
+    pontos: number;
+    img1: string;
+    img2: string;
+    descricao: string;
+    destaque: boolean;
+    preco: number;
+    servico: boolean;
+    veiculo: number;
+};
+  const [vehicle, setVehicle] = useState<Carro[]>()
   const [isLoading, setIsLoading] = useState(false)
   const { id } = params;
+  
+  
 
-  // get vehicle from api
-  const [vehicle, setVehicle] = useState<Carro[]>();
-  const param = useParams()
   useEffect(() => {
-    setIsLoading(true)
-     const paginaId = param
     const fetchVeiculos = async () => {
-      const response = await getAnuncio(String(paginaId.id));
-      if (response?.data) {
+      const response = await getAnuncio('');
+      if (response) {
         setVehicle(response.data);
-        setIsLoading(false)
-        
       } else {
         setVehicle([]);
         console.error('Failed to fetch veiculos');
       }
     };
-    
 
-    fetchVeiculos()
-    
+    fetchVeiculos();
   }, []);
 
 
 
-
-
-
-
-
-
-
-  
-  const click = () => {
-    let getemail = localStorage.getItem('@autotech:user')
-    if(!getemail) return
-    const email = getemail.replace(/["/]/g, '')
-    if(vehicle && vehicle[0].id){
-        const dados = {
-          id: String(vehicle[0]?.id),
-          email: email
-        }
-
-      if(vehicle[0].servico === true){
-        criarAluguel(dados)
-      } else {
-        criarReserva(dados)
-      }
-    }
+const finalizar = () =>{
+  let email = localStorage.getItem('@autotech:user')
+  let vaule = email?.replace(/["/]/g, '');
+  if(!vehicle) return
+  const valor = {
+    id: String(vehicle[0]?.id),
+    email: String(vaule)
   }
-
-
-
-
+  if(vehicle[0]?.servico === true){
+    criarAluguel(valor)
+  }else{
+    criarReserva(valor)
+  }
+}
+  
   return (
+    
     <main className="flex min-h-screen flex-col items-center">
       <Header />
       <div className='max-w-7xl w-full flex flex-col py-12 px-4 mt-36'>
@@ -127,7 +99,7 @@ export default function Vehicle({ params }: { params: any; }) {
           ) : vehicle ? (
             <img src={vehicle[0]?.img1} alt={`Imagem veículo ${id}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
           ) : (
-            <img src='' alt={`Imagem veículo ${id}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
+            <img src='/carro.jpeg' alt={`Imagem veículo ${id}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
           ) }
           <div className="w-1/2 flex flex-col mt-4 gap-4">
             {isLoading ? (
@@ -159,7 +131,7 @@ export default function Vehicle({ params }: { params: any; }) {
               <div className='flex flex-col gap-4 mt-auto'>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="rounded-full" onClick={click}>TESTE</Button>
+                    <Button className="rounded-full" onClick={finalizar}>Reservar</Button>
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
@@ -196,11 +168,11 @@ export default function Vehicle({ params }: { params: any; }) {
             <>
               <div className='flex gap-4 items-center'>
                 <div className="h-3 w-3 rounded-full bg-slate-800" />
-                <span>{vehicle[0]?.status}</span>
+                <span>{vehicle[0]?.status? 'Novo':'Usado'}</span>
               </div>
               <div className='flex gap-4 items-center'>
                 <div className="h-3 w-3 rounded-full bg-slate-800" />
-                <span>{vehicle[0]?.cambio}</span>
+                <span>{vehicle[0]?.cambio? 'Automatico':'Manual'}</span>
               </div>
               <div className='flex gap-4 items-center'>
                 <div className="h-3 w-3 rounded-full bg-slate-800" />

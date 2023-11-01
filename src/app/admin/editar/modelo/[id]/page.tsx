@@ -3,6 +3,7 @@ import 'tailwindcss/tailwind.css'
 import SideBarAdmin from '../../../../../components/ui/sideBarAdmin'
 import { useState } from 'react'
 import { createModel } from '@/app/api/createModel'
+import { patchModelo } from '@/app/api/patchModelos'
 type Modelo = {
     id: number;
     tipoCombustivel: string;
@@ -15,20 +16,22 @@ type Modelo = {
 }
 
 let valores: Modelo;
+let controle: boolean = true;
 export function getdadosModelos(value: Modelo){
     valores = value
+    controle = false;
     console.log(valores)
 }
 
 export default function cadastrarModelos(){
     const [inputs, setInputs] = useState({
-        marca: '',
-        modelo: '',
-        ano: '',
-        portas: 2,
-        combustivel: 'gasolina',
-        cambio: 1,
-        categoria: 'compacto'
+        marca: valores?.marca,
+        modelo: valores?.model,
+        ano: valores?.ano,
+        portas: valores?.qtdPortas,
+        combustivel: valores?.tipoCombustivel,
+        cambio: valores?.cambio,
+        categoria: valores?.categoria
     })
 
     const getInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,15 +59,15 @@ export default function cadastrarModelos(){
     const click = () =>{
         let modelo = {
             tipoCombustivel: inputs.combustivel,
-            model: inputs.modelo,
             marca: inputs.marca,
             ano: Number(inputs.ano),
             cambio: Boolean(inputs.cambio),
             categoria: inputs.categoria,
             qtdPortas: Number(inputs.portas),
+            model: inputs.modelo
         }
         console.log(modelo)
-        createModel(modelo)
+        patchModelo(String(valores.id), modelo)
 
     }
     return(
@@ -173,6 +176,8 @@ export default function cadastrarModelos(){
                 </div>
             </div>
         </div>
-        : <h1>404</h1>
+        :  
+        <h1 className=' w-screen h-screen bg-black text-white items-center text-6xl justify-center font-extrabold'>404</h1>
+
     )
 }

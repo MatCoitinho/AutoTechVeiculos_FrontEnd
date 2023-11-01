@@ -3,20 +3,21 @@
 import 'tailwindcss/tailwind.css'
 import { Search } from 'lucide-react'
 import SideBarAdmin from '../../../../../components/ui/sideBarAdmin'
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { useState, useEffect } from 'react';
 
 import { getAnuncio } from '@/app/api/getAnuncio';
 import { deleteAnuncio } from '@/app/api/deleteAnuncio';
-
+import { getdadosAnuncio } from '../../../editar/anuncio/[id]/page';
 
 
 
 
 
 export default function anuncios(){
-   
+    const param = useParams()
+    const paginaId = param
     const deletar = (id: any)=>{
         deleteAnuncio(id)
     }
@@ -24,7 +25,7 @@ export default function anuncios(){
 
     useEffect(() => {
         async function getdados() {
-            const anuncios1 = await getAnuncio('');
+            const anuncios1 = await getAnuncio(`?veiculo__modelo__model=${paginaId.id}`);
         
             try{ 
                 if(!anuncios1) throw('error')
@@ -34,12 +35,12 @@ export default function anuncios(){
                     <div key={anuncio.id} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
                         <h2 className='text-center font-bold'>{anuncio.modelo}</h2>
                         <p>Marca: {anuncio.marca}</p>
-                        <p>Serviço: {anuncio.servico == true? 'Venda':'Aluguel'}</p>
+                        <p>Serviço: {anuncio.servico == true? 'Aluguel':'Venda'}</p>
                         <p>Destaque: {anuncio.destaque == true? 'Ativo':'Inativo'}</p>
                         <p>Pontos: {anuncio.pontos}</p>
                         <p>Preço: {anuncio.preco}</p>
                         <div className='flex   justify-between mt-4'>
-                            <button  className='p-2  bg-zinc-300 rounded-md m-1' onClick={() => editar('anuncio', String(anuncio.id))} type='button'>Editar</button>
+                            <button  className='p-2  bg-zinc-300 rounded-md m-1' onClick={() => editar('anuncio', String(anuncio.id), anuncio)} type='button'>Editar</button>
                             <button  className='p-2  bg-zinc-300  rounded-md m-1' type='button' onClick={() => deletar(anuncio.id)}>Deletar</button>
                         </div>
                     </div>
@@ -55,7 +56,8 @@ export default function anuncios(){
     
 
     const {push} = useRouter();
-    const editar =(classe: string, parametro: string) => {
+    const editar =(classe: string, parametro: string, dados:any) => {
+        getdadosAnuncio(dados)
         push(`/admin/editar/${classe}/${parametro}`)
     }
 

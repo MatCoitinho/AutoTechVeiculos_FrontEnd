@@ -28,12 +28,12 @@ import { useAuth } from "../../../hooks/useAuth"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../dialog"
 import { DialogTrigger } from "@radix-ui/react-dialog"
 import { DeleteForm } from "./deleteForm"
+import { patchClient } from "@/app/api/patchClient"
 
 const FormSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   phone: z.string(),
-  cpf: z.string(),
   address: z.string(),
 })
 
@@ -51,7 +51,6 @@ export function ProfileForm({ }: IProfileFormProps) {
       form.setValue('name', user.name)
       form.setValue('email', user.email)
       form.setValue('phone', user.phone)
-      form.setValue('cpf', user.cpf)
       form.setValue('address', user.address)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,16 +65,29 @@ export function ProfileForm({ }: IProfileFormProps) {
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    if(!user?.cpf && !user?.id) return
     setLoading(true)
-    const res = await updateUser(data)
-    const valoresClientes = {
+    const novos = {
+      id: user?.id,
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
       cpf: user?.cpf,
+      address: data.address,
+      is_supperUser: false
+    }
+    const res = await updateUser(novos)
+    const valoresClientes = {
       telefone: user?.phone,
       endereco: user?.address,
       email: user?.email, 
       first_name: user?.name
     }
-
+    if(valoresClientes){
+      const status = await patchClient(String(user?.cpf), valoresClientes)
+      if(status === 200)
+        updateUser(novos)
+    }
     if(res) {
       toast({
         title: "Dados atualizados",
@@ -127,17 +139,6 @@ export function ProfileForm({ }: IProfileFormProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Telefone</FormLabel>
-                <Input onChange={field.onChange} defaultValue={field.value}/>
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="cpf"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>CPF</FormLabel>
                 <Input onChange={field.onChange} defaultValue={field.value}/>
               </FormItem>
             )}

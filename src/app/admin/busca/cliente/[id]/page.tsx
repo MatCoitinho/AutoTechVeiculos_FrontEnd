@@ -3,14 +3,15 @@
 import 'tailwindcss/tailwind.css'
 import { Search } from 'lucide-react'
 import SideBarAdmin from '../../../../../components/ui/sideBarAdmin'
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import {useState, useEffect} from 'react';
 import { getCliente } from '@/app/api/getCliente';
 import { deleteClient } from '@/app/api/deleteCliente';
 
 export default function Clientes(){
-   
+    const param = useParams()
+    const paginaId = param
 
     const {push} = useRouter();
     const editar =(classe: string, parametro: string) => {
@@ -38,7 +39,7 @@ export default function Clientes(){
 
     useEffect(() => {
         async function getdados() {
-            const data = await getCliente('');
+            const data = await getCliente(`?cpf=${paginaId.id}`);
         
             try{ 
                 if(!data) throw('error')

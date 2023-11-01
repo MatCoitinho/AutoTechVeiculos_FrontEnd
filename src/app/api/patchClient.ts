@@ -1,16 +1,15 @@
 import api from "@/lib/api";
 
 type cliente = {
-    cpf: string;
-    telefone: string;
-    endereco: string;
-    email: string; 
-    first_name: string;
+    telefone: string | undefined;
+    endereco: string | undefined;
+    email: string | undefined;
+    first_name: string | undefined;
 }
 
 export async function patchClient(id: string,dados:cliente) {
     try{
-        const res = await api.patch('url', dados)
+        const res = await api.patch(`login/atualizar/?cpf=${id}`, dados)
         if(res.status === 200){
             console.log('tudo ok')
             return res.status

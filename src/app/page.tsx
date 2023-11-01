@@ -63,7 +63,7 @@ export default function Home() {
   
   let alugueis = veiculos.filter((carro) => carro.servico === true && carro.destaque === true);
   let reservas = veiculos.filter((carro) => carro.servico === false && carro.destaque === true);
-  let destaques = veiculos.filter((carro) => carro.servico === false && carro.destaque === false);
+  let destaques = veiculos.filter((carro) => carro.destaque === false);
 
   return (
     <main className="flex min-h-screen flex-col items-center">

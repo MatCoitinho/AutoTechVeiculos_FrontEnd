@@ -3,18 +3,23 @@
 import 'tailwindcss/tailwind.css'
 import { Search } from 'lucide-react'
 import SideBarAdmin from '../../../../../components/ui/sideBarAdmin'
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect } from 'react';
 import {useState} from 'react';
 import { getModelo } from '@/app/api/getModelos';
 import { deleteModelo } from '@/app/api/deleteModelo';
+import { getdadosModelos } from '../../../editar/modelo/[id]/page';
+
 
 
     
 export default function modelos(){
-    
+    const param = useParams()
+    const paginaId = param
+
     const {push} = useRouter();
-    const editar =(classe: string, parametro: string) => {
+    const editar =(classe: string, parametro: string, dados: any) => {
+        getdadosModelos(dados)
         push(`/admin/editar/${classe}/${parametro}`)
     }
 
@@ -39,7 +44,7 @@ export default function modelos(){
 
     useEffect(() => {
         async function getdados() {
-            const data = await getModelo('');
+            const data = await getModelo(`?model=${paginaId.id}`);
         
             try{ 
                 if(!data) throw('error')
@@ -54,9 +59,8 @@ export default function modelos(){
                 <p>Cambio: {model.cambio == true? 'Automatico':'Manual'}</p>
                 <p>Categoria: {model.categoria}</p>
                 <div className='flex   justify-between mt-4'>
-                    <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('modelo', String(model.id))} type='button'>Editar</button>
+                    <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('modelo', String(model.id), model)} type='button'>Editar</button>
                     <button  className='p-2  bg-zinc-300  rounded-md' type='button' onClick={() => deletar(model.id)}>Deletar</button>
-
                 </div>
             </div> 
                     

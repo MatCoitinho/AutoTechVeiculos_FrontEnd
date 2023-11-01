@@ -6,6 +6,7 @@ import { Card } from "../../components/ui/card"
 import { useEffect, useState } from 'react'
 import { getAnuncio } from '../api/getAnuncio'
 import { vendored } from 'next/dist/server/future/route-modules/app-page/module.compiled'
+import { useParams } from 'next/navigation'
 
 
 type Carro = {
@@ -44,7 +45,7 @@ export default function Search({
 
   useEffect(() => {
     const fetchVeiculos = async () => {
-      const response = await getAnuncio('');
+      const response = await getAnuncio(`?veiculo__modelo__model=${searchParams.modelo}`);
       if (response) {
         setVeiculos(response.data);
       } else {
@@ -73,7 +74,7 @@ export default function Search({
               key={car.id}
               id={String(car.id)}
               image={car.img1}
-              title={car.marca}
+              title={car.modelo}
               status={car.status? 'Disponivel':'Indisponível'}
               cambio={car.cambio? 'Automatico':'Manual'}
               year={car.ano.toString()}

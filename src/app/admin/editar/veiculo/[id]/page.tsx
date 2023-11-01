@@ -7,6 +7,7 @@ import { createVehicle } from '@/app/api/createVehicle'
 import { useParams } from 'next/navigation'
 import { getAnuncio } from '@/app/api/getAnuncio'
 import { getVeiculo } from '@/app/api/getVeiculos'
+import { patchVeiculo } from '@/app/api/patchVeiculos'
 
 type Carro = {
     id: number;
@@ -26,8 +27,10 @@ modelo: number;
 dono: number;
 };
 let valores: Carro;
+let controle: boolean = true;
 export function getdados(value: Carro){
     valores = value
+    controle = false
     console.log(valores)
 }
 
@@ -37,13 +40,10 @@ export default function cadastrarVeiculos(){
     const paginaId = param
 
     const [inputs, setInputs] = useState({
-        placa: '',
-        quilometragem: '',
-        cor: '',
-        estado: 1,
-        ano: '',
-        modelo: '',
-        cpf: ''
+        placa: valores?.placa,
+        quilometragem: valores?.quilometragem,
+        cor: valores?.cor,
+        cpf: valores?.dono_cpf
     })
 
     
@@ -67,19 +67,16 @@ export default function cadastrarVeiculos(){
        let veiculos = {
         placa: inputs.placa,
         quilometragem: inputs.quilometragem,
-        status: Boolean(inputs.estado),
-        modelo: inputs.modelo,
         cor: inputs.cor,
-        ano: Number(inputs.ano),
-        dono: inputs.cpf
        }
        console.log(veiculos)
-        createVehicle(veiculos)
+        patchVeiculo(String(paginaId.id) ,veiculos)
     }
     
 
 
     return(
+        valores?
         <div className='flex min-h-screen text-black'>
             <div className='w-1/5 bg-black text-center'>
                 <a href='/admin/'>
@@ -125,32 +122,6 @@ export default function cadastrarVeiculos(){
                                         </div>
                                     </label>
                                 </div>
-                                <div>
-                                    <label>
-                                        Ano
-                                        <div>
-                                            <input type='number' defaultValue={valores.ano} name='ano' onChange={getInputs} required className='bg-zinc-300 flex w-96 p-3'/>
-                                        </div>
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        Modelo
-                                        <div>
-                                            <input type='text' name='modelo' defaultValue={valores.model} onChange={getInputs} required className='bg-zinc-300 flex w-96 p-3'/>
-                                        </div>
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        CPF Dono
-                                        <div>
-                                            <input type='text' name='cpf' defaultValue={valores.dono_cpf} onChange={getInputs} required className='bg-zinc-300 flex w-96 p-3'/>
-                                        </div>
-                                    </label>
-                                </div>
-
-
                             </div>
                         </div>
                         <div>
@@ -174,5 +145,8 @@ export default function cadastrarVeiculos(){
                 </div>
             </div>
         </div>
+        :
+        <h1 className=' w-screen h-screen bg-black text-white items-center text-6xl justify-center font-extrabold'>404</h1>
+
     )
 }

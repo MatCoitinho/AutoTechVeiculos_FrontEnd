@@ -1,14 +1,12 @@
 import api from "@/lib/api";
 
-type veiculos = {
-    placa: string;
-    quilometragem: string;
-    cor: string;
+const situacao = {
+    situacao: true
 }
 
-export async function patchVeiculo(id: string,dados:veiculos) {
+export async function patchSolicitacao(id: string) {
     try{
-        const res = await api.patch(`/anunciar/Veiculo/${id}/`, dados)
+        const res = await api.patch(`/solicitar/Solicitacao/${id}/`, situacao)
         if(res.status === 200){
             console.log('tudo ok')
             return res.status
