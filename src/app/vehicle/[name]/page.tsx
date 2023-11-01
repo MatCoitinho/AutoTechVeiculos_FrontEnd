@@ -8,22 +8,21 @@ import { veiculos } from "../../../lib/data";
 import { useCallback, useEffect, useState } from "react";
 import { Skeleton } from "../../../components/ui/skeleton";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../../../components/ui/dialog";
+import { getVeiculo } from "@/app/api/getVeiculo";
 
 export default function Vehicle({ params }: { params: any; }) {
   const router = useRouter()
   const [vehicle, setVehicle] = useState<typeof veiculos[0]>()
   const [isLoading, setIsLoading] = useState(false)
-  const { id } = params;
+  const { name } = params;
 
   // get vehicle from api
-  const getDetails = useCallback(() => {
+  const getDetails = useCallback(async () => {
     setIsLoading(true)
-    const cars = veiculos.filter((veiculo) => veiculo.id === id)[0];
-    new Promise(() => setTimeout(() => {
-      setVehicle(cars)
-      setIsLoading(false)
-    }, 2000))
-  }, [id])
+    const res = await getVeiculo(name);
+    setVehicle(res?.data as any)
+    setIsLoading(false)
+  }, [name])
 
   useEffect(() => {
     getDetails()
@@ -49,9 +48,9 @@ export default function Vehicle({ params }: { params: any; }) {
           {isLoading ? (
             <Skeleton className="h-96 w-1/2 rounded mt-4" />
           ) : vehicle ? (
-            <img src={vehicle.image} alt={`Imagem veículo ${id}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
+            <img src={vehicle.image} alt={`Imagem veículo ${name}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
           ) : (
-            <img src='/carro.jpeg' alt={`Imagem veículo ${id}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
+            <img src='/carro.jpeg' alt={`Imagem veículo ${name}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
           ) }
           <div className="w-1/2 flex flex-col mt-4 gap-4">
             {isLoading ? (
