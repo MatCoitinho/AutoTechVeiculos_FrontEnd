@@ -7,24 +7,60 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { error } from 'console'
 
 import { createAnoucement } from '@/app/api/createAnuncio'
+import {  useRouter } from 'next/navigation'
+import { patchAnuncio } from '@/app/api/patchAnuncio'
+
+
+
+type Carro = {
+    id: number;
+    modelo: string;
+    marca: string;
+    cambio: boolean;
+    ano: string;
+    combustivel: string;
+    placa: string;
+    cor: string;
+    categoria: string;
+    status: boolean;
+    dono: string;
+    pontos: number;
+    img1: string;
+    img2: string;
+    descricao: string;
+    destaque: boolean;
+    preco: number;
+    servico: boolean;
+    veiculo: number;
+};
+
+let valores: Carro;
+let controle: boolean = true;
+export function getdadosAnuncio(value: Carro){
+    valores = value
+    controle = false;
+    console.log(valores)
+}
 
 
 
 
 
+export default function cadastrarAnuncio(){
 
-
-
-function cadastrarAnuncio(){
+        const router = useRouter()
+        if(controle)
+            router.push('/admin')
+    
 
     const [inputs, setInputs] = useState({
-        placa: '',
-        preco: '',
-        destaque: 0,
-        servico: 0,
-        descricao: '',
-        image1:'',
-        image2:''
+        placa: valores?.placa,
+        preco: valores?.preco,
+        destaque: valores?.destaque,
+        servico: valores?.servico,
+        descricao: valores?.descricao,
+        image1:valores?.img1,
+        image2:valores?.img2
     })
 
     const getInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +96,7 @@ function cadastrarAnuncio(){
             servico: Boolean(inputs.servico),
         }
         console.log(anuncio)
-        createAnoucement(anuncio);
+        patchAnuncio(String(valores?.id), anuncio);
     
 
     }
@@ -135,12 +171,9 @@ function cadastrarAnuncio(){
         
     }
       
-      
-
-let valor = true
 
     return(
-        valor?
+        valores?
         <div className='flex min-h-screen text-black'>
             <div className='w-1/5 bg-black text-center'>
                 <a href='/admin/'>
@@ -187,7 +220,7 @@ let valor = true
                                 <label>
                                     Placa
                                     <div>
-                                        <input onChange={getInputs} type='text' name='placa' required className='bg-zinc-300 flex  w-96 p-3'/>
+                                        <input defaultValue={valores.placa } onChange={getInputs} type='text' name='placa' required className='bg-zinc-300 flex  w-96 p-3'/>
                                     </div>
                                 </label>
                             </div>
@@ -195,7 +228,7 @@ let valor = true
                                 <label>
                                     Preço
                                     <div>
-                                        <input type='Number' onChange={getInputs} name='preco' required className='bg-zinc-300 flex w-96 p-3'/>
+                                        <input type='Number' defaultValue={valores.preco} onChange={getInputs} name='preco' required className='bg-zinc-300 flex w-96 p-3'/>
                                     </div>
                                 </label>
                             </div>
@@ -204,7 +237,7 @@ let valor = true
                             <div>
                                 <label>
                                     Destaque
-                                    <select onChange={getInputsSelect} name='destaque' className='bg-zinc-300 flex w-96 p-3 text-center'>
+                                    <select onChange={getInputsSelect} defaultValue={valores.destaque === true? 1:0} name='destaque' className='bg-zinc-300 flex w-96 p-3 text-center'>
                                         <option value={0}>Desativado</option>
                                         <option value={1}>Ativado</option>
                                     </select>
@@ -213,7 +246,7 @@ let valor = true
                             <div>
                                 <label>
                                     Serviço
-                                    <select name='servico' onChange={getInputsSelect} defaultValue={'Aluguel'} className='bg-zinc-300 flex w-96 p-3 text-center'>
+                                    <select name='servico' onChange={getInputsSelect} defaultValue={valores.servico === true? 1:0} className='bg-zinc-300 flex w-96 p-3 text-center'>
                                         <option value={0}>Reserva</option>
                                         <option value={1}>Aluguel</option>
                                     </select>
@@ -223,7 +256,7 @@ let valor = true
                                 <label>
                                     Descrição
                                     <div>
-                                        <textarea id="descricao" onChange={getInputsText} name="descricao" maxLength={200} className='bg-zinc-300 flex w-96 p-3 h-36 resize-none'></textarea>
+                                        <textarea id="descricao" defaultValue={valores.descricao} onChange={getInputsText} name="descricao" maxLength={200} className='bg-zinc-300 flex w-96 p-3 h-36 resize-none'></textarea>
                                     </div>
                                 </label>
                             </div>      
@@ -237,7 +270,7 @@ let valor = true
                     </form>
                 </div>
             </div>
-        </div>:<p>404</p>
+        </div>:
+        <h1 className=' w-screen h-screen bg-black text-white items-center text-6xl justify-center font-extrabold'>404</h1>
     )
 }
-export default cadastrarAnuncio

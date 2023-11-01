@@ -3,7 +3,7 @@
 import { Header } from '../../../components/ui/header'
 import Footer from '../../../components/ui/footer'
 import { WhatsButton } from '../../../components/ui/whatsapp'
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { Button } from "../../../components/ui/button";
 import { ChevronLeft } from "lucide-react";
 
@@ -47,28 +47,30 @@ type Carro = {
 
 export default function Vehicle({ params }: { params: any; }) {
   const router = useRouter() 
-  const { query } = router
   const [isLoading, setIsLoading] = useState(false)
   const { id } = params;
 
   // get vehicle from api
   const [vehicle, setVehicle] = useState<Carro[]>();
-
+  const param = useParams()
   useEffect(() => {
     setIsLoading(true)
-     const paginaId = query?.id
+     const paginaId = param
     const fetchVeiculos = async () => {
-      const response = await getAnuncio(String(paginaId));
-      if (response) {
+      const response = await getAnuncio(String(paginaId.id));
+      if (response?.data) {
         setVehicle(response.data);
+        setIsLoading(false)
+        
       } else {
         setVehicle([]);
         console.error('Failed to fetch veiculos');
       }
     };
-    setIsLoading(false)
+    
 
-    fetchVeiculos();
+    fetchVeiculos()
+    
   }, []);
 
 
@@ -80,21 +82,18 @@ export default function Vehicle({ params }: { params: any; }) {
 
 
 
-
-
-
-
-
+  
   const click = () => {
     let getemail = localStorage.getItem('@autotech:user')
-    const email = localStorage.replace(/["/]/g, '')
-    if(vehicle && vehicle.id){
+    if(!getemail) return
+    const email = getemail.replace(/["/]/g, '')
+    if(vehicle && vehicle[0].id){
         const dados = {
-          id: vehicle?.id,
+          id: String(vehicle[0]?.id),
           email: email
         }
 
-      if(vehicle?.servico === 'Aluguel'){
+      if(vehicle[0].servico === true){
         criarAluguel(dados)
       } else {
         criarReserva(dados)
@@ -117,7 +116,7 @@ export default function Vehicle({ params }: { params: any; }) {
           {isLoading ? (
             <Skeleton className="h-6 w-40 rounded-full ml-4" />
           ) : vehicle ? (
-            <h1 className='text-2xl font-bold ml-4'>{vehicle.title}</h1>
+            <h1 className='text-2xl font-bold ml-4'>{vehicle[0]?.modelo}</h1>
           ) : (
             <h1 className='text-2xl font-bold ml-4'>Veículo desconhecido</h1>
           ) }
@@ -126,7 +125,7 @@ export default function Vehicle({ params }: { params: any; }) {
           {isLoading ? (
             <Skeleton className="h-96 w-1/2 rounded mt-4" />
           ) : vehicle ? (
-            <img src={vehicle.image} alt={`Imagem veículo ${id}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
+            <img src={vehicle[0]?.img1} alt={`Imagem veículo ${id}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
           ) : (
             <img src='' alt={`Imagem veículo ${id}`} className='w-1/2 h-96 object-cover rounded mt-4'/>
           ) }
@@ -138,7 +137,7 @@ export default function Vehicle({ params }: { params: any; }) {
                 <Skeleton className="h-4 w-1/2 rounded" />
               </div>
             ) : vehicle ? (
-              <h1 className='text-xl'>{vehicle.description}</h1>
+              <h1 className='text-xl'>{vehicle[0]?.descricao}</h1>
             ) : (
               <h1 className='text-xl'>Nenhuma descrição foi encontrada para esse veículo</h1>
             ) }
@@ -146,7 +145,7 @@ export default function Vehicle({ params }: { params: any; }) {
             { isLoading ? (
               <Skeleton className="h-8 w-40 rounded-full" />
             ) : vehicle ? (
-              <h1 className='text-3xl font-bold'>R$ {vehicle.price.toFixed(2)}</h1>
+              <h1 className='text-3xl font-bold'>R$ {vehicle[0]?.preco.toFixed(2)}</h1>
             ) : (
               <h1 className='text-3xl font-bold'>R$ 0.00</h1>
             ) }
@@ -160,7 +159,7 @@ export default function Vehicle({ params }: { params: any; }) {
               <div className='flex flex-col gap-4 mt-auto'>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="rounded-full" onClick={click}>{vehicle?.servico}</Button>
+                    <Button className="rounded-full" onClick={click}>TESTE</Button>
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
@@ -197,19 +196,19 @@ export default function Vehicle({ params }: { params: any; }) {
             <>
               <div className='flex gap-4 items-center'>
                 <div className="h-3 w-3 rounded-full bg-slate-800" />
-                <span>{vehicle.status}</span>
+                <span>{vehicle[0]?.status}</span>
               </div>
               <div className='flex gap-4 items-center'>
                 <div className="h-3 w-3 rounded-full bg-slate-800" />
-                <span>{vehicle.cambio}</span>
+                <span>{vehicle[0]?.cambio}</span>
               </div>
               <div className='flex gap-4 items-center'>
                 <div className="h-3 w-3 rounded-full bg-slate-800" />
-                <span>{vehicle.year}</span>
+                <span>{vehicle[0]?.ano}</span>
               </div>
               <div className='flex gap-4 items-center'>
                 <div className="h-3 w-3 rounded-full bg-slate-800" />
-                <span>{vehicle.ports}</span>
+                <span>{vehicle[0]?.combustivel}</span>
               </div>
             </>
           ) : (

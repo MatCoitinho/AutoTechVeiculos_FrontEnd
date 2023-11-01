@@ -61,6 +61,9 @@ export default function Home() {
     fetchVeiculos();
   }, []);
   
+  let alugueis = veiculos.filter((carro) => carro.servico === true && carro.destaque === true);
+  let reservas = veiculos.filter((carro) => carro.servico === false && carro.destaque === true);
+  let destaques = veiculos.filter((carro) => carro.servico === false && carro.destaque === false);
 
   return (
     <main className="flex min-h-screen flex-col items-center">
@@ -75,17 +78,17 @@ export default function Home() {
 
       <div className='max-w-7xl w-full flex flex-col py-12 px-4'>
         <h1 className='text-2xl text-bold mb-4'>Populares</h1>
-        <Grid3 data={veiculos} textButton="Reserve"/>
+        <Grid3 data={destaques} textButton="Reserve"/>
       </div>
 
       <div className='max-w-7xl w-full flex flex-col py-12 px-4'>
         <h1 className='text-2xl text-bold mb-4'>Destaque venda</h1>
-        <Grid3 data={veiculos} textButton="Reserve já"/>
+        <Grid3 data={reservas} textButton="Reserve já"/>
       </div>
 
       <div className='max-w-7xl w-full flex flex-col py-12 px-4'>
         <h1 className='text-2xl text-bold mb-4'>Destaque aluguel</h1>
-        <Grid3 data={veiculos} textButton="Alugue já"/>
+        <Grid3 data={alugueis} textButton="Alugue já"/>
       </div>
       <WhatsButton />
       <Footer />

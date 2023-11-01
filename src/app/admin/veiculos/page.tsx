@@ -7,10 +7,29 @@ import { useRouter } from "next/navigation";
 import { getVeiculo } from '@/app/api/getVeiculos';
 import {useState, useEffect} from 'react';
 import { deleteVehicle } from '@/app/api/deleteVehicle';
-
+import { getdados } from '../editar/veiculo/[id]/page';
 export default function veiculos(){
     const {push} = useRouter();
-    const editar =(classe: string, parametro: string) => {
+    type Carro = {
+        id: number;
+    tipoCombustivel: string;
+    model: string;
+    marca: string;
+    ano: string;
+    cambio: boolean;
+    categoria: string;
+    qtdPortas: number;
+    dono_cpf: string;
+    placa: string;
+    quilometragem: string;
+    status: boolean;
+    cor: string;
+    modelo: number;
+    dono: number;
+    };
+
+    const editar =(classe: string, parametro: string, valor: Carro) => {
+        getdados(valor)
         push(`/admin/editar/${classe}/${parametro}`)
     }
 
@@ -52,7 +71,7 @@ export default function veiculos(){
                         
 
                         <div className='flex  justify-between mt-4'>
-                        <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('veiculo', String(veiculo.id))} type='button'>Editar</button>
+                        <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('veiculo', String(veiculo.id), veiculo)} type='button'>Editar</button>
                             <button  className='p-2  bg-zinc-300  rounded-md' type='button' onClick={() => deletar(veiculo.id)}>Deletar</button>
                         </div>
                     </div>

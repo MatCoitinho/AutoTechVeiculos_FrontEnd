@@ -7,7 +7,7 @@ type reserva = {
 
 export async function criarAluguel(data: reserva) {
    try{
-       const res = await api.post('/anunciar/criarAnuncio/', data)
+       const res = await api.post('/alugar/criarAluguel/', data)
     
         if (res.status === 200) {
             console.log('aluguel criada')

@@ -1,11 +1,40 @@
 'use client'
 import 'tailwindcss/tailwind.css'
 import SideBarAdmin from '../../../../../components/ui/sideBarAdmin'
-import { useState } from 'react'
+import { useState, useEffect, ReactComponentElement } from 'react'
 import { number } from 'zod'
 import { createVehicle } from '@/app/api/createVehicle'
-export default function cadastrarVeiculos(){
+import { useParams } from 'next/navigation'
+import { getAnuncio } from '@/app/api/getAnuncio'
+import { getVeiculo } from '@/app/api/getVeiculos'
 
+type Carro = {
+    id: number;
+tipoCombustivel: string;
+model: string;
+marca: string;
+ano: string;
+cambio: boolean;
+categoria: string;
+qtdPortas: number;
+dono_cpf: string;
+placa: string;
+quilometragem: string;
+status: boolean;
+cor: string;
+modelo: number;
+dono: number;
+};
+let valores: Carro;
+export function getdados(value: Carro){
+    valores = value
+    console.log(valores)
+}
+
+
+export default function cadastrarVeiculos(){
+    const param = useParams()
+    const paginaId = param
 
     const [inputs, setInputs] = useState({
         placa: '',
@@ -16,6 +45,9 @@ export default function cadastrarVeiculos(){
         modelo: '',
         cpf: ''
     })
+
+    
+    
 
     const getInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputs({
@@ -44,7 +76,7 @@ export default function cadastrarVeiculos(){
        console.log(veiculos)
         createVehicle(veiculos)
     }
-
+    
 
 
     return(
@@ -65,8 +97,6 @@ export default function cadastrarVeiculos(){
                     </div>
                     
 
-
-
                     <form>
                         <div className='flex mt-10 justify-center p-5'>
                             <div className='grid grid-cols-2 gap-4'>
@@ -75,7 +105,7 @@ export default function cadastrarVeiculos(){
                                     <label>
                                         Placa
                                         <div>
-                                            <input type='text' onChange={getInputs} maxLength={7} name='placa' required className='bg-zinc-300 flex  w-96 p-3'/>
+                                            <input type='text' defaultValue={valores.placa} onChange={getInputs} maxLength={7} name='placa' required className='bg-zinc-300 flex  w-96 p-3'/>
                                         </div>
                                     </label>
                                 </div>
@@ -83,7 +113,7 @@ export default function cadastrarVeiculos(){
                                     <label>
                                         Quilometragem
                                         <div>
-                                            <input type='number' onChange={getInputs} name='quilometragem' required className='bg-zinc-300 flex w-96 p-3'/>
+                                            <input type='number' defaultValue={valores.quilometragem} onChange={getInputs} name='quilometragem' required className='bg-zinc-300 flex w-96 p-3'/>
                                         </div>
                                     </label>
                                 </div>
@@ -91,24 +121,15 @@ export default function cadastrarVeiculos(){
                                     <label>
                                         Cor
                                         <div>
-                                            <input type='text'onChange={getInputs} required name='cor' className='bg-zinc-300 flex w-96 p-3'/>
+                                            <input type='text'onChange={getInputs}  defaultValue={valores.cor} required name='cor' className='bg-zinc-300 flex w-96 p-3'/>
                                         </div>
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        Estado
-                                        <select name='estado' onChange={getInputsSelect} defaultValue={'Novo'} className='bg-zinc-300 flex w-96 p-3 text-center'>
-                                            <option value={1}>Novo</option>
-                                            <option value={0}>Usado</option>
-                                        </select>
                                     </label>
                                 </div>
                                 <div>
                                     <label>
                                         Ano
                                         <div>
-                                            <input type='number' name='ano' onChange={getInputs} required className='bg-zinc-300 flex w-96 p-3'/>
+                                            <input type='number' defaultValue={valores.ano} name='ano' onChange={getInputs} required className='bg-zinc-300 flex w-96 p-3'/>
                                         </div>
                                     </label>
                                 </div>
@@ -116,7 +137,7 @@ export default function cadastrarVeiculos(){
                                     <label>
                                         Modelo
                                         <div>
-                                            <input type='text' name='modelo' onChange={getInputs} required className='bg-zinc-300 flex w-96 p-3'/>
+                                            <input type='text' name='modelo' defaultValue={valores.model} onChange={getInputs} required className='bg-zinc-300 flex w-96 p-3'/>
                                         </div>
                                     </label>
                                 </div>
@@ -124,7 +145,7 @@ export default function cadastrarVeiculos(){
                                     <label>
                                         CPF Dono
                                         <div>
-                                            <input type='text' name='cpf' onChange={getInputs} required className='bg-zinc-300 flex w-96 p-3'/>
+                                            <input type='text' name='cpf' defaultValue={valores.dono_cpf} onChange={getInputs} required className='bg-zinc-300 flex w-96 p-3'/>
                                         </div>
                                     </label>
                                 </div>
@@ -140,6 +161,7 @@ export default function cadastrarVeiculos(){
                     </div>
                     </form>
 
+                    
 
 
 

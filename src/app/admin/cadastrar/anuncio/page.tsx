@@ -7,7 +7,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { error } from 'console'
 
 import { createAnoucement } from '@/app/api/createAnuncio'
-
+import { getdadosAnuncio } from '../../editar/anuncio/[id]/page'
 
 
 

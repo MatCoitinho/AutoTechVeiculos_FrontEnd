@@ -4,7 +4,9 @@ import 'tailwindcss/tailwind.css'
 import { Search } from 'lucide-react'
 import SideBarAdmin from '../../../components/ui/sideBarAdmin'
 import { useRouter } from "next/navigation";
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import { getAnuncio } from '@/app/api/getAnuncio';
+import { getSolicitacoes } from '@/app/api/getSolicitacoes';
 
 
 
@@ -27,48 +29,51 @@ export default function solicitacoes_(){
         alert(busca);
     }
 
-    const solicitacao = [        
-        {
-            "id": 1,
-            "dono_cpf": "20918921222",
-            "dono_email": "admin@example.com",
-            "dono_name": "Matheus",
-            "dono_telefone": "44332123344",
-            "marca": "Chevrolet",
-            "modelo": "Onix",
-            "ano": "2010",
-            "quilometragem": "0",
-            "cambio": "Automático",
-            "data": "2023-10-28",
-            "servico": true,
-            "combustivel": "Gasolina",
-            "situacao": true,
-            "solicitante": 1
+    const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
+
+    useEffect(() => {
+        async function getdados() {
+            const data = await getSolicitacoes(true);
+        
+            try{ 
+                if(!data) throw('error')
+                let value = data.data
+                setModelsComponents(value.map((solicitacoes) => (
+                    <div key={solicitacoes.id} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105 text-center'>
+                    <h2 className='text-center font-bold'>{solicitacoes.modelo}</h2>
+                    <p>Ano: {solicitacoes.ano}</p>
+                    <p>Marca: {solicitacoes.marca}</p>
+                    <p>Combustível: {solicitacoes.combustivel}</p>
+                    <p>Nome: {solicitacoes.dono_name}</p>
+                    <p>CPF: {solicitacoes.dono_cpf}</p>
+                    <p>Email: {solicitacoes.dono_cpf}</p>
+                    <p>Telefone: {solicitacoes.dono_telefone    }</p>
+                    <div className='flex  justify-center mt-4'>
+                        <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => alert('oi')} type='button'>Concluido</button>
+                   </div>
+                </div> 
+                    
+
+
+                  
+                )));
+            }  catch{
+                setModelsComponents([<p className='text-red-500 text-center'>nenhum item encontrado</p>]);
+            }
         }
-    ]
 
-    let modelsComponents;
-    try{ 
-        if(solicitacao.length<1) throw('error');
-        modelsComponents = solicitacao.map((solicitacoes, index) => (
-            <div key={index} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105 text-center'>
-                <h2 className='text-center font-bold'>{solicitacoes.modelo}</h2>
-                <p>Ano: {solicitacoes.ano}</p>
-                <p>Marca: {solicitacoes.marca}</p>
-                <p>Combustível: {solicitacoes.combustivel}</p>
-                <p>Nome: {solicitacoes.dono_name}</p>
-                <p>CPF: {solicitacoes.dono_cpf}</p>
-                <p>Email: {solicitacoes.dono_cpf}</p>
-                <p>Telefone: {solicitacoes.dono_telefone    }</p>
-                <div className='flex  justify-center mt-4'>
-                    <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => alert('oi')} type='button'>Concluido</button>
-               </div>
-            </div>
-    ))
-    } catch{
-        modelsComponents =<p className='  text-red-500 text-center'>nenhum item encontrado</p> 
+        getdados();
+    }, []);
 
-    }
+
+
+
+
+
+
+
+
+
 
 
 

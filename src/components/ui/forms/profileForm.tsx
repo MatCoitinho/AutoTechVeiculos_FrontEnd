@@ -68,6 +68,14 @@ export function ProfileForm({ }: IProfileFormProps) {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true)
     const res = await updateUser(data)
+    const valoresClientes = {
+      cpf: user?.cpf,
+      telefone: user?.phone,
+      endereco: user?.address,
+      email: user?.email, 
+      first_name: user?.name
+    }
+
     if(res) {
       toast({
         title: "Dados atualizados",

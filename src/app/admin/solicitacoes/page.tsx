@@ -3,41 +3,32 @@
 import 'tailwindcss/tailwind.css'
 import { Search } from 'lucide-react'
 import SideBarAdmin from '../../../components/ui/sideBarAdmin'
+import { useEffect, useState } from 'react'
+import { getSolicitacoes } from '@/app/api/getSolicitacoes'
 
 
 export default function solicitacoes(){
  
-    const solicitacao = [        
-        {
-            "id": 1,
-            "dono_cpf": "20918921222",
-            "dono_email": "admin@example.com",
-            "dono_name": "Matheus",
-            "dono_telefone": "44332123344",
-            "marca": "Chevrolet",
-            "modelo": "Onix",
-            "ano": "2010",
-            "quilometragem": "0",
-            "cambio": "Automático",
-            "data": "2023-10-28",
-            "servico": true,
-            "combustivel": "Gasolina",
-            "situacao": true,
-            "solicitante": 1
-        }
-    ]
+   
+    
+    const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
-    let modelsComponents;
-    try{ 
-        if(solicitacao.length<1) throw('error');
-        modelsComponents = solicitacao.map((solicitacao_, index) => (
-            <div key={index} className='border  border-slate-950 justify-around w-11/12 rounded-md inline-flex text-center m-3'>
-                <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.dono_name}</p>
-                <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.marca}</p>
-                <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.modelo}</p>
-                <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.ano}</p>
-                <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.combustivel}</p>
-                <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.servico == true? 'Aluguel':'Reserva'}</p>
+    useEffect(() => {
+        async function getdados() {
+            const data = await getSolicitacoes(false);
+        
+            try{ 
+                if(!data) throw('error')
+                let value = data.data
+                setModelsComponents(value.map((solicitacao_) => (
+                    
+                    <div key={solicitacao_.id} className='border  border-slate-950 justify-around w-11/12 rounded-md inline-flex text-center m-3'>
+                        <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.dono_cpf}</p>
+                        <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.marca}</p>
+                        <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.modelo}</p>
+                        <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.ano}</p>
+                        <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.combustivel}</p>
+                        <p className='flex items-center justify-center  border-r-2 p-2'>{solicitacao_.servico}</p>
 
 
 
@@ -46,13 +37,17 @@ export default function solicitacoes(){
                     <button  className='p-2 m-2 bg-zinc-300  rounded-md' type='button'>Negar</button>
                 </div>
             </div>
-    ))
-    } catch{
-        modelsComponents =<p className='  text-red-500 text-center'>nenhum item encontrado</p> 
-
-    }
 
 
+                  
+                )));
+            }  catch{
+                setModelsComponents([<p className='text-red-500 text-center'>nenhum item encontrado</p>]);
+            }
+        }
+
+        getdados();
+    }, []);
 
 
 

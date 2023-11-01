@@ -3,6 +3,23 @@ import 'tailwindcss/tailwind.css'
 import SideBarAdmin from '../../../../../components/ui/sideBarAdmin'
 import { useState } from 'react'
 import { createModel } from '@/app/api/createModel'
+type Modelo = {
+    id: number;
+    tipoCombustivel: string;
+    model: string;
+    marca: string;
+    ano: number;
+    cambio: boolean;
+    categoria: string;
+    qtdPortas: number;
+}
+
+let valores: Modelo;
+export function getdadosModelos(value: Modelo){
+    valores = value
+    console.log(valores)
+}
+
 export default function cadastrarModelos(){
     const [inputs, setInputs] = useState({
         marca: '',
@@ -51,6 +68,7 @@ export default function cadastrarModelos(){
 
     }
     return(
+        valores?
         <div className='flex min-h-screen text-black'>
             <div className='w-1/5 bg-black text-center'>
                 <a href='/admin/'>
@@ -79,7 +97,7 @@ export default function cadastrarModelos(){
                                 <label>
                                     Marca
                                     <div>
-                                        <input type='text' onChange={getInputs} name='marca' required={true} className='bg-zinc-300 flex  w-96 p-3'/>
+                                        <input type='text'defaultValue={valores.marca} onChange={getInputs} name='marca' required={true} className='bg-zinc-300 flex  w-96 p-3'/>
                                     </div>
                                 </label>
                             </div>
@@ -87,7 +105,7 @@ export default function cadastrarModelos(){
                                 <label>
                                     Modelo
                                     <div>
-                                        <input type='text'  onChange={getInputs} name='modelo' required className='bg-zinc-300 flex w-96 p-3'/>
+                                        <input type='text'  defaultValue={valores.model} onChange={getInputs} name='modelo' required className='bg-zinc-300 flex w-96 p-3'/>
                                     </div>
                                 </label>
                             </div>
@@ -95,14 +113,14 @@ export default function cadastrarModelos(){
                                 <label>
                                     Ano
                                     <div>
-                                        <input type='Number' onChange={getInputs} name='ano' required className='bg-zinc-300 flex w-96 p-3'/>
+                                        <input type='Number' defaultValue={valores.ano} onChange={getInputs} name='ano' required className='bg-zinc-300 flex w-96 p-3'/>
                                     </div>
                                 </label>
                             </div>
                             <div>
                                 <label>
                                     Quantidade de Portas
-                                    <select name='portas' defaultValue={2} onChange={getInputsSelect} className='bg-zinc-300 flex w-96 p-3 text-center'>
+                                    <select name='portas' defaultValue={valores.qtdPortas === 2? 2:4} onChange={getInputsSelect} className='bg-zinc-300 flex w-96 p-3 text-center'>
                                         <option value={2}>Duas</option>
                                         <option value={4}>Quatro</option>
                                     </select>
@@ -111,7 +129,7 @@ export default function cadastrarModelos(){
                             <div>
                                 <label>
                                     Combustivel
-                                    <select name='combustivel'  defaultValue={'gasolina'} onChange={getInputsSelect} className='bg-zinc-300 flex w-96 p-3 text-center'>
+                                    <select name='combustivel'  defaultValue={valores.categoria} onChange={getInputsSelect} className='bg-zinc-300 flex w-96 p-3 text-center'>
                                         <option value={'gasolina'}>Gasolina</option>
                                         <option value={'alcool'}>Alcool</option>
                                         <option value={'eletrico'}>Elétrico</option>
@@ -123,7 +141,7 @@ export default function cadastrarModelos(){
                             <div>
                                 <label>
                                     Câmbio
-                                    <select name='cambio' defaultValue={'automatico'} onChange={getInputsSelectBool} className='bg-zinc-300 flex w-96 p-3 text-center'>
+                                    <select name='cambio' defaultValue={valores.cambio === true? 1:0} onChange={getInputsSelectBool} className='bg-zinc-300 flex w-96 p-3 text-center'>
                                         <option value={1}>Automático</option>
                                         <option value={0}>Manual</option>
                                     </select>
@@ -132,7 +150,7 @@ export default function cadastrarModelos(){
                             <div>
                                 <label>
                                     Categoria
-                                    <select name='categoria' defaultValue={'compacto'} onChange={getInputsSelect} className='bg-zinc-300 flex w-96 p-3 text-center'>
+                                    <select name='categoria' defaultValue={valores.categoria} onChange={getInputsSelect} className='bg-zinc-300 flex w-96 p-3 text-center'>
                                         <option value={'compacto'}>Compacto</option>
                                         <option value={'sedan'}>Sedan</option>
                                         <option value={'suv'}>SUV</option>
@@ -155,5 +173,6 @@ export default function cadastrarModelos(){
                 </div>
             </div>
         </div>
+        : <h1>404</h1>
     )
 }
