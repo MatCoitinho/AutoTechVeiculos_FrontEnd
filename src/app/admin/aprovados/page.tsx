@@ -8,11 +8,24 @@ import {useEffect, useState} from 'react';
 import { getAnuncio } from '@/app/api/getAnuncio';
 import { getSolicitacoes } from '@/app/api/getSolicitacoes';
 import { deleteSolicitacao } from '@/app/api/deleteSolicitacoes';
+import { parseCookies } from 'nookies';
 
 
 
     
 export default function solicitacoes_(){
+
+    let email = localStorage.getItem('@autotech:user')
+    let vaule = email?.replace(/["/]/g, '');
+    //let vaule = await recoverUserInformation()
+    const {'AutoTech_token': token} = parseCookies()
+    const router = useRouter()
+    let controle = true
+    if(!token || vaule !== 'admin@example.com'){
+        controle = false
+        router.push('/')
+    }
+
     const {push} = useRouter();
     const editar =(classe: string, parametro: string) => {
         push(`/admin/${classe}/${parametro}`)
@@ -42,14 +55,14 @@ export default function solicitacoes_(){
                 if(!data) throw('error')
                 let value = data.data
                 setModelsComponents(value.map((solicitacoes) => (
-                    <div key={solicitacoes.id} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105 text-center'>
+                    <div key={solicitacoes.id} className='border  border-slate-950 p-2  rounded-md hover:scale-105 text-center'>
                     <h2 className='text-center font-bold'>{solicitacoes.modelo}</h2>
                     <p>Ano: {solicitacoes.ano}</p>
                     <p>Marca: {solicitacoes.marca}</p>
                     <p>Combustível: {solicitacoes.combustivel}</p>
                     <p>Nome: {solicitacoes.dono_name}</p>
                     <p>CPF: {solicitacoes.dono_cpf}</p>
-                    <p>Email: {solicitacoes.dono_cpf}</p>
+                    <p>Email: {solicitacoes.dono_email}</p>
                     <p>Telefone: {solicitacoes.dono_telefone    }</p>
                     <div className='flex  justify-center mt-4'>
                         <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => deletar(solicitacoes.id)} type='button'>Concluido</button>

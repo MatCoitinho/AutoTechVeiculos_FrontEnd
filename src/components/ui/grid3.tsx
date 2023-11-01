@@ -15,10 +15,11 @@ function Grid3({ data, textButton }: IGrid3Props) {
           id={car.id}
           image={car.img1}
           title={car.modelo}
-          status={car.status === true? 'Novo':'Usado'}
-          cambio={car.cambio === true? 'Automatico':'Manual'}
+          status={car.status}
+          cambio={car.cambio}
           year={car.ano}
           price={car.preco}
+          servico={car.servico}
           textbutton={textButton}
         />
       )) }

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Button } from "../../../components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -41,14 +41,19 @@ export default function Vehicle({ params }: { params: any; }) {
   const [vehicle, setVehicle] = useState<Carro[]>()
   const [isLoading, setIsLoading] = useState(false)
   const { id } = params;
+  const param = useParams()
+    const paginaId = param
   
-  
-
+  console.log(id)
   useEffect(() => {
+    setIsLoading(true)
     const fetchVeiculos = async () => {
-      const response = await getAnuncio('');
+      const response = await getAnuncio(id);
       if (response) {
+        const teste = response.data.filter((carro) => carro.id === id )
+        setIsLoading(false)
         setVehicle(response.data);
+        console.log(vehicle)
       } else {
         setVehicle([]);
         console.error('Failed to fetch veiculos');

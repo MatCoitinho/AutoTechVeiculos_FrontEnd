@@ -9,11 +9,24 @@ import {useState} from 'react';
 import { getModelo } from '@/app/api/getModelos';
 import { deleteModelo } from '@/app/api/deleteModelo';
 import { getdadosModelos } from '../../../editar/modelo/[id]/page';
+import { parseCookies } from 'nookies';
 
 
 
     
 export default function modelos(){
+    let email = localStorage.getItem('@autotech:user')
+    let vaule = email?.replace(/["/]/g, '');
+    //let vaule = await recoverUserInformation()
+    const {'AutoTech_token': token} = parseCookies()
+    const router = useRouter()
+    let controle = true
+    if(!token || vaule !== 'admin@example.com'){
+        controle = false
+        router.push('/')
+    }
+
+
     const param = useParams()
     const paginaId = param
 

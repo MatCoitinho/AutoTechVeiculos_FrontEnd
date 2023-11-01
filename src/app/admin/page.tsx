@@ -1,9 +1,24 @@
+'use client'
 import 'tailwindcss/tailwind.css'
 import SideBarAdmin from '../../components/ui/sideBarAdmin'
+import { parseCookies } from 'nookies';
+import { useRouter } from 'next/navigation';
+import { recoverUserInformation } from '@/lib/login';
 
 export default function admin(){
+    let email = localStorage.getItem('@autotech:user')
+    let vaule = email?.replace(/["/]/g, '');
+    //let vaule = await recoverUserInformation()
+    const {'AutoTech_token': token} = parseCookies()
+    const router = useRouter()
+    let controle = true
+    if(!token || vaule !== 'admin@example.com'){
+        controle = false
+        router.push('/')
+    }
+
     return(
-        <div className='flex  h-screen'>
+        controle? <div className='flex  h-screen'>
             <div className=' w-1/5 bg-black text-center'>
                 <a href='/admin/'>
                 
@@ -16,5 +31,7 @@ export default function admin(){
                 
             </div>
         </div>
+        :
+        <h1>404</h1>
     )
 }

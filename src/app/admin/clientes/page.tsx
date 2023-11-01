@@ -8,9 +8,19 @@ import { useRouter } from "next/navigation";
 import {useState, useEffect} from 'react';
 import { getCliente } from '@/app/api/getCliente';
 import { deleteClient } from '@/app/api/deleteCliente';
+import { parseCookies } from 'nookies';
 
 export default function Clientes(){
-   
+    let email = localStorage.getItem('@autotech:user')
+    let vaule = email?.replace(/["/]/g, '');
+    //let vaule = await recoverUserInformation()
+    const {'AutoTech_token': token} = parseCookies()
+    const router = useRouter()
+    let controle = true
+    if(!token || vaule !== 'admin@example.com'){
+        controle = false
+        router.push('/')
+    }
 
     const {push} = useRouter();
     const editar =(classe: string, parametro: string) => {
@@ -44,17 +54,17 @@ export default function Clientes(){
                 if(!data) throw('error')
                 let value = data.data
                 setModelsComponents(value.map((clientes) => (
-                <div key={clientes.id} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
+                    <div key={clientes.id} className='border  border-slate-950 p-2  w-56 rounded-md hover:scale-105'>
                     <h2 className='text-center font-bold'>{clientes.cliente_firstName}</h2>
                     <p className=' text-xs  max-w-xs'>Nome: {clientes.cliente_firstName} {clientes.cliente_lastName}</p>
-                    <p>E-mail: {clientes.cliente_email}</p>
+                    <p className=' text-xs  max-w-xs'>E-mail: {clientes.cliente_email}</p>
                     <p>CPF: {clientes.cpf}</p>
                     <p>Endereço: {clientes.endereco}</p>
                     <p>Telefone: {clientes.telefone}</p>
                     <div className='flex  justify-center mt-4'>
                         <button  className='p-2  bg-zinc-300  rounded-md' type='button' onClick={() => deletar(clientes.id)}>Deletar</button>
                     </div>
-                </div>  
+                </div> 
                     
 
 

@@ -8,6 +8,8 @@ import { error } from 'console'
 
 import { createAnoucement } from '@/app/api/createAnuncio'
 import { getdadosAnuncio } from '../../editar/anuncio/[id]/page'
+import { parseCookies } from 'nookies'
+import { useRouter } from 'next/navigation'
 
 
 
@@ -16,6 +18,18 @@ import { getdadosAnuncio } from '../../editar/anuncio/[id]/page'
 
 
 function cadastrarAnuncio(){
+
+    let email = localStorage.getItem('@autotech:user')
+    let vaule = email?.replace(/["/]/g, '');
+    //let vaule = await recoverUserInformation()
+    const {'AutoTech_token': token} = parseCookies()
+    const router = useRouter()
+    let controle = true
+    if(!token || vaule !== 'admin@example.com'){
+        controle = false
+        router.push('/')
+    }
+
 
     const [inputs, setInputs] = useState({
         placa: '',

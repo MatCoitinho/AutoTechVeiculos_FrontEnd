@@ -8,11 +8,25 @@ import { getVeiculo } from '@/app/api/getVeiculos';
 import {useState, useEffect} from 'react';
 import { deleteVehicle } from '@/app/api/deleteVehicle';
 import { getdados } from '../../../editar/veiculo/[id]/page';
+import { parseCookies } from 'nookies';
 
 
 
 
 export default function veiculos(){
+
+    let email = localStorage.getItem('@autotech:user')
+    let vaule = email?.replace(/["/]/g, '');
+    //let vaule = await recoverUserInformation()
+    const {'AutoTech_token': token} = parseCookies()
+    const router = useRouter()
+    let controle = true
+    if(!token || vaule !== 'admin@example.com'){
+        controle = false
+        router.push('/')
+    }
+
+
 
     const param = useParams()
     const paginaId = param

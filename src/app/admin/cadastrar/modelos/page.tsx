@@ -3,7 +3,21 @@ import 'tailwindcss/tailwind.css'
 import SideBarAdmin from '../../../../components/ui/sideBarAdmin'
 import { useState } from 'react'
 import { createModel } from '@/app/api/createModel'
+import { useRouter } from 'next/navigation'
+import { parseCookies } from 'nookies'
 export default function cadastrarModelos(){
+    let email = localStorage.getItem('@autotech:user')
+    let vaule = email?.replace(/["/]/g, '');
+    //let vaule = await recoverUserInformation()
+    const {'AutoTech_token': token} = parseCookies()
+    const router = useRouter()
+    let controle = true
+    if(!token || vaule !== 'admin@example.com'){
+        controle = false
+        router.push('/')
+    }
+
+
     const [inputs, setInputs] = useState({
         marca: '',
         modelo: '',

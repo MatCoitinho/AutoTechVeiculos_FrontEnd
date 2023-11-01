@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import {useState, useEffect} from 'react';
 import {getAluguel} from '../../api/getAlugueis' 
 import { deletealuguel } from '@/app/api/deleteAluguel';
+import { parseCookies } from 'nookies';
 
 
 export default function alugueis(){
@@ -16,7 +17,16 @@ export default function alugueis(){
         push(`/admin/editar/${classe}/${parametro}`)
     }
 
-
+    let email = localStorage.getItem('@autotech:user')
+    let vaule = email?.replace(/["/]/g, '');
+    //let vaule = await recoverUserInformation()
+    const {'AutoTech_token': token} = parseCookies()
+    const router = useRouter()
+    let controle = true
+    if(!token || vaule !== 'admin@example.com'){
+        controle = false
+        router.push('/')
+    }
 
     const [busca, setBusca] = useState('')
     const setValueSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
