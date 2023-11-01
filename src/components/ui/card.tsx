@@ -4,36 +4,23 @@
 import React from 'react';
 import { Button } from './button';
 import { useRouter } from 'next/navigation';
-import { criarAluguel } from '@/app/api/createAluguel';
-import { criarReserva } from '@/app/api/createReserva';
 
 interface ICardProps {
   id: string;
   image: string;
   title: string;
-  status: boolean;
-  cambio: boolean;
+  status: string;
+  cambio: string;
   year: string;
   price: string;
   textbutton?: string;
-  servico:boolean;
 }
 
-function Card({ id, image, title, status, cambio, year, price, textbutton, servico }: ICardProps) {
+function Card({ id, image, title, status, cambio, year, price, textbutton }: ICardProps) {
   const router = useRouter()
   
-  const finalizar = () =>{
-    let email = localStorage.getItem('@autotech:user')
-    let vaule = email?.replace(/["/]/g, '');
-    const valor = {
-      id: String(id),
-      email: String(vaule)
-    }
-    if(servico === true){
-      criarAluguel(valor)
-    }else{
-      criarReserva(valor)
-    }
+  function goToDetails() {
+    router.push(`/vehicle/${id}`)
   }
 
   return(
@@ -42,12 +29,12 @@ function Card({ id, image, title, status, cambio, year, price, textbutton, servi
       <div className='flex flex-col gap-2 p-4'>
         <h1 className='text-xl'>{title}</h1>
         <div className='flex justify-between items-center'>
-          <h4 className='text-sm'>{status===true? 'Novo':'Usado'}</h4>
-          <h4 className='text-sm'>{cambio === true? 'Automatico':'Manual'}</h4>
+          <h4 className='text-sm'>{status}</h4>
+          <h4 className='text-sm'>{cambio}</h4>
           <h4 className='text-sm'>{year}</h4>
         </div>
         <h2 className='text-2xl font-bold'>R$ {parseInt(price).toFixed(2)}</h2>
-        <Button className='rounded-full' onClick={finalizar}>{servico? 'Aluguel':'Reserva' }</Button>
+        <Button className='rounded-full' onClick={goToDetails}>{ textbutton || 'Ver detalhes' }</Button>
       </div>
     </div>
   );
