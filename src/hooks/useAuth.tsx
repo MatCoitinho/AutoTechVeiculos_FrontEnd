@@ -1,7 +1,8 @@
 'use client';
-
+import {setCookie, parseCookies, destroyCookie } from 'nookies'
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import auth, { ISignInCredentials, Response } from "../lib/auth";
+import {recoverUserInformation} from '../lib/login'
 
 interface AuthContextData {
   signed: boolean;
@@ -20,13 +21,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     async function loadStorageData() {
-      const storagedUser = localStorage.getItem("@autotech:user");
-      const storagedToken = localStorage.getItem("@autotech:token");
+      const {'AutoTech_token': token} = parseCookies()
+     
+      const storagedUser =  JSON.stringify( await recoverUserInformation())
+      const storagedToken = token
 
       if (storagedUser && storagedToken) {
         // get user data from api
         const response = await auth.getUserData(storagedUser);
-        setUser(response.user);
+        console.log('Response')
+        console.log(response)
+        if(response?.user){
+          
+          setUser(response.user);
+        }
+        
       }
       setLoading(false);
     }
@@ -36,21 +45,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   async function signOut() {
     localStorage.clear();
+    destroyCookie(null, 'AutoTech_token')
     setUser(null);
   }
 
   async function signIn(props: ISignInCredentials) {
+    if(!props) return 
+
     const response = await auth.signIn(props);
-    setUser(response.user);
-    localStorage.setItem("@autotech:user", JSON.stringify(response.user.id));
-    localStorage.setItem("@autotech:token", response.token);
+    if(response){
+      setUser(response.user);
+      localStorage.setItem("@autotech:user", JSON.stringify(response.user.email));
+      localStorage.setItem("@autotech:token", response.token);
+    }
   }
 
   async function updateUser(props: Omit<Response['user'], 'id'>) {
     const storagedUser = localStorage.getItem("@autotech:user");
     if (storagedUser) {
       const response = await auth.getUserData(storagedUser);
-      setUser(response.user);
+      if(response?.user){
+        setUser(response.user);
+      }
       return true;
     }
     return false;

@@ -1,5 +1,5 @@
 'use client'
-
+import { useState } from 'react';
 import React from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -27,6 +27,7 @@ import { LoginForm } from './forms/loginForm';
 import { useAuth } from '../../hooks/useAuth';
 import { SignedMenu } from './signedMenu';
 import { SolicitationAddsForm } from './forms/solicitationAddsForm';
+import { createClient } from '@/app/api/createClient';
 
 interface IHeaderProps { }
 
@@ -36,7 +37,15 @@ function Header({ }: IHeaderProps) {
   const [openLogin, setOpenLogin] = React.useState(false)
   const [openRegister, setOpenRegister] = React.useState(false)
   const [openSolicitationAdds, setOpenSolicitationAdds] = React.useState(false)
-
+  const [usuario, setUsuario] = useState({
+    first_name: '',
+    last_name: '',
+    senha: '',
+    emails: '',
+    cpfs: '',
+    telefones: '',
+    enderecos: ''
+  })
   const router = useRouter()
   const { signed, signIn, loading } = useAuth()
 
@@ -56,6 +65,27 @@ function Header({ }: IHeaderProps) {
     setOpenSolicitationAdds(!openSolicitationAdds)
   }
 
+  const value = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUsuario({
+        ...usuario,
+        [event.target.name]: event.target.value
+    })
+}
+const click = () =>{
+    const partes = usuario.first_name.split(' ') 
+    const segundaParte = partes.shift()
+    const a = partes.join('')
+    const user = {
+      primeiroNome: String(segundaParte),
+      ultimoNome: String(a),
+      senha: usuario.senha,
+      email: usuario.emails,
+      CPF: usuario.cpfs,
+      telefone: usuario.telefones,
+      endereco: usuario.enderecos
+    }
+    createClient(user)
+}
   return (
     <header className='w-screen px-2 py-4 z-50 flex flex-col items-center justify-center fixed bg-background drop-shadow-xl'>
       <div className='max-w-7xl w-full flex justify-between items-center'>
@@ -97,39 +127,51 @@ function Header({ }: IHeaderProps) {
                   </DialogHeader>
                   <div className="grid gap-4 py-4">
                     <Input
+                      name='first_name'
                       id="name"
                       placeholder='Nome completo'
                       className="w-full"
+                      onChange={value}
                     />
                     <Input
+                      name='emails'
                       id="email"
                       placeholder='Email'
                       className="w-full"
+                      onChange={value}
                     />
                     <Input
+                      name='telefones'
                       id="phone"
                       placeholder='Telefone'
                       className="w-full"
+                      onChange={value}
                     />
                     <Input
+                      name='cpfs'
                       id="cpf"
                       placeholder='CPF'
                       className="w-full"
+                      onChange={value}
                     />
                     <Input
+                      name='enderecos'
                       id="address"
                       placeholder='Endereço'
                       className="w-full"
+                      onChange={value}
                     />
                     <Input
+                      name='senha'
                       id="password"
                       placeholder='Senha'
                       type='password'
                       className="w-full"
+                      onChange={value}
                     />
                   </div>
                   <DialogFooter>
-                    <Button type="submit">Cadastrar</Button>
+                    <Button type="submit" onClick={click}>Cadastrar</Button>
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
