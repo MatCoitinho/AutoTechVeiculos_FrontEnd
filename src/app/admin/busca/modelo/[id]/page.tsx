@@ -15,13 +15,13 @@ import { parseCookies } from 'nookies';
 
     
 export default function modelos(){
-    let email = localStorage.getItem('@autotech:user')
-    let vaule = email?.replace(/["/]/g, '');
+    // let email = localStorage.getItem('@autotech:user')
+    // let vaule = email?.replace(/["/]/g, '');
     //let vaule = await recoverUserInformation()
     const {'AutoTech_token': token} = parseCookies()
     const router = useRouter()
     let controle = true
-    if(!token || vaule !== 'admin@example.com'){
+    if(!token ){
         controle = false
         router.push('/')
     }
