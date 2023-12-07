@@ -1,4 +1,4 @@
-import { Car, CarFront, User, Bell, Megaphone, Library, LibrarySquare } from 'lucide-react';
+import { Car, CarFront, User, Bell, Megaphone, Library, LibrarySquare, Receipt } from 'lucide-react';
 import Link  from 'next/link';
 
 
@@ -51,6 +51,12 @@ export default function BarraLaretal(){
                     <a href="http://localhost:3000/admin/alugueis" className='flex mt-4 text-xl'>
                         <LibrarySquare/>
                         <p className='pl-3'>Alugueis</p>
+                    </a>
+                    </div>
+                    <div >
+                    <a href="http://localhost:3000/admin/vendas/" className='flex mt-4 text-xl'>
+                        <Receipt/>
+                        <p className='pl-3'>Registrar venda</p>
                     </a>
                     </div>
                 </span>

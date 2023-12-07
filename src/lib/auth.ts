@@ -37,7 +37,7 @@ async function  signIn({email, password}: ISignInCredentials){
     }) 
     
     if(user?.token){
-        setCookie(undefined, 'AutoTech_token', user.token, {maxAge: 1200} )
+        setCookie(undefined, 'AutoTech_token', user.token, {maxAge: 12000} )
         return user;
       } 
 }

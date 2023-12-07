@@ -134,6 +134,27 @@ const finalizar = () =>{
               <h1 className='text-3xl font-bold'>R$ 0.00</h1>
             ) }
 
+           { isLoading ? (
+              <Skeleton className="h-8 w-40 rounded-full justify-center" />
+            ) : vehicle ? (
+              <div className="flex flex-col  space-y-2">
+                <div className=" space-x-3"> 
+                  <p className="m-2">Data da visita</p>
+                  <input type="date" className="w-1/3 bg-slate-600 p-2 rounded-sm "/>
+                  <input type="time" className="w-1/3 bg-slate-600 p-2 rounded-sm"/>
+                </div>
+                <div className=" space-x-3"> 
+                  <p className="m-2">Data de retirada e data de devolução</p>
+                  <input type="date" className="w-1/3 bg-slate-600 p-2 rounded-sm"/>
+                  <input type="date" className="w-1/3 bg-slate-600 p-2 rounded-sm"/>
+                </div>
+              </div>
+
+
+            ) : (
+              <h1 className='text-3xl font-bold'>R$ 0.00</h1>
+            ) }
+
             { isLoading ? (
               <div className='flex flex-col gap-4 mt-auto'>
                 <Skeleton className="h-10 w-full rounded-full" />
@@ -193,6 +214,9 @@ const finalizar = () =>{
               <div className='flex gap-4 items-center'>
                 <div className="h-3 w-3 rounded-full bg-slate-800" />
                 <span>{vehicle?.combustivel}</span>
+              </div>
+              <div>
+              
               </div>
             </>
           ) : (
