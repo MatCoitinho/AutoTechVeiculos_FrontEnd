@@ -16,6 +16,7 @@ import { criarReserva } from "@/app/api/createReserva";
 import { string } from "zod";
 import { parseCookies } from "nookies";
 import { patchPontos } from "@/app/api/patchPontos";
+import { createFavorito } from "@/app/api/createFavorite";
 let ctrl = true
 export default function Vehicle({ params }: { params: any; }) {
   const router = useRouter()
@@ -46,6 +47,19 @@ export default function Vehicle({ params }: { params: any; }) {
   
   const {'AutoTech_token': token} = parseCookies()
   
+  const adicionaFavorito = () => {
+    let email = localStorage.getItem('@autotech:user')
+    let vaule = email?.replace(/["/]/g, '');
+      const data = {
+        email: String(vaule),
+        modelo: String(vehicle?.modelo),
+        marca: String(vehicle?.marca),
+        ano: String(vehicle?.ano)
+      }
+        createFavorito(data);
+  }
+
+
   useEffect(() => {
     const fetchVeiculos = async () => {
       const response = await getAnuncio('');
@@ -172,7 +186,7 @@ const finalizar = () =>{
                     </DialogHeader>
                   </DialogContent>
                 </Dialog>
-                <Button className="rounded-full" variant='outline'>Adicionar aos meus desejos</Button>
+                <Button className="rounded-full" onClick={adicionaFavorito} variant='outline'>Adicionar aos meus desejos</Button>
               </div>
             ) }
           </div>

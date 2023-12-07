@@ -33,7 +33,7 @@ const EmphaseAddDialog = () => {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <EmphaseAddForm
-            closeEmphaseAddForm={() => setEmphaseAdd(!emphaseAdd)}
+            closeEmphaseAddForm={ () => setEmphaseAdd(!emphaseAdd)}
           />
         </div>
       </DialogContent>

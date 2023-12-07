@@ -2,7 +2,6 @@ import api from "@/lib/api";
 
 
 type requisicao = {
-    id: string
     marca: string;
     modelo: string;
     ano: string;

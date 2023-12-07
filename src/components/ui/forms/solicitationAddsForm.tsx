@@ -72,6 +72,7 @@ export function SolicitationAddsForm({ closeSolicitationAdds }: ISolicitationAdd
           combustivel: data.tipoCombustivel,
           situacao:  false
         }
+        console.log(form)
         criarSolicitacao(form)
       }
 
