@@ -1,8 +1,11 @@
 import api from '../../lib/api'
 
 type reserva = {
+    inicio: string;
+    hora: string;
+    fim: string;
+    email:  string;
     id: string;
-    email: string;
 }
 
 export async function criarAluguel(data: reserva) {

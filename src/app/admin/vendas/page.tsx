@@ -50,11 +50,11 @@ export default function veiculos(){
                 setModelsComponents(value.map((vendas) => (
                     <div key={vendas.id} className='border  border-slate-950 p-2 w-fit rounded-md hover:scale-105'>
                         <h2 className='text-center font-bold'>{vendas.data}</h2>
-                        <p>CPF Dono: { String(vendas.modelo)}</p>
-                        <p>CPF Dono: { String(vendas.valor)}</p>
-                        <p>Quilometragem: {vendas.nome_comprador}</p>
-                        <p>Marca: {vendas.cpf_comprador}</p>
-                        <p>Placa: {vendas.contato}</p>
+                        <p>Modelo: { String(vendas.modelo)}</p>
+                        <p>Valor: { String(vendas.valor)}</p>
+                        <p>Nome Comprador: {vendas.nome_comprador}</p>
+                        <p>CPF Comprador: {vendas.cpf_comprador}</p>
+                        <p>Contato: {vendas.contato}</p>
                         <p>Cor: {vendas.cor}</p>                         
                         <div className='flex  justify-center mt-4'>
                             <button  className='p-2  bg-zinc-300 rounded-md ' onClick={() => editar('veiculo', String(vendas.id), vendas)} type='button'>Editar</button>

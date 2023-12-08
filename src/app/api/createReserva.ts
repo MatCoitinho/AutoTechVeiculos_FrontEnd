@@ -3,6 +3,8 @@ import api from '../../lib/api'
 type aluguel = {
     id: string;
     email: string;
+    dia: string;
+    hora: string;
 }
 
 

@@ -60,6 +60,25 @@ export default function Vehicle({ params }: { params: any; }) {
   }
 
 
+  const [inputs, setInputs] = useState({
+    horaVisita:'',
+    dataInicio:'',
+    dataFim:''
+})
+
+const getInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs({
+        ...inputs,
+        [event.target.name]: event.target.value
+    })
+    console.log(inputs)
+}
+
+
+
+
+
+
   useEffect(() => {
     const fetchVeiculos = async () => {
       const response = await getAnuncio('');
@@ -90,13 +109,27 @@ const finalizar = () =>{
   let email = localStorage.getItem('@autotech:user')
   let vaule = email?.replace(/["/]/g, '');
   if(!vehicle) return
-  const valor = {
-    id: String(vehicle?.id),
-    email: String(vaule)
-  }
+  
+  
   if(vehicle?.servico === true){
+    const valor = {
+      inicio: inputs.dataInicio ,
+      hora: inputs.horaVisita,
+      fim: inputs.dataFim,
+      email:  String(vaule),
+      id: String(vehicle?.id)
+  }
+
     criarAluguel(valor)
   }else{
+    const valor = {
+      dia: inputs.dataInicio,
+      hora: inputs.horaVisita,
+      email: String(vaule),
+      id: String(vehicle?.id)
+  }
+
+
     criarReserva(valor)
   }
 }
@@ -153,14 +186,16 @@ const finalizar = () =>{
             ) : vehicle ? (
               <div className="flex flex-col  space-y-2">
                 <div className=" space-x-3"> 
-                  <p className="m-2">Data da visita</p>
-                  <input type="date" className="w-1/3 bg-slate-600 p-2 rounded-sm "/>
-                  <input type="time" className="w-1/3 bg-slate-600 p-2 rounded-sm"/>
+                  <p className="m-2">Hora da visita</p>
+                  <input type="time" name="horaVisita" onChange={getInputs} min="09:00" max="18:00" className="w-1/3 bg-slate-600 p-2 rounded-sm"/>
                 </div>
                 <div className=" space-x-3"> 
-                  <p className="m-2">Data de retirada e data de devolução</p>
-                  <input type="date" className="w-1/3 bg-slate-600 p-2 rounded-sm"/>
-                  <input type="date" className="w-1/3 bg-slate-600 p-2 rounded-sm"/>
+                  <p className="m-2">{vehicle.servico? "Data de retirada e data de devolução":"Data da Visita"}</p>
+                  <input type="date" name="dataInicio" onChange={getInputs} className="w-1/3 bg-slate-600 p-2 rounded-sm"/>
+                  {
+                    vehicle.servico? <input type="date" name="dataFim" onChange={getInputs} className="w-1/3 bg-slate-600 p-2 rounded-sm"/>:<></>
+                  }
+                  
                 </div>
               </div>
 
