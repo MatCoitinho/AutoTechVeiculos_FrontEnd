@@ -8,9 +8,15 @@ import { useRouter } from "next/navigation";
 import ChangePasswordDialog from "@/components/ui/changePasswordDialog";
 import ListTabs from "@/components/ui/listTabs";
 import { Edit } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { storage } from '@/lib/uploadImage'
+import { patchDestaque } from "../api/patchDestaque";
+import { patchImg } from "../api/patchImg";
+import { getCliente } from "../api/getCliente";
+import { getClienteEmail } from "../api/getClienteEmail";
 
 export default function Profile() {
   // const {'AutoTech_token': token} = parseCookies()
@@ -24,18 +30,94 @@ export default function Profile() {
 
   const [userImg, setUserImg] = useState("/user.jpeg");
   const [bannerImg, setBannerImg] = useState("/carro.jpg");
+  let email = localStorage.getItem('@autotech:user')
+  let vaule = email?.replace(/["/]/g, '');
+  
+  const handleImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+    let file
 
-  const handleImg = (e: any) => {
-    const file = e.target.files[0];
-    const fileURL = URL.createObjectURL(file);
-    setUserImg(fileURL);
+    if(files)
+        file = files[0]
+    if(!file) return
+
+    const storageRef = ref(storage, `images/${file.name}`)
+    const uploadTask = uploadBytesResumable(storageRef, file)
+    uploadTask.on(
+        "state_changed",
+        snapshot => {
+            const progress = (snapshot.bytesTransferred/snapshot.totalBytes) * 100
+        },
+        error => {
+            alert(error)
+        }, 
+        () => {
+            getDownloadURL(uploadTask.snapshot.ref).then( url =>{
+              const imagemData = {
+                email: String(vaule),
+                imgBanner: bannerImg === "/carro.jpg"? '':bannerImg,
+                imgPerfil: url,
+              }  
+              patchImg(imagemData) 
+                setUserImg(url)
+            }
+            )
+        }
+    )
+    
+  };
+  const atualizaImg = async ()=>{
+    const s = {
+      email: 'joaopedro@gmail.com'
+    }
+    const data = await getClienteEmail(s)
+      if(data?.data != undefined){
+        setUserImg(data?.data.imgPerfil)
+        setBannerImg(data?.data.imgBanner)
+      }
+    
+  }
+  useEffect(() => {
+    atualizaImg();
+  }, []);
+  
+
+
+  const handleBannerImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+    let file
+
+    if(files)
+        file = files[0]
+    if(!file) return
+
+    const storageRef = ref(storage, `images/${file.name}`)
+    const uploadTask = uploadBytesResumable(storageRef, file)
+    uploadTask.on(
+        "state_changed",
+        snapshot => {
+            const progress = (snapshot.bytesTransferred/snapshot.totalBytes) * 100
+        },
+        error => {
+            alert(error)
+        }, 
+        () => {
+            getDownloadURL(uploadTask.snapshot.ref).then( url =>{
+              
+                const imagemData = {
+                  email: String(vaule),
+                  imgBanner: url,
+                  imgPerfil: userImg === "/user.jpeg"? '':userImg,
+                }  
+                patchImg(imagemData)              
+                setBannerImg(url)
+            }
+            )
+        }
+    )
+    
   };
 
-  const handleBannerImg = (e: any) => {
-    const file = e.target.files[0];
-    const fileURL = URL.createObjectURL(file);
-    setBannerImg(fileURL);
-  };
 
   return (
     <main className="flex min-h-screen flex-col items-center">

@@ -78,7 +78,7 @@ export default function anuncios(){
     const [busca, setBusca] = useState('')
     const setValueSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setBusca(event.target.value)
-        console.log(busca)
+
     }
 
     const click = () => {

@@ -17,6 +17,7 @@ import { Input } from "../input"
 import { Loader2 } from "lucide-react"
 import { useState } from "react"
 import { useToast } from "../use-toast"
+import { patchSenha } from "@/app/api/patchSenha"
 
 const FormSchema = z.object({
   password: z.string(),
@@ -38,20 +39,29 @@ export function ChangePasswordForm({ closeChangePassword }: IChangePasswordFormP
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsLoading(true)
     await new Promise(resolve => setTimeout(resolve, 2000))
-    if(data.password !== data.confirmPassword) {
-      toast({
-        title: 'Erro',
-        description: 'As senhas não coincidem',
-        variant: 'destructive',
-        duration: 5000
-      })
-    } else {
-      toast({
-        title: 'Tudo certo!',
-        description: 'Senha alterada com sucesso',
-        duration: 5000
-      })
-    }
+      
+      let email = localStorage.getItem('@autotech:user')
+      let vaule = email?.replace(/["/]/g, '');
+      let retorno
+      const senhas = {
+        senha_atual: data.password,
+        nova_senha: data.confirmPassword, 
+        email: vaule
+      }
+      retorno = await patchSenha(String(vaule),senhas);
+      if(retorno === 200){
+        toast({
+          title: 'Tudo certo!',
+          description: 'Senha alterada com sucesso',
+          duration: 5000
+        })
+      } else {
+        toast({
+          title: 'Algo deu errado!',
+          description: 'Não foi possível alterar a senha',
+          duration: 5000
+        })
+      }
     setIsLoading(false)
     closeChangePassword()
   }
@@ -64,7 +74,7 @@ export function ChangePasswordForm({ closeChangePassword }: IChangePasswordFormP
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Senha</FormLabel>
+              <FormLabel>Antiga Senha</FormLabel>
               <FormControl>
                 <Input onChange={field.onChange} defaultValue={field.value} type="password"/>
               </FormControl>
@@ -78,7 +88,7 @@ export function ChangePasswordForm({ closeChangePassword }: IChangePasswordFormP
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirmar senha</FormLabel>
+              <FormLabel>Nova Senha</FormLabel>
               <FormControl>
                 <Input onChange={field.onChange} defaultValue={field.value} type="password"/>
               </FormControl>

@@ -17,6 +17,7 @@ import { Input } from "../input";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
+import { patchDestaque } from "@/app/api/patchDestaque";
 
 const FormSchema = z.object({
   CPF: z.string().min(11, {
@@ -29,6 +30,11 @@ const FormSchema = z.object({
 interface IEmphaseAddFormProps {
   closeEmphaseAddForm: () => void;
 }
+let idCar: Number;
+export function getCarId(id: Number){
+  idCar = id;
+}
+
 
 export function EmphaseAddForm({ closeEmphaseAddForm }: IEmphaseAddFormProps) {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +45,12 @@ export function EmphaseAddForm({ closeEmphaseAddForm }: IEmphaseAddFormProps) {
   });
     
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    const destaque = {
+      id: idCar,
+      valor: 100
+    }
+    patchDestaque(destaque)
+
     setIsLoading(true);
     // closeEmphaseAddForm();
     setIsLoading(false);
@@ -91,7 +103,7 @@ export function EmphaseAddForm({ closeEmphaseAddForm }: IEmphaseAddFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit"  disabled={isLoading}>
           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Destacar anúncio
         </Button>

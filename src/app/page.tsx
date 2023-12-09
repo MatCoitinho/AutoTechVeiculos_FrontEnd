@@ -54,7 +54,6 @@ export default function Home() {
         setVeiculos(response.data);
       } else {
         setVeiculos([]);
-        console.error('Failed to fetch veiculos');
       }
     };
 

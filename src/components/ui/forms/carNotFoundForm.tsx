@@ -16,9 +16,10 @@ import {
 import { Input } from "../input";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
+import { createFavorito } from "@/app/api/createFavorite";
+import { parseCookies } from "nookies";
 
 const FormSchema = z.object({
-  color: z.string(),
   model: z.string(),
   year: z.string(),
   brand: z.string(),
@@ -37,7 +38,19 @@ export function CarNotFoundForm({
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    const {'AutoTech_token': token} = parseCookies()
+    if(!token) return
     setIsLoading(true);
+    let email = localStorage.getItem('@autotech:user')
+    let vaule = email?.replace(/["/]/g, '');
+    const dados = {
+      email: String(vaule),
+      modelo: data.model,
+      marca: data.brand,
+      ano: data.year
+    }
+    createFavorito(dados)
+    
     closeCarNotFoundForm();
     setIsLoading(false);
     //api
@@ -52,20 +65,6 @@ export function CarNotFoundForm({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Marca</FormLabel>
-              <FormControl>
-                <Input onChange={field.onChange} defaultValue={field.value} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="color"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Cor</FormLabel>
               <FormControl>
                 <Input onChange={field.onChange} defaultValue={field.value} />
               </FormControl>

@@ -73,7 +73,6 @@ function cadastrarAnuncio(){
             preco: Number(inputs.preco),
             servico: Boolean(inputs.servico),
         }
-        console.log(anuncio)
         createAnoucement(anuncio);
     
 

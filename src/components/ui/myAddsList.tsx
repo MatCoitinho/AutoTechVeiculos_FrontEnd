@@ -106,7 +106,7 @@ const Card = ({ carAdd }: { carAdd: carAdd }) => {
         </div>
       </div>
 
-      <EmphaseAddDialog  />
+      <EmphaseAddDialog id={carAdd.id} />
     </div>
   );
 };

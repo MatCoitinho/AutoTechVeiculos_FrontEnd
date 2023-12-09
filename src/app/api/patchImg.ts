@@ -1,16 +1,15 @@
 import api from "@/lib/api";
 
 type cliente = {
-    telefone: string | undefined;
-    endereco: string | undefined;
-    email: string | undefined;
-    first_name: string | undefined;
-    
+    email: string
+    imgBanner: string | undefined;
+    imgPerfil: string | undefined;
 }
 
-export async function patchClient(id: string,dados:cliente) {
+export async function patchImg(dados:cliente) {
+    console.log(dados)
     try{
-        const res = await api.patch(`login/atualizar/?cpf=${id}`, dados)
+        const res = await api.patch(`login/mudarImagem/`, dados)
         if(res.status === 200){
             console.log('tudo ok')
             return res.status

@@ -8,9 +8,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./dialog";
-import { EmphaseAddForm } from "./forms/emphaseAddForm";
+import { EmphaseAddForm, getCarId } from "./forms/emphaseAddForm";
 
-const EmphaseAddDialog = () => {
+const EmphaseAddDialog = ({ id }: { id: number }) => {
   const [emphaseAdd, setEmphaseAdd] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ const EmphaseAddDialog = () => {
         <Button
           variant="outline"
           className="rounded-full px-5"
-          onClick={() => console.log("oi")}
+          onClick={() => {getCarId(id)}}
         >
           Destacar anuncio
         </Button>

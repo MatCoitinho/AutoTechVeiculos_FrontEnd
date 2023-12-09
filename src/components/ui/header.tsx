@@ -77,7 +77,7 @@ function Header({}: IHeaderProps) {
     const segundaParte = partes.shift();
     const a = partes.join("");
     const user = {
-      primeiroNome: String(segundaParte),
+      primeiroNome: usuario.first_name,
       ultimoNome: String(a),
       senha: usuario.senha,
       email: usuario.emails,
