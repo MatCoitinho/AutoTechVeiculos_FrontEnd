@@ -22,7 +22,7 @@ function cadastrarAnuncio(){
     // let email = localStorage.getItem('@autotech:user')
     // let vaule = email?.replace(/["/]/g, '');
     //let vaule = await recoverUserInformation()
-    const {'AutoTech_token': token} = parseCookies()
+    const {'Admim_autoTech_token': token} = parseCookies()
     const router = useRouter()
     let controle = true
     if(!token){

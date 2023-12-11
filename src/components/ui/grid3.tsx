@@ -21,7 +21,7 @@ function Grid3({ data, textButton }: IGrid3Props) {
             cambio={car.cambio !== "False"? 'Automatico':'Manual'}
             year={car.ano}
             price={car.preco}
-            textbutton={textButton}
+            textbutton={car.servico? "Alugue já":"Reserve já"}
           />
         )
       }) }
