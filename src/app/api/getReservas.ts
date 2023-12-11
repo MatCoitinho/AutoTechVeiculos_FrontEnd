@@ -19,7 +19,7 @@ type Reserva = {
     categoria: string;
     qtdPortas: number;
     data: string;
-    horario: string;
+    hora: string;
     cliente: number;
     veiculo: number;
 }

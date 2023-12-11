@@ -21,11 +21,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     async function loadStorageData() {
-      const {'AutoTech_token': token} = parseCookies()
-     
-      const storagedUser =  JSON.stringify( await recoverUserInformation())
-      const storagedToken = token
+      const {'AutoTech_token': token, 'Admim_autoTech_token': tokenAdmin} = parseCookies()
 
+      const storagedUser =  JSON.stringify( await recoverUserInformation())
+      let storagedToken
+      if(tokenAdmin)
+        storagedToken = tokenAdmin
+      if(token)
+        storagedToken = token
       if (storagedUser && storagedToken) {
         // get user data from api
         const response = await auth.getUserData(storagedUser);
@@ -46,6 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   async function signOut() {
     localStorage.clear();
     destroyCookie(null, 'AutoTech_token')
+    destroyCookie(null, 'Admim_autoTech_token')
     setUser(null);
   }
 

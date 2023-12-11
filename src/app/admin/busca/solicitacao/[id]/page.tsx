@@ -2,12 +2,13 @@
 
 import 'tailwindcss/tailwind.css'
 import { Search } from 'lucide-react'
-import SideBarAdmin from '../../../components/ui/sideBarAdmin'
+import SideBarAdmin from '../../../../../components/ui/sideBarAdmin'
 import { useEffect, useState } from 'react'
 import { getSolicitacoes } from '@/app/api/getSolicitacoes'
 import { patchSolicitacao } from '@/app/api/patchSolicitacoes'
 import { deleteSolicitacao } from '@/app/api/deleteSolicitacoes'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
+import { getSolicitante } from '@/app/api/getSolicitante'
 
 
 export default function solicitacoes(){
@@ -29,9 +30,11 @@ export default function solicitacoes(){
     }
     const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
 
+    const param = useParams()
+    const paginaId = param
     useEffect(() => {
         async function getdados() {
-            const data = await getSolicitacoes(false);
+            const data = await getSolicitante(`?solicitante__cpf=${paginaId.id}&situacao=false`);
         
             try{ 
                 if(!data) throw('error')

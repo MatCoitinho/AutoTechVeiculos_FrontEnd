@@ -50,8 +50,12 @@ export async function signinRequest(data: signinRequestData){
 
 function getToken(email: String){
     const {'AutoTech_token': token} = parseCookies()
+    const {'Admim_autoTech_token': tokenAdmin} = parseCookies()
+    
     if(token)
         return token
+    if(tokenAdmin)
+        return tokenAdmin
 }
 
 export async function recoverUserInformation(){

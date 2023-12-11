@@ -28,13 +28,15 @@ export default function alugueis(){
         router.push('/')
     }
 
+    
     const [busca, setBusca] = useState('')
     const setValueSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setBusca(event.target.value)
+        console.log(busca)
     }
 
     const click = () => {
-        alert(busca);
+        push(`/admin/busca/aluguel/${busca}`)
     }
 
     
@@ -56,6 +58,7 @@ export default function alugueis(){
                     <h2 className='text-center font-bold'>Aluguel</h2>
                     <p>Retirada: {aluguel.dataInicio}</p>
                     <p>Devolução: {aluguel.dataDev}</p>
+                    <p>Horário da Retirada: {aluguel.hora_retirada}</p>
                     <p>Modelo: {aluguel.model}</p>
                     <p>Marca: {aluguel.marca}</p>
                     <p>Nome: {aluguel.cliente_firstName}</p>

@@ -6,13 +6,14 @@ import { useRouter } from 'next/navigation';
 import { recoverUserInformation } from '@/lib/login';
 
 export default function admin(){
-    const {'AutoTech_token': token} = parseCookies()
+    const {'Admim_autoTech_token': token} = parseCookies()
     const router = useRouter()
     let controle = true
     if(!token){
         controle = false
         router.push('/')
     }
+    
 
     return(
         controle? <div className='flex  h-screen'>

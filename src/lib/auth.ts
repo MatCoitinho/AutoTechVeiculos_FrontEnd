@@ -4,7 +4,7 @@ import {setCookie } from 'nookies'
 import { useState } from "react";
 import { boolean, number, string } from "zod";
 import Router from "next/router";
-import { Route } from "lucide-react";
+import { CopySlash, Route } from "lucide-react";
 import { getCliente } from "@/app/api/getCliente";
 import { loginResquest } from "@/app/api/postLogin";
 import { userResquest } from "@/app/api/PostLoginClient";
@@ -37,17 +37,18 @@ async function  signIn({email, password}: ISignInCredentials){
     }) 
     
     if(user?.token){
+      if(user.user.email === 'admin@example.com'){
+        alert('SuperUser')
+        setCookie(undefined, 'Admim_autoTech_token', user.token, {maxAge: 12000} )
+      } else {
         setCookie(undefined, 'AutoTech_token', user.token, {maxAge: 12000} )
-        return user;
+      }
+        return user;  
       } 
 }
 
 export async function getUserData(id: string): Promise<Response| undefined> {
-    console.log('id')
-    console.log(id)
     const usuario = await userResquest(id)
-    console.log('usuario')
-    console.log(usuario)
     if(usuario){
       return { 
         token: '', 

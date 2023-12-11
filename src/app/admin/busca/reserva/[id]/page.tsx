@@ -2,8 +2,8 @@
 
 import 'tailwindcss/tailwind.css'
 import { Search } from 'lucide-react'
-import SideBarAdmin from '../../../components/ui/sideBarAdmin'
-import { useRouter } from "next/navigation";
+import SideBarAdmin from '../../../../../components/ui/sideBarAdmin'
+import { useParams, useRouter } from "next/navigation";
 
 import {useState, useEffect} from 'react';
 import { getReserva } from '@/app/api/getReservas';
@@ -11,7 +11,8 @@ import { deleteReserva } from '@/app/api/deleteReserva';
 export default function reservas(){
    
    
-
+    const param = useParams()
+    const paginaId = param
     const {push} = useRouter();
     const editar =(classe: string, parametro: string) => {
         push(`/admin/editar/${classe}/${parametro}`)
@@ -34,10 +35,10 @@ export default function reservas(){
     }
 
     const [modelsComponents, setModelsComponents] = useState<JSX.Element[]>([]);
-
+    
     useEffect(() => {
         async function getdados() {
-            const data = await getReserva('');
+            const data = await getReserva(`?cliente__cpf=${paginaId.id}`);
         
             try{ 
                 if(!data) throw('error')

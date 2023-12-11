@@ -7,7 +7,7 @@ type Destaque = {
 
 export async function patchDestaque(dados:Destaque) {
     try{
-        const res = await api.patch(`/anunciar/Anuncio/`, dados)
+        const res = await api.patch(`/anunciar/destaquePago/`, dados)
         if(res.status === 200){
             console.log('tudo ok')
             return res.status

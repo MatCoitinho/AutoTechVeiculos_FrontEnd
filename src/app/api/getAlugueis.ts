@@ -20,6 +20,7 @@ type Aluguel = {
     qtdPortas: string;
     placa: string;
     dataInicio: string;
+    hora_retirada: string;
     dataDev: string;
     cliente: number;
     veiculo: number;
