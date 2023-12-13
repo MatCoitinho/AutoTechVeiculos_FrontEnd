@@ -86,6 +86,7 @@ function Header({}: IHeaderProps) {
       endereco: usuario.enderecos,
     };
     createClient(user);
+    changeOpenRegister()
   };
   return (
     <header className="w-screen px-2 py-4 z-50 flex flex-col items-center justify-center fixed bg-background drop-shadow-xl">

@@ -38,7 +38,6 @@ async function  signIn({email, password}: ISignInCredentials){
     
     if(user?.token){
       if(user.user.email === 'admin@example.com'){
-        alert('SuperUser')
         setCookie(undefined, 'Admim_autoTech_token', user.token, {maxAge: 12000} )
       } else {
         setCookie(undefined, 'AutoTech_token', user.token, {maxAge: 12000} )

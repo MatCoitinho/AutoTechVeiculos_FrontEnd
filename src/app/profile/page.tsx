@@ -32,7 +32,7 @@ export default function Profile() {
   const [bannerImg, setBannerImg] = useState("/carro.jpg");
   let email = localStorage.getItem('@autotech:user')
   let vaule = email?.replace(/["/]/g, '');
-  
+  let mail = vaule;
   const handleImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
     let file
@@ -68,7 +68,7 @@ export default function Profile() {
   };
   const atualizaImg = async ()=>{
     const s = {
-      email: 'joaopedro@gmail.com'
+      email: String(mail)
     }
     const data = await getClienteEmail(s)
       if(data?.data != undefined){

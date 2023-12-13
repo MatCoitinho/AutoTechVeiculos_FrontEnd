@@ -56,7 +56,7 @@ export default function Clientes(){
                 setModelsComponents(value.map((clientes) => (
                     <div key={clientes.id} className='border  border-slate-950 p-2  w-56 rounded-md hover:scale-105'>
                     <h2 className='text-center font-bold'>{clientes.cliente_firstName}</h2>
-                    <p className=' text-xs  max-w-xs'>Nome: {clientes.cliente_firstName} {clientes.cliente_lastName}</p>
+                    <p className=' text-xs  max-w-xs'>Nome: {clientes.cliente_firstName} </p>
                     <p className=' text-xs  max-w-xs'>E-mail: {clientes.cliente_email}</p>
                     <p>CPF: {clientes.cpf}</p>
                     <p>Endereço: {clientes.endereco}</p>

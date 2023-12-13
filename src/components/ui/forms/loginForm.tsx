@@ -42,7 +42,7 @@ export function LoginForm({ closeLogin, signIn }: ILoginFormProps) {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsLoading(true)
     await signIn(data)
-    console.log(data)
+    
     setIsLoading(false)
     closeLogin()
   }
